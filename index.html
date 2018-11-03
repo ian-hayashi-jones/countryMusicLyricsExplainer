@@ -1,0 +1,64 @@
+
+
+<html>
+    <head>
+    	<script src="https://d3js.org/d3.v5.min.js"></script>
+    	<script src="wordCloud.js"></script>
+    </head>
+<body>
+	<div id="wordCloud" style="max-width: 1500px;"></div>
+
+	<!-- Set up visualization area -->
+	<script>
+
+		// Create new word cloud
+		const cloud =  new wordCloud({
+			element: document.querySelector("#wordCloud"),
+			data: [
+					{word: "Hello", count: 50},
+					{word: "Goodbye", count: 49},
+					{word: "Words", count: 48},
+					{word: "Yay", count: 47},
+					{word: "swing", count: 46},
+					{word: "hurried", count: 45},
+					{word: "approve", count: 44},
+					{word: "soap", count: 43},
+					{word: "beautiful", count: 42},
+					{word: "woozy", count: 41},
+					{word: "dust", count: 40},
+					{word: "gentle", count: 39},
+					{word: "scrawl", count: 38},
+					{word: "gray", count: 1},
+					{word: "vacuous", count: 1},
+					{word: "nurse", count: 1},
+					{word: "tendency", count: 1},
+					{word: "boys", count: 1},
+					{word: "car", count: 1},
+					{word: "capture", count: 1},
+					{word: "evasive", count: 1},
+					{word: "quarrel", count: 1},
+					{word: "grotesque", count: 1},
+					{word: "threatening", count: 1},
+					{word: "fancy", count: 1},
+					{word: "faithful", count: 1},
+					{word: "rotten", count: 1},
+					{word: "accurate", count: 1},
+					{word: "needy", count: 1},
+					{word: "delicate", count: 1},
+					{word: "overjoyed", count: 1},
+					{word: "naughty", count: 1},
+					{word: "hideous", count: 1},
+					{word: "oafish", count: 1},
+					{word: "sock", count: 1},
+					{word: "vacation", count: 1},
+					{word: "offer", count: 1},
+				]
+		});
+
+		cloud.draw();
+
+
+	</script>
+
+</body>
+</html>
