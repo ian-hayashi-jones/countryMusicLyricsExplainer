@@ -21,13 +21,13 @@ class wordCloud {
 
 		// Iterate through word list and render from largest to smallest
 		for (var i = 0; i < this.data.length; i++) {
-			// if (i > 3) break;
+			// if (i == 8) break;
  			var x, y, size;
 			// 1 biggest word
 			if (i == 0) {
 				x = this.width / 2;
 				y = this.height / 2;
-				size = this.width / 10;
+				size = this.width / 7;
 			} 
 			// 2 second biggest word
 			else if (i >= 1 && i <= 2) {
@@ -35,11 +35,11 @@ class wordCloud {
 			}
 			// 5 third biggest word
 			else if (i >= 3 && i <= 7) {
-				size = this.width / 20;
+				size = this.width / 15;
 			} 
 			// 9 fourth biggest word
 			else if (i >= 8 && i <= 16) {
-				size = this.width / 25;
+				size = this.width / 20;
 			}
 			// 14 fifth biggest word
 			else if (i >= 17 && i <= 30) {
@@ -55,13 +55,17 @@ class wordCloud {
 			}
 
 
+
 			var text_width, text_height;
 			var textDraft = null;
+			var locListCopy = locList.slice(0);			// To keep track of what locations have been tested for word fit
+
 			// Check whether current word fits in its bounding rectangle
-			while (!wordFits(svg, textDraft, loc) && locList.length > 0) {
-				
+			while (!wordFits(svg, textDraft, loc, this.width, this.height) && locListCopy.length > 1) {
+				var index = locListCopy.indexOf(loc);
+				locListCopy.splice(index, 1);
 				// Get random location from possible bounding rectangle list
-				loc = locList[getRandomInt(0, locList.length - 1)];
+				loc = locListCopy[getRandomInt(0, locListCopy.length - 1)];
 				var wordData = drawWord(svg, this.width, this.height, this.data[i].word, loc, size);
 				textDraft = wordData[0];
 				x = wordData[1];
@@ -70,12 +74,6 @@ class wordCloud {
 				var bounds = textDraft.node().getBoundingClientRect();
 				text_width = bounds.right - bounds.left;
 				text_height = bounds.bottom - bounds.top;
-				console.log("(" + bounds.x + ", " + bounds.y + ")");
-			}
-
-			if (loc != null) {
-				var index = locList.indexOf(loc);
-				locList.splice(index, 1);
 			}
 
 			// Render first word largest and in center of element
@@ -92,28 +90,16 @@ class wordCloud {
 				var bounds = textDraft.node().getBoundingClientRect();
 				text_width = bounds.right - bounds.left;
 				text_height = bounds.bottom - bounds.top;
+				text_height *= (5/6);
 
-				locList.push.apply(locList, addPrelimRectsToList(locList, x - text_width / 2, y + text_height / 2, 
-																 text_width, text_height));
-
-				// Draw initial rectangles //
-				locList.forEach(function(d) {
-					console.log("(" + d.x + ", " + d.y + ") ==> width = " + d.width + ", height = " + d.height);
-					svg.append("rect")
-					   .attr("x", d.x)
-					   .attr("y", d.y)
-					   .attr("width", d.width)
-					   .attr("height", d.height)
-					   .attr("fill", d.color)
-				});
-				// Remove when done //
+				locList.push.apply(locList, addPrelimRectsToList(locList, x - text_width / 2, y + text_height / 2, text_width, text_height));
 
 				// Redraw inital word in correct place
 				svg.selectAll("#textDraft").remove();
 				svg.append("text")
 				   .attr("id", "wordInCloud")
 				   .attr("x", x - text_width / 2)
-				   .attr("y", y + text_height / 2)
+				   .attr("y", y + text_height / 2 - text_height * (1/7))
 				   .text(this.data[i].word)
 				   .attr("font-family", "sans-serif")
 	    		   .attr("font-size", size + "px")
@@ -132,8 +118,14 @@ class wordCloud {
 	    		   .attr("font-size", size + "px")
 				   .attr("fill", "red")
 
+				// Remove location from list of possible locations
+				if (loc != null) {
+					var index = locList.indexOf(loc);
+					locList.splice(index, 1);
+				}
 
 				// Subdivide rectangle that this word was placed in, add to list of possible locations
+				locList.push.apply(locList, subdivideLoc(locList, loc, this.width, this.height, text_width, text_height));
 			}
 		}
 	}
@@ -161,14 +153,27 @@ function getRandomInt(min, max) {
 }
 
 /* Checks whether the given text element will fit within the given bounding rectangle */
-function wordFits(svg, textDraft, loc) {
+function wordFits(svg, textDraft, loc, elemWidth, elemHeight) {
 	if (textDraft == null) return false;
 
 	var bounds = textDraft.node().getBoundingClientRect();
 	var w = bounds.right - bounds.left;
 	var h = bounds.bottom - bounds.top;
 
+	// Doesn't fit inside bounding rectangle
 	if (loc.width < w || loc.height < h) {
+		svg.selectAll("#textDraft").remove();
+		return false;
+	}
+
+	// Text off screen horizontally
+	if (bounds.left < 10 || bounds.right >= elemWidth - 10) {
+		svg.selectAll("#textDraft").remove();
+		return false;
+	}
+
+	// Text off screen vertically
+	if (bounds.top < 0 || bounds.bottom >= elemHeight - 10) {
 		svg.selectAll("#textDraft").remove();
 		return false;
 	}
@@ -181,28 +186,84 @@ function addPrelimRectsToList(locList, text_x, text_y, text_width, text_height) 
 	var newRects = [];
 
 	// Upper left rect
-	newRects.push({x: 0, y: 0, width: text_x, height: text_y - text_height, color: "darkgrey"});
+	newRects.push({x: 0, y: 0, width: text_x, height: text_y - text_height});
 
 	// Upper mid rect
-	newRects.push({x: text_x, y: 0, width: text_width, height: text_y - text_height, color: "blue"});
+	newRects.push({x: text_x, y: 0, width: text_width, height: text_y - text_height});
 
 	// Upper right rect
-	newRects.push({x: text_x + text_width, y: 0, width: text_x, height: text_y - text_height, color: "green"});
+	newRects.push({x: text_x + text_width, y: 0, width: text_x, height: text_y - text_height});
 
 	// Mid left rect
-	newRects.push({x: 0, y: text_y - text_height, width: text_x, height: text_height, color: "purple"});
+	newRects.push({x: 0, y: text_y - text_height, width: text_x, height: text_height});
 
 	// Mid right rect
-	newRects.push({x: text_x + text_width, y: text_y - text_height, width: text_x, height: text_height, color: "black"});
+	newRects.push({x: text_x + text_width, y: text_y - text_height, width: text_x, height: text_height});
 
 	// Bottom left rect
-	newRects.push({x: 0, y: text_y, width: text_x, height: text_y - text_height, color: "yellow"});
+	newRects.push({x: 0, y: text_y, width: text_x, height: text_y - text_height});
 
 	// Bottom mid rect
-	newRects.push({x: text_x, y: text_y, width: text_width, height: text_y - text_height, color: "brown"});
+	newRects.push({x: text_x, y: text_y, width: text_width, height: text_y - text_height});
 
 	// Bottom right rect
-	newRects.push({x: text_x + text_width, y: text_y, width: text_x, height: text_y - text_height, color: "orange"});
+	newRects.push({x: text_x + text_width, y: text_y, width: text_x, height: text_y - text_height});
+
+	return newRects;
+}
+
+/* 
+ * Subdivides the bounding rectangle that the current word is being drawn in
+ * Returns a list of the subdivisions to be added to the list of possible locations
+ */
+function subdivideLoc(locList, loc, elemWidth, elemHeight, text_width, text_height) {
+	var newRects = [];
+
+	if (loc.x >= elemWidth / 2) {
+		// Text hugging top-left of bounding rect
+		if (loc.y >= elemHeight / 2) {
+			// top-right rect
+			newRects.push({x: loc.x + text_width + RECT_MARGIN, y: loc.y, width: loc.width - text_width - RECT_MARGIN, height: text_height, color: "lawngreen"});
+			// bottom-left rect
+			newRects.push({x: loc.x, y: loc.y + text_height, width: text_width + RECT_MARGIN, height: loc.height - text_height, color: "magenta"});
+			// bottom-right rect
+			newRects.push({x: loc.x + text_width + RECT_MARGIN, y: loc.y + text_height, width: loc.width - text_width - RECT_MARGIN, height: loc.height - text_height, color: "teal"});
+		}
+		// Text hugging bottom-left of bounding rect
+		else {
+			// top-left rect
+			newRects.push({x: loc.x, y: loc.y, width: text_width + RECT_MARGIN, height: loc.height - text_height, color: "lawngreen"});
+			// top-right rect
+			newRects.push({x: loc.x + text_width + RECT_MARGIN, y: loc.y, width: loc.width - text_width - RECT_MARGIN, height: loc.height - text_height, color: "magenta"});
+			// bottom-right rect
+			newRects.push({x: loc.x + text_width + RECT_MARGIN, y: loc.y + loc.height - text_height, width: loc.width - text_width - RECT_MARGIN, height: text_height, color: "teal"});	
+		}
+	} 
+	else {
+		// Text hugging top-right of bounding rect
+		if (loc.y >= elemHeight / 2) {
+			// top-left rect
+			newRects.push({x: loc.x, y: loc.y, width: loc.width - text_width - RECT_MARGIN, height: text_height, color: "lawngreen"});
+			// bottom-left rect
+			newRects.push({x: loc.x, y: loc.y + text_height, width: loc.width - text_width - RECT_MARGIN, height: loc.height - text_height, color: "magenta"});
+			// bottom-right rect
+			newRects.push({x: loc.x + loc.width - text_width - RECT_MARGIN, y: loc.y + text_height, width: text_width + RECT_MARGIN, height: loc.height - text_height, color: "teal"});
+		}
+		// Text hugging bottom-right of bounding rect
+		else {
+			// top-left rect
+			newRects.push({x: loc.x, y: loc.y, width: loc.width - text_width - RECT_MARGIN, height: loc.height - text_height, color: "lawngreen"});
+			// top-right rect
+			newRects.push({x: loc.x + loc.width - text_width - RECT_MARGIN, y: loc.y, width: text_width + RECT_MARGIN, height: loc.height - text_height, color: "magenta"});
+			// bottom-left rect
+			newRects.push({x: loc.x, y: loc.y + loc.height - text_height, width: loc.width - text_width - RECT_MARGIN, height: text_height, color: "teal"});
+		}
+	}	
+	newRects.forEach(function(d) {
+		if (d.x < 0 || d.y < 0 || d.x + d.width > elemWidth || d.y + d.height > elemHeight || d.width <= 0 || d.height <= 0) {
+			newRects.splice(newRects.indexOf(d), 1);
+		}
+	});
 
 	return newRects;
 }
@@ -214,13 +275,8 @@ function addPrelimRectsToList(locList, text_x, text_y, text_width, text_height) 
  */
 function drawWord(svg, elemWidth, elemHeight, word, loc, size) {
 
-	x = loc.x;
-	y = loc.y;
-
-
-
-	console.log("word = " + word + ", (" + x + ", " + y + ")");
-	console.log("height = " + elemHeight)
+	var x = loc.x;
+	var y = loc.y;
 
 	// Draw draft of word to get height
 	var textDraft = svg.append("text")
@@ -247,14 +303,12 @@ function drawWord(svg, elemWidth, elemHeight, word, loc, size) {
 	}
 	// Bottom of page, draw hugging top of bounding rect
 	if (loc.y >= elemHeight / 2) {
-		console.log("bottom of page");
 		y += (3/4 * h);
 	}
 	// Top of page, draw hugging bottom of bounding rect
 	else {
 		y = loc.y + loc.height - (1/4 * h);
 	}
-
 
 	// Draw 	
 	var textDraft = svg.append("text")
@@ -265,7 +319,6 @@ function drawWord(svg, elemWidth, elemHeight, word, loc, size) {
 					   .attr("font-family", "sans-serif")
 		    		   .attr("font-size", size + "px")
 					   .attr("fill", "red")
-
 
 	return [textDraft, x, y];
 }
