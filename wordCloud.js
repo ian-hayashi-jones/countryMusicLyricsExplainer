@@ -1,5 +1,5 @@
 
-const RECT_MARGIN = 10;
+const RECT_MARGIN = 20;
 
 class wordCloud {
 
@@ -21,7 +21,7 @@ class wordCloud {
 
 		// Iterate through word list and render from largest to smallest
 		for (var i = 0; i < this.data.length; i++) {
-			// if (i == 8) break;
+			// if (i == 3) break;
  			var x, y, size;
 			// 1 biggest word
 			if (i == 0) {
@@ -29,32 +29,27 @@ class wordCloud {
 				y = this.height / 2;
 				size = this.width / 7;
 			} 
-			// 2 second biggest word
-			else if (i >= 1 && i <= 2) {
-				size = this.width / 15;
+			else if (i >= 1 && i <= 3) {
+				size = this.width / 13;
 			}
-			// 5 third biggest word
-			else if (i >= 3 && i <= 7) {
-				size = this.width / 15;
+			else if (i >= 4 && i <= 9) {
+				size = this.width / 17;
 			} 
-			// 9 fourth biggest word
-			else if (i >= 8 && i <= 16) {
-				size = this.width / 20;
+			else if (i >= 10 && i <= 16) {
+				size = this.width / 21;
 			}
-			// 14 fifth biggest word
-			else if (i >= 17 && i <= 30) {
-				size = this.width / 30;
+			else if (i >= 17 && i <= 24) {
+				size = this.width / 26;
 			}
-			// 20 sixth biggest word
+			else if (i >= 24 && i <= 31) {
+				size = this.width / 36;
+			}
 			else if (i >= 31 && i <= 50) {
-				size = this.width / 35;
+				size = this.width / 43;
 			}
-			// rest seventh biggest word
 			else {
-				size = this.width / 40;
+				size = this.width / 50;
 			}
-
-
 
 			var text_width, text_height;
 			var textDraft = null;
@@ -75,6 +70,7 @@ class wordCloud {
 				text_width = bounds.right - bounds.left;
 				text_height = bounds.bottom - bounds.top;
 			}
+			if (locListCopy.length == 0 && i != 0) break;
 
 			// Render first word largest and in center of element
 			if (i == 0) {
@@ -108,6 +104,7 @@ class wordCloud {
 
 			// Other words have different bounding rectangle subdivision algo
 			else {
+
 				svg.selectAll("#textDraft").remove();
 				svg.append("text")
 				   .attr("id", "wordInCloud")
@@ -167,7 +164,7 @@ function wordFits(svg, textDraft, loc, elemWidth, elemHeight) {
 	}
 
 	// Text off screen horizontally
-	if (bounds.left < 10 || bounds.right >= elemWidth - 10) {
+	if (bounds.left < 10 || bounds.right >= elemWidth - 20) {
 		svg.selectAll("#textDraft").remove();
 		return false;
 	}
@@ -295,19 +292,22 @@ function drawWord(svg, elemWidth, elemHeight, word, loc, size) {
 
 	// Right side of page, draw hugging left side of bounding rect
 	if (loc.x >= elemWidth / 2) {
-		x += RECT_MARGIN;
+		x += getRandomInt(0, RECT_MARGIN);
 	} 
 	// Left side of page, draw hugging right side of bounding rect
 	else {
-		x = loc.x + loc.width - w - RECT_MARGIN;
+		// x = loc.x + loc.width - w - RECT_MARGIN;
+		x = loc.x + loc.width - w - getRandomInt(0, RECT_MARGIN);
 	}
 	// Bottom of page, draw hugging top of bounding rect
 	if (loc.y >= elemHeight / 2) {
-		y += (3/4 * h);
+		// y += (3/4 * h);
+		y += getRandomInt((3/4 * h), h);
 	}
 	// Top of page, draw hugging bottom of bounding rect
 	else {
-		y = loc.y + loc.height - (1/4 * h);
+		// y = loc.y + loc.height - (1/4 * h);
+		y = loc.y + loc.height - getRandomInt((1/4 * h), (1/2 * h));
 	}
 
 	// Draw 	
