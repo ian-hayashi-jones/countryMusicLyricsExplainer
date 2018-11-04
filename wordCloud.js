@@ -1,8 +1,22 @@
+/*
+// wordCloud class
+// 
+// public draw() method renders and animates text in a word cloud
+// constructor takes data input in the form of an array of {word, count}
+//
+*/
 
-const RECT_MARGIN = 20;
+
+const RECT_MARGIN = 20;		// Horizontal margin around words
+const WORD_COLOR = "red";	// Text color
+
 
 class wordCloud {
-
+	/*
+	 * Options:
+	 * 		element = div this belongs to
+	 *		data = array of {word, count}		
+	 */
 	constructor(opts) {
 		this.element = opts.element;
 		this.data = opts.data;
@@ -10,6 +24,9 @@ class wordCloud {
 		this.height = this.width * 2 / 3;
 	}
 
+	/*
+	 * Randomly renders text on screen, animating its appearance
+	 */
 	draw() {
 		const svg = d3.select(this.element)
 					  .append("svg")
@@ -81,7 +98,7 @@ class wordCloud {
 							   .text(this.data[i].word)
 							   .attr("font-family", "sans-serif")
 				    		   .attr("font-size", size + "px")
-							   .attr("fill", "red")
+							   .attr("fill", WORD_COLOR)
 
 				var bounds = textDraft.node().getBoundingClientRect();
 				text_width = bounds.right - bounds.left;
@@ -92,28 +109,42 @@ class wordCloud {
 
 				// Redraw inital word in correct place
 				svg.selectAll("#textDraft").remove();
-				svg.append("text")
-				   .attr("id", "wordInCloud")
-				   .attr("x", x - text_width / 2)
-				   .attr("y", y + text_height / 2 - text_height * (1/7))
-				   .text(this.data[i].word)
-				   .attr("font-family", "sans-serif")
-	    		   .attr("font-size", size + "px")
-				   .attr("fill", "red")
+				var text = svg.append("text")
+							  .attr("id", "wordInCloud")
+							  .attr("x", x - text_width / 2)
+							  .attr("y", y + text_height / 2 - text_height * (1/7))
+							  .text(this.data[i].word)
+							  .attr("font-family", "sans-serif")
+				    		  .attr("font-size", 0)
+							  .attr("fill", WORD_COLOR)
+							  .style("opacity", 0)
+				
+				text.transition()
+					.attr("font-size", size + "px")
+					.style("opacity", 1.0)
+					.duration(1000)
+					.ease(d3.easeCubic)
 			}
 
 			// Other words have different bounding rectangle subdivision algo
 			else {
 
 				svg.selectAll("#textDraft").remove();
-				svg.append("text")
-				   .attr("id", "wordInCloud")
-				   .attr("x", x)
-				   .attr("y", y)
-				   .text(this.data[i].word)
-				   .attr("font-family", "sans-serif")
-	    		   .attr("font-size", size + "px")
-				   .attr("fill", "red")
+				var text = svg.append("text")
+							  .attr("id", "wordInCloud")
+							  .attr("x", x)
+							  .attr("y", y)
+							  .text(this.data[i].word)
+							  .attr("font-family", "sans-serif")
+				    		  .attr("font-size", 0)
+							  .attr("fill", WORD_COLOR)
+							  .style("opacity", 0)
+
+				text.transition()
+					.attr("font-size", size + "px")
+					.style("opacity", 1.0)
+					.duration(1000)
+					.ease(d3.easeCubic)
 
 				// Remove location from list of possible locations
 				if (loc != null) {
@@ -126,21 +157,7 @@ class wordCloud {
 			}
 		}
 	}
-
-
-
-
-
-
-
-	// Print out word cloud data
-	printData() {
-		this.data.forEach(function(d) {
-			console.log(d);
-		});
-	}
 }
-
 
 
 
@@ -283,7 +300,7 @@ function drawWord(svg, elemWidth, elemHeight, word, loc, size) {
 					   .text(word)
 					   .attr("font-family", "sans-serif")
 		    		   .attr("font-size", size + "px")
-					   .attr("fill", "red")
+					   .attr("fill", WORD_COLOR)
 
 	var bounds = textDraft.node().getBoundingClientRect();
 	var w = bounds.right - bounds.left;
@@ -318,7 +335,7 @@ function drawWord(svg, elemWidth, elemHeight, word, loc, size) {
 					   .text(word)
 					   .attr("font-family", "sans-serif")
 		    		   .attr("font-size", size + "px")
-					   .attr("fill", "red")
+					   .attr("fill", WORD_COLOR)
 
 	return [textDraft, x, y];
 }
