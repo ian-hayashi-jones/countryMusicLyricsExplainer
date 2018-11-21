@@ -56,7 +56,6 @@ var scrollVis = function () {
       svg = d3.select(this).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
-
       setupVis();
       setupSections();
     });
@@ -68,7 +67,6 @@ var scrollVis = function () {
    * sections of the visualization.
    */
   var setupVis = function () {
-    console.log("setupVis called");
 
     // Title
     svg.append('text')
@@ -99,7 +97,10 @@ var scrollVis = function () {
       data: [
               new Word(['howdy', 500, 100, 200, 75, 300, 25]),
               new Word(['yo', 100, 500, 50, 100, 50, 400]),
-              new Word(['what', 200, 200, 100, 100, 100, 100])
+              new Word(['what', 200, 200, 100, 100, 100, 100]),
+              new Word(['wow', 3000, 2500, 200, 75, 300, 25]),
+              new Word(['advantage', 2000, 5000, 50, 100, 50, 400]),
+              new Word(['nascar', 7000, 1000, 100, 100, 100, 100]),
             ]
     });
   };
@@ -160,7 +161,6 @@ var scrollVis = function () {
    * shows: intro title
    */
   function showTitle() {
-    console.log("showTitle called");
     svg.selectAll('.vis-title')
      .transition()
      .duration(TRANSITION_DURATION)
@@ -177,7 +177,6 @@ var scrollVis = function () {
    * shows: subtitle
    */
   function showSubtitle() {
-    console.log("showSubtitle called");
     svg.selectAll('.vis-title')
        .transition()
        .duration(TRANSITION_DURATION)
@@ -198,7 +197,6 @@ var scrollVis = function () {
    * shows: scatterplot
    */
   function showScatterPlot() {
-    console.log("showScatterPlot called")
     svg.selectAll('.vis-title')
        .transition()
        .duration(TRANSITION_DURATION)
@@ -213,7 +211,6 @@ var scrollVis = function () {
    * @param index - index of the activated section
    */
   vis.activate = function (index) {
-    console.log("vis.activate called, index = " + index);
     activeIndex = index;
     var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
     var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
@@ -230,7 +227,6 @@ var scrollVis = function () {
   //  * @param progress
   //  */
   vis.update = function (index, progress) {
-    console.log("vis.update called");
     updateFunctions[index](progress);
   };
 

@@ -55,9 +55,9 @@ class Word {
 	getCountryOdds() { return this.countryFreq / this.generalFreq; }
 
 	getColor() { 
-		if (this.countryFreq > this.generalFreq) return "red";
-		if (this.countryFreq < this.generalFreq) return "blue";
-		return "yellow";
+		if (this.countryFreq > this.generalFreq) return "#CE4040";
+		if (this.countryFreq < this.generalFreq) return "#4079CE";
+		return "#C040CE";
 	}
 
 
