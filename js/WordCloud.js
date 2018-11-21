@@ -11,7 +11,7 @@ const RECT_MARGIN = 20;		// Horizontal margin around words
 const WORD_COLOR = "red";	// Text color
 
 
-class wordCloud {
+class WordCloud {
 	/*
 	 * Options:
 	 * 		element = div this belongs to
@@ -22,6 +22,7 @@ class wordCloud {
 		this.data = opts.data;
 		this.width = opts.element.offsetWidth;
 		this.height = this.width * 2 / 3;
+		this.draw();
 	}
 
 	/*
