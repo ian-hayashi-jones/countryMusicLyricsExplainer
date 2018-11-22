@@ -90,7 +90,7 @@ var scrollVis = function () {
       svg: svg,
       width: width,
       height: height,
-      element: document.querySelector('#vis'),
+      // element: document.querySelector('#vis'),
       data: 'data/words.csv',
       x: "countryCount",
       y: "generalCount",

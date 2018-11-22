@@ -36,10 +36,6 @@
   line-height: 1.2em;
 }
 
-#extra-space {
-  height: 300px;
-}
-
 #vis {
   display: inline-block;
   position: fixed;
@@ -48,7 +44,7 @@
   margin-left: 0;
   height: 700px; 
   width: 1000px; 
-  /*background-color: #ddd; */
+  background-color: #ddd; 
 }
 
 #vis .title {
@@ -61,7 +57,17 @@
   text-anchor: middle;
 }
 
-.axis path,
+#search {
+  position: absolute;
+}
+
+
+
+/*#extra-space {
+  height: 300px;
+}*/
+
+/*.axis path,
 .axis line {
   fill: none;
   stroke: #666;
@@ -71,7 +77,7 @@
 .highlight {
   fill: #008080;
   font-weight: bold;
-}
+}*/
 
 
 
