@@ -4,8 +4,9 @@ const HOVER_DOT_SIZE = 5;
 const MARGIN_LEFT = 100;
 const MARGIN_RIGHT = 20;
 const MARGIN_TOP = 20;
-const MARGIN_BOT = 20;
+const MARGIN_BOT = 40;
 const TOOLTIP_TEXT_COLOR = "black";
+const GREY_ACCENT = "#ddd";
 const TRANSITION_DELAY = 100;
 
 class ScatterPlot {
@@ -40,13 +41,13 @@ class ScatterPlot {
 			clearTimeout(timeout);				// Restart delay if key is pressed
 			timeout = setTimeout(function() {	// Delay function call
 				searchWords();
-			}, 250);
+			}, 150);
 		}
 		search.onsearch = function() {	
 			clearTimeout(timeout);				// Restart delay if search is pressed
 			timeout = setTimeout(function() {	// Delay function call
 				searchWords();
-			}, 250);			
+			}, 150);			
 		}
 
 		// x mappings
@@ -165,9 +166,8 @@ class ScatterPlot {
    		var lineGraph = self.svg.append("path")
    			.attr("class", "line")
 	        .attr("d", line(lineData))
-	        .attr("stroke", "blue")
+	        .attr("stroke", GREY_ACCENT)
 	        .attr("stroke-width", 2)
-	        .attr("fill", "none");
 
 		/* Draw dots */
 		self.svg.selectAll(".dot")
@@ -224,11 +224,7 @@ class ScatterPlot {
 	hide() {
 		// hide search bar
 		var search = document.querySelector("#search")
-		search.style.display = "inline-block";;
-		search.style.opacity = 1.0;
 		window.setTimeout(function () {
-			search.style.width = '0px';
-			search.style.height = '0px';
 			search.style.opacity = 0;
 		}, TRANSITION_DELAY);
 
@@ -248,14 +244,6 @@ class ScatterPlot {
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
-	}
-
-
-	/* For debugging */
-	print() {
-		console.log("total = " + Word.getTotalGeneral());
-		self.data[0].print();
-		console.log("data = " + self.data[0].getGeneralFreq());
 	}
 }
 
@@ -295,15 +283,14 @@ function searchWords() {
 			.style("stroke", "black")
 			.style("stroke-width", 2)
 			.duration(TRANSITION_DURATION)
-		console.log("selection = " + selection);
 
 		setTimeout(function() { showTooltip.call(selection, selection.datum()); }, TRANSITION_DURATION);
 	
 		self.currSearch = selection;		// keep track of currently searched term
 	} else {
-		console.log("no word found");
 		// unhighlight selection
-
+		hideTooltip.call(self.currSearch, self.currSearch.datum());
+		self.currSearch = null;
 	}
 	
 }
@@ -313,7 +300,6 @@ function searchWords() {
  * Renders the tooltip information next to the given point
  */
 function showTooltip(d) {
-	console.log("calling showTooltip on " + d.getWord());
 
 	self.currSearch = d3.select("#" + d.getWord());
 	// Animate dot enlarging
@@ -327,10 +313,11 @@ function showTooltip(d) {
 	    y = +d3.select("#" + d.getWord()).attr("cy") + 20,
 	    rect_y = +d3.select("#" + d.getWord()).attr("cy");
 
-	var dims = drawTooltipInfo(d, x, y, 0, 0, false);
+	var dims = drawTooltipInfo(d, x, y, 0, 0, 0, false);
 	var rect_width = dims[0],
 		wordWidth = dims[1],
-		freqLabelWidth = dims[2];
+		freqWidth = dims[2],
+		freqLabelWidth = dims[3];
 	d3.selectAll("#tooltip").remove();
 
 	// Shift popup down and left if it is going to be cut off
@@ -345,24 +332,24 @@ function showTooltip(d) {
 		.attr('id', 'tooltip')
 	 	.attr('x', x)
 		.attr('y', rect_y)
-		.attr('rx', 10)
-		.attr('ry', 10)
+		.attr('rx', 4)
+		.attr('ry', 4)
 		.attr('width', 0)
 		.attr('height', 0)
-		.attr('fill', 'red')
+		.attr('fill', GREY_ACCENT)
 		.style("opacity", .8)
 	rect.transition()
 		.attr('width', rect_width)
-		.attr('height', 65)
+		.attr('height', 75)
 
-	drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, true);
+	drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, true);
 }
 
 
 /* 
  * Draws the tooltip on the svg element
  */
-function drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, transition) {
+function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transition) {
 	// Spacing
 	var h_spacing = 10,
 		v_spacing = 5;
@@ -390,34 +377,61 @@ function drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, transition) {
 	    .attr("font-size", fontSizeA)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)
 	    .attr("opacity", opacity)
+	    .style("font-weight", "bold")
 
 	// Freq label
-	var freqLabel;
-	if (d.getCountryFreq() > d.getGeneralFreq()) {
-		var freq = d.getCountryFreq() / d.getGeneralFreq();
-		freq = Number.parseFloat(freq).toPrecision(1)
-		freqLabel = freq + "x higher in country"
-	} else if (d.getCountryFreq() < d.getGeneralFreq()) {
-		var freq = d.getGeneralFreq() / d.getCountryFreq();
-		freq = Number.parseFloat(freq).toPrecision(1)
-		freqLabel = freq + "x higher in other genres"
+	var freqLabel1, freqLabel2 = null;
+	var freqLabelWidth;
+	// Same frequency, probaably super rare
+	if (d.getCountryFreq() === d.getGeneralFreq()) {
+		freqLabel1 = self.svg.append("text")
+	    	.attr("id", "tooltip")
+			.attr("x", x + h_spacing)
+			.attr("y", y + (5 * v_spacing))
+			.text("Equally common in Country and other genres")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", fontSizeB)
+			.attr("fill", TOOLTIP_TEXT_COLOR)
+			.attr("opacity", opacity)
+		freqLabelWidth = Math.max(freqLabelWidth, freqLabel1.node().getComputedTextLength());
+	// Different frequencies
 	} else {
-		freqLabel = "Equally common in country and other genres"
-	}
-	var freqLabel = self.svg.append("text")
-    	.attr("id", "tooltip")
-		.attr("x", x + h_spacing)
-		.attr("y", y + (4 * v_spacing))
-		.text(freqLabel)
-		.attr("font-family", "sans-serif")
-		.attr("font-size", fontSizeB)
-		.attr("fill", TOOLTIP_TEXT_COLOR)
-		.attr("opacity", opacity)
+		var freq, freqLabel;
+		if (d.getCountryFreq() > d.getGeneralFreq()) {
+			freq = d.getCountryFreq() / d.getGeneralFreq();
+			freq = Math.round(freq * 100) / 100;
+			freqLabel = " higher in Country";
+		} else if (d.getCountryFreq() < d.getGeneralFreq()) {
+			freq = d.getGeneralFreq() / d.getCountryFreq();
+			freq = Math.round(freq * 100) / 100;
+			freqLabel = " higher in other genres";
+		}
 
+		var freqLabel1 = self.svg.append("text")
+	    	.attr("id", "tooltip")
+			.attr("x", x + h_spacing)
+			.attr("y", y + (5 * v_spacing))
+			.text(freq + "x")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", fontSizeB)
+			.attr("fill", TOOLTIP_TEXT_COLOR)
+			.attr("opacity", opacity)
+			.style("font-weight", "bold")
+		var freqLabel2 = self.svg.append("text")
+	    	.attr("id", "tooltip")
+			.attr("x", x + h_spacing + freqWidth + 4)
+			.attr("y", y + (5 * v_spacing))
+			.text(freqLabel)
+			.attr("font-family", "sans-serif")
+			.attr("font-size", fontSizeB)
+			.attr("fill", TOOLTIP_TEXT_COLOR)
+			.attr("opacity", opacity)
+
+		freqLabelWidth = Math.max(freqLabelWidth, freqLabel1.node().getComputedTextLength() + freqLabel2.node().getComputedTextLength());
+	}
 
 	// Compute width 
-	wordWidth = Math.max(wordWidth, word.node().getComputedTextLength());
-	freqLabelWidth = Math.max(freqLabelWidth, freqLabel.node().getComputedTextLength());	
+	wordWidth = Math.max(wordWidth, word.node().getComputedTextLength());	
 
     // SECOND COLUMN
     var colWidth = Math.max(wordWidth, freqLabelWidth) + (3 * h_spacing);
@@ -428,15 +442,16 @@ function drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, transition) {
 		.attr("y", y + v_spacing)
 		.text("Usage per 10,000 words")
 		.attr("font-family", "sans-serif")
-		.attr("font-size", fontSizeA)
+		.attr("font-size", fontSizeB)
 		.attr("fill", TOOLTIP_TEXT_COLOR)
 		.attr("opacity", opacity)
+		.style("font-weight", "lighter")
 	
 	// Country frequency
 	var countryFreq = self.svg.append("text")
 		.attr("id", "tooltip")
     	.attr("x", x + colWidth)
-   		.attr("y", y + (4 * v_spacing))
+   		.attr("y", y + (5 * v_spacing))
 	    .text("Country")
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
@@ -447,7 +462,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, transition) {
 	var generalFreq = self.svg.append("text")
     	.attr("id", "tooltip")
 		.attr("x", x + colWidth)
-		.attr("y", y + (7 * v_spacing))
+		.attr("y", y + (9 * v_spacing))
 		.text("Other Genres")
 		.attr("font-family", "sans-serif")
 		.attr("font-size", fontSizeB)
@@ -459,35 +474,44 @@ function drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, transition) {
 	var countryCount = self.svg.append("text")
 		.attr("id", "tooltip")
     	.attr("x", countX)
-   		.attr("y", y + (4 * v_spacing))
+   		.attr("y", y + (5 * v_spacing))
 	    .text(d.getCountryFreq())
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)
 	    .attr("opacity", opacity)
+	    .style("font-weight", "bold")
 
 	// General count
 	var otherCount = self.svg.append("text")
 		.attr("id", "tooltip")
     	.attr("x", countX)
-   		.attr("y", y + (7 * v_spacing))
+   		.attr("y", y + (9 * v_spacing))
 	    .text(d.getGeneralFreq())
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)
 	    .attr("opacity", opacity)
+	    .style("font-weight", "bold")
 
 	// Animations
 	if (transition) {
 		word.transition()
 			.attr("font-size", endFontSizeA)
 			.attr("opacity", 1.0)
-		freqLabel.transition()
+
+		if (freqLabel2 != null) {
+			freqLabel2.transition()
+			.attr("font-size", endFontSizeB)
+			.attr("opacity", 1.0)
+		}
+		freqLabel1.transition()
 			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 
+
 		usage.transition()
-			.attr("font-size", endFontSizeA)
+			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 
 		countryFreq.transition()
@@ -509,7 +533,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqLabelWidth, transition) {
 
 	// Calculate width of bounding rectangle
 	var rect_width = colWidth + usage.node().getComputedTextLength() + h_spacing;
-	return [rect_width, wordWidth, freqLabelWidth];
+	return [rect_width, wordWidth, freqLabel1.node().getComputedTextLength(), freqLabelWidth];
 }
 
 
@@ -523,7 +547,6 @@ function hideTooltip(d) {
 			.style("stroke-width", 0)
 			.duration(TRANSITION_DURATION);	
 	}
-
 	// remove tooltip
 	d3.selectAll("#tooltip").remove();					
 }
