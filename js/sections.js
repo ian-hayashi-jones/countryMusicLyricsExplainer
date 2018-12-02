@@ -71,7 +71,12 @@ var scrollVis = function () {
       svg: svg,
       width: width,
       height: height,
-      margin: margin
+      margin: margin,
+      data: [
+              new Word(['howdy', 500, 5000, 200, 75, 300, 25]),
+              new Word(['wow', 3000, 2500, 200, 75, 300, 25]),
+              new Word(['nascar', 7000, 8000, 100, 100, 100, 100]),
+            ]
     });
 
 
@@ -85,12 +90,12 @@ var scrollVis = function () {
       x: "countryCount",
       y: "generalCount",
       data: [
-              new Word(['howdy', 500, 100, 200, 75, 300, 25]),
+              new Word(['howdy', 500, 5000, 200, 75, 300, 25]),
               new Word(['yo', 100, 500, 50, 100, 50, 400]),
               new Word(['what', 200, 200, 100, 100, 100, 100]),
               new Word(['wow', 3000, 2500, 200, 75, 300, 25]),
               new Word(['advantage', 2000, 5000, 50, 100, 50, 400]),
-              new Word(['nascar', 7000, 1000, 100, 100, 100, 100]),
+              new Word(['nascar', 7000, 8000, 100, 100, 100, 100]),
             ]
     });
     countryScatterPlot.hideFast();
@@ -108,8 +113,8 @@ var scrollVis = function () {
     // activateFunctions are called each
     // time the active section changes
     activateFunctions[0] = showCountryLinePlot;
-    activateFunctions[1] = stepOneCountryLinePlot;
-    activateFunctions[2] = stepTwoCountryLinePlot;
+    activateFunctions[1] = showYAxis;
+    activateFunctions[2] = showCountryScatterPlot;
     activateFunctions[3] = showCountryScatterPlot;
     activateFunctions[4] = showSection;
     activateFunctions[5] = showSection;
@@ -142,42 +147,6 @@ var scrollVis = function () {
    *
    */
 
-  // /**
-  //  * showTitle - initial title
-  //  *
-  //  * section index: 0
-  //  * hides: count title
-  //  * (no previous step to hide)
-  //  * shows: intro title
-  //  */
-  // function showTitle() {
-  //   svg.selectAll('.vis-title')
-  //    .transition()
-  //    .duration(TRANSITION_DURATION)
-  //    .attr('opacity', 1.0)
-
-  //   scatterPlot.hide();
-  // }
-
-  // *
-  //  * showSubtitle - 
-  //  * 
-  //  * section index: 1
-  //  * hides: title and next
-  //  * shows: subtitle
-   
-  // function showSubtitle() {
-  //   console.log("here");
-  //   svg.selectAll('.vis-title')
-  //      .transition()
-  //      .duration(TRANSITION_DURATION)
-  //      .attr('opacity', 0);
-    
-  //   svg.selectAll('.vis-subtitle')
-  //    .transition()
-  //    .duration(TRANSITION_DURATION)
-  //    .attr('opacity', 1.0)
-  // }
 
   function showSection() {
     console.log("section showing");
@@ -191,7 +160,6 @@ var scrollVis = function () {
    * shows: most country words...
    */
   function showCountryLinePlot() {
-    console.log("showLinePlot");
     countryLinePlot.show();
   }
 
@@ -202,23 +170,22 @@ var scrollVis = function () {
    * hides: previous and next
    * shows: most country words...
    */
-  function stepOneCountryLinePlot() {
-    console.log("stepOneLinePlot");
-    countryLinePlot.updateFirst();
+  function showYAxis() {
+    countryScatterPlot.hide();
+    countryLinePlot.showYAxis();
   }
 
-  /**
-   * stepTwoLinePlot
-   *
-   * index: ___
-   * hides: previous and next
-   * shows: most country words...
-   */
-  function stepTwoCountryLinePlot() {
-    console.log("stepTwoLinePlot");
-    countryScatterPlot.hide();
-    countryLinePlot.updateSecond();
-  }
+  // *
+  //  * stepTwoLinePlot
+  //  *
+  //  * index: ___
+  //  * hides: previous and next
+  //  * shows: most country words...
+   
+  // function stepTwoCountryLinePlot() {
+  //   countryScatterPlot.hide();
+  //   countryLinePlot.updateSecond();
+  // }
 
   /**
    * showScatterPlot - graph of ___
