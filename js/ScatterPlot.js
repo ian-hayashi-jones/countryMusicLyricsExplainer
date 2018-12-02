@@ -30,7 +30,7 @@ class ScatterPlot {
 		// search bar
 		var search = document.querySelector('#search');
 		search.style.left = 1.2*self.margin.left + "px";
-		search.style.top = self.margin.top + "px";
+		search.style.top = self.margin.top + 30 + "px";
 		
 		// Delay searching so that animation doesn't get cut off
 		var timeout = null;
@@ -73,6 +73,7 @@ class ScatterPlot {
 	    var topLabels = self.svg.append("g")
 	    	.attr("class", "trianglelabels")
 	    	.attr("transform", "translate(" + this.width/2 + "," + this.height/3 + ")")
+	    	.style("opacity", 0)
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 0)
@@ -105,6 +106,7 @@ class ScatterPlot {
 	    var topLabels = self.svg.append("g")
 	    	.attr("class", "trianglelabels")
 	    	.attr("transform", "translate(" + this.width*3/4 + "," + this.height*2/3 + ")")
+	    	.style("opacity", 0)
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 0)
@@ -276,18 +278,6 @@ class ScatterPlot {
 
 	/* Shows the graph */
 	show() {
-		// show search bar with animation
-		var search = document.querySelector("#search")
-		search.style.display = "inline-block";;
-		search.style.width = '0px';
-		search.style.height = '0px';
-		search.style.opacity = 0;
-		window.setTimeout(function () {
-			search.style.width = '';
-			search.style.height = '';
-			search.style.opacity = 1.0;
-		}, TRANSITION_DELAY * 2);
-
 		// show plotted points
 		self.svg.selectAll(".dot")
 		    .transition()
@@ -388,6 +378,32 @@ class ScatterPlot {
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", 0)
+	}
+
+	showSearch() {
+		// show search bar with animation
+		var search = document.querySelector("#search")
+		search.style.display = "inline-block";;
+		search.style.width = '0px';
+		search.style.height = '0px';
+		search.style.opacity = 0;
+		window.setTimeout(function () {
+			search.style.width = '';
+			search.style.height = '';
+			search.style.opacity = 1.0;
+		}, TRANSITION_DELAY * 2);
+	}
+
+	hideSearch() {
+		// show search bar with animation
+		var search = document.querySelector("#search")
+		search.style.display = "inline-block";;
+
+		window.setTimeout(function () {
+			search.style.width = '';
+			search.style.height = '';
+			search.style.opacity = 0;
+		}, TRANSITION_DELAY * 2);
 	}
 }
 

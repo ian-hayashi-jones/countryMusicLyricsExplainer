@@ -200,10 +200,12 @@ var scrollVis = function () {
     countryLinePlot.updateToScatterPlot();
     countryScatterPlot.showTriangles();
     countryScatterPlot.show();
+    countryScatterPlot.hideSearch();
   }
 
   function hideTriangles() {
     countryScatterPlot.hideTriangles();
+    countryScatterPlot.showSearch();
   }
 
   /**
