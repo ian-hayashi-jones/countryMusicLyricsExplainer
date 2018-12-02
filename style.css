@@ -1,22 +1,40 @@
-
-.container {
-  width: 890px;
+/* Main title */
+#maintitle p {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
-#graphic {
-  padding-top: 60px;
-  width: 70%;
-  text-align: center;
+#maintitle .big {
+  font-size: 5em;
+}
+
+#maintitle .medium {
+  font-size: 3em;
+}
+
+#maintitle .small {
+  font-size: 2em;
+}
+
+.spacing {
+  height: 100px;
 }
 
 
-#sections {
-  position: relative;
-  display: inline-block;
-  width: 250px;
-  top: 0px;
-  z-index: 90;
-  padding-bottom: 200px;
+/* centered container for vis stuff */
+.vis-container {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+
+.sections {
+  flex: 1;
 }
 
 .step {
@@ -27,7 +45,7 @@
   color: #767678;
 }
 
-#sections .title {
+.sections .title {
   font-family: Arial,Helvetica,"san-serif";
   font-size: 16px;
   font-weight: bold;
@@ -36,24 +54,27 @@
   line-height: 1.2em;
 }
 
-#vis {
-  display: inline-block;
-  position: fixed;
-  top: 60px;
-  z-index: 1;
-  margin-left: 0;
-  height: 700px; 
-  width: 1000px; 
-  /*background-color: #ddd; */
+.sections .invis {
+  font-size: 16px;
+  margin-bottom: 2px;
+  opacity: 0;
 }
 
-#vis .title {
-  font-size:120px;
+.vis {
+  position:sticky;
+  flex: 1;
+  top: 100px;
+  align-self: flex-start;
+  width: 60%;
+  background-color: #ddd; 
+}
+
+.vis .title {
+  font-family: "Times New Roman", Times, "serif";
   text-anchor: middle;
 }
 
-#vis .sub-title {
-  font-size:80px;
+.vis .sub-title {
   text-anchor: middle;
 }
 

@@ -14,7 +14,7 @@ var scatterPlot;
 var scrollVis = function () {
   // constants to define the size
   // and margins of the vis area.
-  var width = 700;
+  var width = 1000;
   var height = 500;
   var margin = { top: 0, left: 20, bottom: 40, right: 10 };
 
@@ -69,18 +69,42 @@ var scrollVis = function () {
   var setupVis = function () {
 
     // Title
+    var v_margin = 30;
     svg.append('text')
        .attr('class', 'title vis-title')
-       .attr('x', width / 2)
-       .attr('y', height / 3)
-       .text('Country Music');
+       .attr('x', width/2)
+       .attr('y', 100 + v_margin)
+       .attr("font-size", 60)
+       .text("More than");
+
+    svg.append('text')
+       .attr('class', 'title vis-title')
+       .attr('x', width/2)
+       .attr('y', 215 + v_margin)
+       .attr("font-size", 120)
+       .text("blue jeans, trucks");
+
+    svg.append('text')
+       .attr('class', 'title vis-title')
+       .attr('x', width/2)
+       .attr('y', 300 + v_margin)
+       .attr("font-size", 60)
+       .text("and");
+
+    svg.append('text')
+       .attr('class', 'title vis-title')
+       .attr('x', width/2)
+       .attr('y', 400 + v_margin)
+       .attr("font-size", 120)
+       .text("beer?");
 
     // Subtitle
     svg.append('text')
        .attr('class', 'sub-title vis-title')
-       .attr('x', width / 2)
-       .attr('y', (height / 3) + (height / 5))
-       .text('Blue Jeans, Trucks, and Beer');
+       .attr('x', width/2)
+       .attr('y', 475 + v_margin)
+       .attr("font-size", 40)
+       .text("An exploration of country music lyrics");
 
     svg.selectAll('.vis-title')
        .attr('opacity', 0);
@@ -90,7 +114,6 @@ var scrollVis = function () {
       svg: svg,
       width: width,
       height: height,
-      // element: document.querySelector('#vis'),
       data: 'data/words.csv',
       x: "countryCount",
       y: "generalCount",
@@ -120,11 +143,6 @@ var scrollVis = function () {
     activateFunctions[1] = showScatterPlot;
     activateFunctions[2] = showTitle;
     activateFunctions[3] = showTitle;
-    activateFunctions[4] = showTitle;
-    activateFunctions[5] = showTitle;
-    activateFunctions[6] = showTitle;
-    activateFunctions[7] = showTitle;
-    activateFunctions[8] = showTitle;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -241,23 +259,23 @@ var scrollVis = function () {
  * displays the visualization.
  *
  */
-function display() {
+function display(visID, stepID) {
   // create visualization
   var vis = scrollVis();
-  d3.select('#vis')
+  d3.select(visID)
     .call(vis);
 
   // setup scroll functionality
   var scroll = scroller()
-    .container(d3.select('#graphic'));
+    .container(d3.select('body'));
 
   // pass in .step selection as the steps
-  scroll(d3.selectAll('.step'));
+  scroll(d3.selectAll(stepID));
 
   // setup event handling
   scroll.on('active', function (index) {
     // highlight current step text
-    d3.selectAll('.step')
+    d3.selectAll(stepID)
       .style('opacity', function (d, i) { return i === index ? 1 : 0.1; });
 
     // activate current section
@@ -270,4 +288,4 @@ function display() {
 }
 
 // display -- load data here when ready
-display();
+display('.vis.first', '.step.first');

@@ -32,7 +32,7 @@ class ScatterPlot {
 	draw() {
 		// search bar
 		var search = document.querySelector('#search');
-		search.style.left = 2.5*MARGIN_LEFT + "px";
+		search.style.left = 1.2*MARGIN_LEFT + "px";
 		search.style.top = MARGIN_TOP + "px";
 		
 		// Delay searching so that animation doesn't get cut off
@@ -83,7 +83,7 @@ class ScatterPlot {
 
 		// x axis labels
 		var spacing = 10;
-		var xAxisLabelsY = this.height + MARGIN_TOP + MARGIN_BOT + spacing;
+		var xAxisLabelsY = this.height  + MARGIN_BOT + spacing;
 		self.svg.append("text")
 			.attr("class", "x axis")
 		  	.attr("x", MARGIN_LEFT + (this.width / 2) - 50)
@@ -92,7 +92,7 @@ class ScatterPlot {
 		  	.style("font-weight", "bold")
 		self.svg.append("text")
 			.attr("class", "x axis")
-		  	.attr("x", this.width + MARGIN_RIGHT)
+		  	.attr("x", this.width + MARGIN_LEFT - 70)
 		  	.attr("y", xAxisLabelsY)
 		  	.text("More Usage")
 		  	.style("font-style", "italic")
@@ -113,7 +113,7 @@ class ScatterPlot {
 
 		// y axis labels
 		var v_spacing = 17;
-		var yAxisLabelsX = MARGIN_LEFT / 2.7;
+		var yAxisLabelsX = 40;
 		self.svg.append("text")
 		  	.attr("class", "y axis")
 		  	.attr("x", yAxisLabelsX + 10)
@@ -271,8 +271,15 @@ function searchWords() {
 			hideTooltip.call(self.currSearch, self.currSearch.datum());
 		} else {
 			// no previously searched word
+			// animate from random location
+			// var cx = Math.floor(Math.random() * (self.width - MARGIN_LEFT)) + MARGIN_LEFT;
+			// var cy = Math.floor(Math.random() * (self.height)) + MARGIN_TOP;
+			// selection.attr("cx", cx);
+			// selection.attr("cy", cy);
+
+			// animate from origin
 			selection.attr("cx", MARGIN_LEFT);
-			selection.attr("cy", this.height - MARGIN_TOP);
+			selection.attr("cy", this.height - MARGIN_BOT);
 		}
 
 		// Animate dot enlarging
@@ -289,10 +296,11 @@ function searchWords() {
 		self.currSearch = selection;		// keep track of currently searched term
 	} else {
 		// unhighlight selection
-		hideTooltip.call(self.currSearch, self.currSearch.datum());
-		self.currSearch = null;
+		if (self.currSearch != null && search.value == "") {
+			hideTooltip.call(self.currSearch, self.currSearch.datum());
+			self.currSearch = null;
+		}
 	}
-	
 }
 
 
