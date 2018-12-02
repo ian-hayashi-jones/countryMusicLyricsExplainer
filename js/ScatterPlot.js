@@ -47,6 +47,97 @@ class ScatterPlot {
 			}, 150);			
 		}
 
+		/* Draw triangles */
+		var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
+		var botTriangleData = [{"x": self.margin.left + this.width, "y": self.margin.top + this.height}, {"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
+		var line = d3.line()
+   			.x(function(d) { return d.x; })
+   			.y(function(d) { return d.y; })
+   		var topTriangle = self.svg.append("path")
+   			.attr("class", "triangle")
+	        .attr("d", line(topTriangleData))
+	        .attr("fill", "#ff0000")
+	        .attr("stroke", "#ff0000")
+	        .attr("stroke-width", 0)
+	        .style("opacity", 0)
+	    var botTriangle = self.svg.append("path")
+   			.attr("class", "triangle")
+	        .attr("d", line(botTriangleData))
+	        .attr("fill", "#0000ff")
+	        .attr("stroke", "#0000ff")
+	        .attr("stroke-width", 0)
+	        .style("opacity", 0)
+
+
+		/* Draw top triangle labels and arrows */
+	    var topLabels = self.svg.append("g")
+	    	.attr("class", "trianglelabels")
+	    	.attr("transform", "translate(" + this.width/2 + "," + this.height/3 + ")")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 0)
+	    	.attr("fill", "#ff3333")
+	    	.text("Less")
+	    	.style("font-weight", "bold")
+	    topLabels.append("text")
+	    	.attr("x", 34)
+	    	.attr("y", 0)
+	    	.attr("fill", "#ff3333")
+	    	.text("usage")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 20)
+	    	.attr("fill", "#ff3333")
+	    	.text("in country")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 40)
+	    	.attr("fill", "#ff3333")
+	    	.text("compared to")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 60)
+	    	.attr("fill", "#ff3333")
+	    	.text("other genres")
+
+
+	    /* Draw bottom triangle labels and arrows */
+	    var topLabels = self.svg.append("g")
+	    	.attr("class", "trianglelabels")
+	    	.attr("transform", "translate(" + this.width*3/4 + "," + this.height*2/3 + ")")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 0)
+	    	.attr("fill", "#3333ff")
+	    	.style("font-weight", "bold")
+	    	.text("More")
+	    topLabels.append("text")
+	    	.attr("x", 40)
+	    	.attr("y", 0)
+	    	.attr("fill", "#3333ff")
+	    	.text("usage")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 20)
+	    	.attr("fill", "#3333ff")
+	    	.text("in country")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 40)
+	    	.attr("fill", "#3333ff")
+	    	.text("compared to")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 60)
+	    	.attr("fill", "#3333ff")
+	    	.text("other genres")
+
+
+
+
+
+
+
 		/* Draw line */
 		var lineData = [{"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
 		var line = d3.line()
@@ -243,6 +334,7 @@ class ScatterPlot {
 
 		// hide tooltip
 		hideTooltip();
+		this.hideTriangles();
 	}
 
 	/* Hides the graph without animationas */
@@ -268,6 +360,34 @@ class ScatterPlot {
 		}
 		// remove tooltip
 		d3.selectAll("#tooltip").remove();	
+	}
+
+
+	showTriangles() {
+		console.log("showing triangles");
+
+		self.svg.selectAll(".triangle")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", .3)
+
+		self.svg.selectAll(".trianglelabels")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 1)
+	}
+
+	hideTriangles() {
+		console.log("hiding triangles");
+		self.svg.selectAll(".triangle")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 0)
+
+		self.svg.selectAll(".trianglelabels")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 0)
 	}
 }
 
