@@ -1,7 +1,3 @@
-// import ScatterPlot from './ScatterPlot.js'
-
-
-
 const TRANSITION_DURATION = 600;
 
 var countryScatterPlot;
@@ -18,7 +14,7 @@ var scrollVis = function () {
   // and margins of the vis area.
   var width = 1000;
   var height = 500;
-  var margin = { top: 0, left: 20, bottom: 40, right: 10 };
+  var margin = { top: 20, left: 100, bottom: 40, right: 20 };
 
   // Keep track of which visualization
   // we are on and which was the last
@@ -74,7 +70,8 @@ var scrollVis = function () {
     countryLinePlot = new LinePlot({
       svg: svg,
       width: width,
-      height: height
+      height: height,
+      margin: margin
     });
 
 
@@ -83,6 +80,7 @@ var scrollVis = function () {
       svg: svg,
       width: width,
       height: height,
+      margin: margin,
       data: 'data/words.csv',
       x: "countryCount",
       y: "generalCount",
@@ -194,7 +192,7 @@ var scrollVis = function () {
    */
   function showCountryLinePlot() {
     console.log("showLinePlot");
-    // countryLinePlot.show();
+    countryLinePlot.show();
   }
 
   /**
@@ -206,7 +204,7 @@ var scrollVis = function () {
    */
   function stepOneCountryLinePlot() {
     console.log("stepOneLinePlot");
-    // linePlot.updateFirst();
+    countryLinePlot.updateFirst();
   }
 
   /**
@@ -219,7 +217,7 @@ var scrollVis = function () {
   function stepTwoCountryLinePlot() {
     console.log("stepTwoLinePlot");
     countryScatterPlot.hide();
-    // linePlot.updateSecond();
+    countryLinePlot.updateSecond();
   }
 
   /**
@@ -232,6 +230,7 @@ var scrollVis = function () {
   function showCountryScatterPlot() {
 
     // linePlot.hide();
+    countryLinePlot.updateToScatterPlot();
     countryScatterPlot.show();
   }
 

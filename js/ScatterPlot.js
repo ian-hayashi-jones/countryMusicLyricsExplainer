@@ -1,9 +1,5 @@
 const DOT_SIZE = 3;
 const HOVER_DOT_SIZE = 5;
-const MARGIN_LEFT = 100;
-const MARGIN_RIGHT = 20;
-const MARGIN_TOP = 20;
-const MARGIN_BOT = 40;
 const TOOLTIP_TEXT_COLOR = "black";
 const GREY_ACCENT = "#ddd";
 const TRANSITION_DELAY = 100;
@@ -15,12 +11,14 @@ class ScatterPlot {
 		self.svg	 = opts.svg;		// background
 		self.currSearch = null;			// keep track of currently selected search term
 		self.data 	 = opts.data;
-		this.width   = opts.width - MARGIN_RIGHT - MARGIN_LEFT;			// graph width
-		this.height  = opts.height - MARGIN_BOT - MARGIN_TOP;			// graph height
+		self.margin = opts.margin;
+		this.width   = opts.width - self.margin.right - self.margin.left;			// graph width
+		this.height  = opts.height - self.margin.bottom - self.margin.top;			// graph height
 		this.width   = Math.min(this.width, this.height);
 		this.height  = this.width;
 		self.width   = opts.width;
 		self.height  = opts.height;
+		
 		this.x 		 = opts.x;			// for alternate x variable
 		this.y 		 = opts.y;			// for alternate y variable
 		this.draw();
@@ -31,8 +29,8 @@ class ScatterPlot {
 	draw() {
 		// search bar
 		var search = document.querySelector('#search');
-		search.style.left = 1.2*MARGIN_LEFT + "px";
-		search.style.top = MARGIN_TOP + "px";
+		search.style.left = 1.2*self.margin.left + "px";
+		search.style.top = self.margin.top + "px";
 		
 		// Delay searching so that animation doesn't get cut off
 		var timeout = null;
@@ -49,49 +47,60 @@ class ScatterPlot {
 			}, 150);			
 		}
 
+		/* Draw line */
+		var lineData = [{"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
+		var line = d3.line()
+   			.x(function(d) { return d.x; })
+   			.y(function(d) { return d.y; })
+   		var lineGraph = self.svg.append("path")
+   			.attr("class", "scatter line")
+	        .attr("d", line(lineData))
+	        .attr("stroke", GREY_ACCENT)
+	        .attr("stroke-width", 2)
+
 		// x mappings
 		var xValue = function(d) { return d.getCountryFreq(); },				// x is string to specify value
 			xScale = d3.scaleLinear().range([0, this.width]),					// value --> display
-			xMap   = function(d) { return xScale(xValue(d)) + MARGIN_LEFT; },	// data --> display
+			xMap   = function(d) { return xScale(xValue(d)) + self.margin.left; },	// data --> display
 			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0); 				// axis
 
 		// y mappings
 		var yValue = function(d) { return d.getGeneralFreq(); },	// y is string to specify value
 			yScale = d3.scaleLinear().range([this.height, 0]),		// value --> display
-			yMap   = function(d) { return yScale(yValue(d)) + MARGIN_TOP; },		// data --> display
+			yMap   = function(d) { return yScale(yValue(d)) + self.margin.top; },		// data --> display
 			yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);		// axis
 
 		var colorMap = function(d) { return d.getColor(); };
 
 
 		/* Draw x axis */
-		var xAxisShift = this.height + MARGIN_TOP;
+		var xAxisShift = this.height + self.margin.top;
 		self.svg.append("g")
-			.attr("class", "x axis")
-			.attr("transform", "translate(" + MARGIN_LEFT + "," + xAxisShift + ")")
+			.attr("class", "scatter x axis")
+			.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
 			.call(xAxis)
 			
 		// x axis arrow
-		var xArrowX = this.width + MARGIN_LEFT;
-		var xArrowY = this.height + MARGIN_TOP;
+		var xArrowX = this.width + self.margin.left;
+		var xArrowY = this.height + self.margin.top;
 		self.svg.append("svg:path")
-			.attr("class", "x axis")
+			.attr("class", "scatter x axis")
 			.attr("d", d3.symbol().type(d3.symbolTriangle))
 			.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
 			.attr("fill", "black")
 
 		// x axis labels
 		var spacing = 10;
-		var xAxisLabelsY = this.height  + MARGIN_BOT + spacing;
+		var xAxisLabelsY = this.height  + self.margin.bottom + spacing;
 		self.svg.append("text")
-			.attr("class", "x axis")
-		  	.attr("x", MARGIN_LEFT + (this.width / 2) - 50)
+			.attr("class", "scatter x axis")
+		  	.attr("x", self.margin.left + (this.width / 2) - 50)
 		  	.attr("y", xAxisLabelsY)
 		  	.text("In Country")
 		  	.style("font-weight", "bold")
 		self.svg.append("text")
-			.attr("class", "x axis")
-		  	.attr("x", this.width + MARGIN_LEFT - 70)
+			.attr("class", "scatter x axis")
+		  	.attr("x", this.width + self.margin.left - 70)
 		  	.attr("y", xAxisLabelsY)
 		  	.text("More Usage")
 		  	.style("font-style", "italic")
@@ -99,80 +108,68 @@ class ScatterPlot {
 
 		/* Draw y axis */
 		self.svg.append("g")
-			.attr("class", "y axis")
-			.attr("transform", "translate(" + MARGIN_LEFT + "," + MARGIN_TOP + ")")
+			.attr("class", "scatter y axis")
+			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
 			.call(yAxis)
 
 		// y axis arrow
 		self.svg.append("svg:path")
-			.attr("class", "y axis")
+			.attr("class", "scatter y axis")
 			.attr("d", d3.symbol().type(d3.symbolTriangle))
-			.attr("transform", "translate(" + MARGIN_LEFT + "," + MARGIN_TOP + ")")
+			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
 			.attr("fill", "black")
 
 		// y axis labels
 		var v_spacing = 17;
 		var yAxisLabelsX = 40;
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter y axis")
 		  	.attr("x", yAxisLabelsX + 10)
-		  	.attr("y", MARGIN_TOP + v_spacing)
+		  	.attr("y", self.margin.top + v_spacing)
 		  	.text("More")
 		  	.style("font-style", "italic")
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter y axis")
 		  	.attr("x", yAxisLabelsX + 10)
-		  	.attr("y", MARGIN_TOP + (2 * v_spacing))
+		  	.attr("y", self.margin.top + (2 * v_spacing))
 		  	.text("Usage")
 		  	.style("font-style", "italic")
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter axis")
 		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", MARGIN_TOP + (this.height / 2) - v_spacing)
+		  	.attr("y", self.margin.top + (this.height / 2) - v_spacing)
 		  	.text("In")
 		  	.style("font-weight", "bold")
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter y axis")
 		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", MARGIN_TOP + (this.height / 2))
+		  	.attr("y", self.margin.top + (this.height / 2))
 		  	.text("Other")
 		  	.style("font-weight", "bold")
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter y axis")
 		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", MARGIN_TOP + (this.height / 2) + v_spacing)
+		  	.attr("y", self.margin.top + (this.height / 2) + v_spacing)
 		  	.text("Genres")
 		  	.style("font-weight", "bold")
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter y axis")
 		  	.attr("x", yAxisLabelsX + 20)
-		  	.attr("y", MARGIN_TOP + MARGIN_BOT / 2 + this.height)
+		  	.attr("y", self.margin.top + self.margin.bottom / 2 + this.height)
 		  	.text("Less")
 		  	.style("font-style", "italic")
 		self.svg.append("text")
-		  	.attr("class", "y axis")
+		  	.attr("class", "scatter y axis")
 		  	.attr("x", yAxisLabelsX + 15)
-		  	.attr("y", MARGIN_TOP + MARGIN_BOT / 2 + this.height + v_spacing)
+		  	.attr("y", self.margin.top + self.margin.bottom / 2 + this.height + v_spacing)
 		  	.text("Usage")
 		  	.style("font-style", "italic")
-
-
-		/* Draw line */
-		var lineData = [{"x": MARGIN_LEFT, "y": this.height + MARGIN_TOP}, {"x": MARGIN_LEFT + this.width, "y": MARGIN_TOP}]
-		var line = d3.line()
-   			.x(function(d) { return d.x; })
-   			.y(function(d) { return d.y; })
-   		var lineGraph = self.svg.append("path")
-   			.attr("class", "line")
-	        .attr("d", line(lineData))
-	        .attr("stroke", GREY_ACCENT)
-	        .attr("stroke-width", 2)
 
 		/* Draw dots */
 		self.svg.selectAll(".dot")
 			.data(self.data)
 		  .enter().append("circle")
-		  	.attr("class", "dot")
+		  	.attr("class", "scatter dot")
 		  	.attr("id", function(d) { return d.getWord(); })
 		  	.attr("r", DOT_SIZE)
 		  	.attr("cx", xMap)
@@ -207,12 +204,12 @@ class ScatterPlot {
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
 		// show line
-		self.svg.selectAll(".line")
+		self.svg.selectAll(".scatter.line")
 		    .transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
 		// show axes
-		self.svg.selectAll(".axis")
+		self.svg.selectAll(".scatter.axis")
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
@@ -234,12 +231,12 @@ class ScatterPlot {
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
 		// hide line points
-		self.svg.selectAll(".line")
+		self.svg.selectAll(".scatter.line")
 		    .transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
 		// hide axes
-		self.svg.selectAll(".axis")
+		self.svg.selectAll(".scatter.axis")
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
@@ -257,7 +254,7 @@ class ScatterPlot {
 		self.svg.selectAll(".dot")
 			.style("opacity", 0);
 		// hide line points
-		self.svg.selectAll(".line")
+		self.svg.selectAll(".scatter.line")
 			.style("opacity", 0);
 		// hide axes
 		self.svg.selectAll(".axis")
@@ -299,14 +296,14 @@ function searchWords() {
 		} else {
 			// no previously searched word
 			// animate from random location
-			// var cx = Math.floor(Math.random() * (self.width - MARGIN_LEFT)) + MARGIN_LEFT;
-			// var cy = Math.floor(Math.random() * (self.height)) + MARGIN_TOP;
+			// var cx = Math.floor(Math.random() * (self.width - self.margin.left)) + self.margin.left;
+			// var cy = Math.floor(Math.random() * (self.height)) + self.margin.top;
 			// selection.attr("cx", cx);
 			// selection.attr("cy", cy);
 
 			// animate from origin
-			selection.attr("cx", MARGIN_LEFT);
-			selection.attr("cy", this.height - MARGIN_BOT);
+			selection.attr("cx", self.margin.left);
+			selection.attr("cy", this.height - self.margin.bottom);
 		}
 
 		// Animate dot enlarging
