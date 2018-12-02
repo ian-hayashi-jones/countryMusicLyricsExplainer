@@ -69,18 +69,26 @@
   background-color: #ddd; 
 }
 
-.vis .title {
-  font-family: "Times New Roman", Times, "serif";
-  text-anchor: middle;
+.vis-title {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  margin: .25em;
 }
 
-.vis .sub-title {
-  text-anchor: middle;
+.vis-subtitle {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 1em;
+  text-align: center;
+  margin: .25em;
 }
 
 #search {
-  position: absolute;
+  position: relative;
 }
+
+
 
 
 

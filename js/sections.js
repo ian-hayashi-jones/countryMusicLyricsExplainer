@@ -3,7 +3,9 @@
 
 
 const TRANSITION_DURATION = 600;
-var scatterPlot;
+
+var countryScatterPlot;
+var countryLinePlot;
 
 /**
  * scrollVis - encapsulates
@@ -68,49 +70,16 @@ var scrollVis = function () {
    */
   var setupVis = function () {
 
-    // Title
-    var v_margin = 30;
-    svg.append('text')
-       .attr('class', 'title vis-title')
-       .attr('x', width/2)
-       .attr('y', 100 + v_margin)
-       .attr("font-size", 60)
-       .text("More than");
+    // Line plot
+    countryLinePlot = new LinePlot({
+      svg: svg,
+      width: width,
+      height: height
+    });
 
-    svg.append('text')
-       .attr('class', 'title vis-title')
-       .attr('x', width/2)
-       .attr('y', 215 + v_margin)
-       .attr("font-size", 120)
-       .text("blue jeans, trucks");
-
-    svg.append('text')
-       .attr('class', 'title vis-title')
-       .attr('x', width/2)
-       .attr('y', 300 + v_margin)
-       .attr("font-size", 60)
-       .text("and");
-
-    svg.append('text')
-       .attr('class', 'title vis-title')
-       .attr('x', width/2)
-       .attr('y', 400 + v_margin)
-       .attr("font-size", 120)
-       .text("beer?");
-
-    // Subtitle
-    svg.append('text')
-       .attr('class', 'sub-title vis-title')
-       .attr('x', width/2)
-       .attr('y', 475 + v_margin)
-       .attr("font-size", 40)
-       .text("An exploration of country music lyrics");
-
-    svg.selectAll('.vis-title')
-       .attr('opacity', 0);
 
     // Scatterplot
-    scatterPlot = new ScatterPlot({
+    countryScatterPlot = new ScatterPlot({
       svg: svg,
       width: width,
       height: height,
@@ -126,6 +95,7 @@ var scrollVis = function () {
               new Word(['nascar', 7000, 1000, 100, 100, 100, 100]),
             ]
     });
+    countryScatterPlot.hideFast();
   };
    
 
@@ -139,10 +109,14 @@ var scrollVis = function () {
   var setupSections = function () {
     // activateFunctions are called each
     // time the active section changes
-    activateFunctions[0] = showTitle;
-    activateFunctions[1] = showScatterPlot;
-    activateFunctions[2] = showTitle;
-    activateFunctions[3] = showTitle;
+    activateFunctions[0] = showCountryLinePlot;
+    activateFunctions[1] = stepOneCountryLinePlot;
+    activateFunctions[2] = stepTwoCountryLinePlot;
+    activateFunctions[3] = showCountryScatterPlot;
+    activateFunctions[4] = showSection;
+    activateFunctions[5] = showSection;
+    activateFunctions[6] = showSection;
+    activateFunctions[7] = showSection;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -170,42 +144,83 @@ var scrollVis = function () {
    *
    */
 
-  /**
-   * showTitle - initial title
-   *
-   * section index: 0
-   * hides: count title
-   * (no previous step to hide)
-   * shows: intro title
-   */
-  function showTitle() {
-    svg.selectAll('.vis-title')
-     .transition()
-     .duration(TRANSITION_DURATION)
-     .attr('opacity', 1.0)
+  // /**
+  //  * showTitle - initial title
+  //  *
+  //  * section index: 0
+  //  * hides: count title
+  //  * (no previous step to hide)
+  //  * shows: intro title
+  //  */
+  // function showTitle() {
+  //   svg.selectAll('.vis-title')
+  //    .transition()
+  //    .duration(TRANSITION_DURATION)
+  //    .attr('opacity', 1.0)
 
-    scatterPlot.hide();
-  }
+  //   scatterPlot.hide();
+  // }
 
-  /**
-   * showSubtitle - 
-   * 
-   * section index: 1
-   * hides: title and next
-   * shows: subtitle
-   */
-  function showSubtitle() {
-    svg.selectAll('.vis-title')
-       .transition()
-       .duration(TRANSITION_DURATION)
-       .attr('opacity', 0);
+  // *
+  //  * showSubtitle - 
+  //  * 
+  //  * section index: 1
+  //  * hides: title and next
+  //  * shows: subtitle
+   
+  // function showSubtitle() {
+  //   console.log("here");
+  //   svg.selectAll('.vis-title')
+  //      .transition()
+  //      .duration(TRANSITION_DURATION)
+  //      .attr('opacity', 0);
     
-    svg.selectAll('.vis-subtitle')
-     .transition()
-     .duration(TRANSITION_DURATION)
-     .attr('opacity', 1.0)
+  //   svg.selectAll('.vis-subtitle')
+  //    .transition()
+  //    .duration(TRANSITION_DURATION)
+  //    .attr('opacity', 1.0)
+  // }
+
+  function showSection() {
+    console.log("section showing");
   }
 
+  /**
+   * showLinePlot
+   *
+   * index: ___
+   * hides: previous and next
+   * shows: most country words...
+   */
+  function showCountryLinePlot() {
+    console.log("showLinePlot");
+    // countryLinePlot.show();
+  }
+
+  /**
+   * stepOneLinePlot
+   *
+   * index: ___
+   * hides: previous and next
+   * shows: most country words...
+   */
+  function stepOneCountryLinePlot() {
+    console.log("stepOneLinePlot");
+    // linePlot.updateFirst();
+  }
+
+  /**
+   * stepTwoLinePlot
+   *
+   * index: ___
+   * hides: previous and next
+   * shows: most country words...
+   */
+  function stepTwoCountryLinePlot() {
+    console.log("stepTwoLinePlot");
+    countryScatterPlot.hide();
+    // linePlot.updateSecond();
+  }
 
   /**
    * showScatterPlot - graph of ___
@@ -214,13 +229,10 @@ var scrollVis = function () {
    * hides: previous and next
    * shows: scatterplot
    */
-  function showScatterPlot() {
-    svg.selectAll('.vis-title')
-       .transition()
-       .duration(TRANSITION_DURATION)
-       .attr('opacity', 0)
+  function showCountryScatterPlot() {
 
-    scatterPlot.show();
+    // linePlot.hide();
+    countryScatterPlot.show();
   }
 
   /**
@@ -288,4 +300,4 @@ function display(visID, stepID) {
 }
 
 // display -- load data here when ready
-display('.vis.first', '.step.first');
+display('.vis', '.step');

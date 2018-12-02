@@ -16,18 +16,21 @@
 
   <!-- First visualization -->
   <div class='vis-container first'>
+
+    <!-- Scrolling sections -->
     <div class='sections first'>
       <section class="step first">
         <div class="title">Section 1</div>
-        Info about first section
+        First, we&#39re going to rank words that are most common in hip hop lyrics. &quot;Love&quot;, for example, appears 21 times for every 10,000 words.
+        Among these few words, &quot;love&quot; is used in hip hop more. But what matters for our analysis is usage in hip hop compared to usage in all music lyrics. We want words unique to the genre: high frequency in hip hop, low everywhere else.
       </section>
       <section class="step first">
         <div class="title">Section 2</div>
-        Random stuff about section 2 and facts...
+        Let&#39s compare hip hop usage to other genres. We used lyrics from 275,905 songs (about 47 million words) spanning all music genres, except hip hop. In this non-hip-hop dataset, words such as &quot;love&quot; are even more common: 71 times per 10,000 words (vs. 21 in hip hop).
       </section>
       <section class="step first">
         <div class="title">Section 3</div>
-        Look at this cool graph
+        Here&#39s all the words we measured. Dots farther to the right are more popular in country. Dots farther up-top are popular in other genres.
       </section>
       <section class="step first">
         <div class="title">Section 4</div>
@@ -35,12 +38,21 @@
       </section>
     </div>
 
+    <!-- First vis right side -->
     <div class='vis first'>
+      <p class="vis-title"> What lyrics are &quot;Most Country&quot;? </p>
+      <p class="vis-subtitle"> Occurrences per 10,000 lyrics </p>
       <input id='search' type="search" placeholder="Search words...">
     </div>
   </div>
 
   <div class="spacing"> </div>
+
+
+
+
+
+
 
 
   <div id="maintitle" style="background-color:red">
@@ -49,13 +61,43 @@
     <p class="small"> An exploration of country music lyrics </p> 
   </div>
 
-    <div id="maintitle" style="background-color:red">
+   <div class="spacing"> </div>
+
+
+
+  <div class='vis-container second'>
+    <div class='sections second'>
+      <section class="step second">
+        <div class="title">Section 1</div>
+        Info about first section
+      </section>
+      <section class="step second">
+        <div class="title">Section 2</div>
+        Random stuff about section 2 and facts...
+      </section>
+      <section class="step second">
+        <div class="title">Section 3</div>
+        Look at this cool graph
+      </section>
+      <section class="step second">
+        <div class="title">Section 4</div>
+        Do people simplify and stereotype country music too much?
+      </section>
+    </div>
+
+    <div class='vis second'>
+      <p class="vis-title"> How does lyric usage vary with gender? </p>
+      <p class="vis-subtitle"> Occurrences per 10,000 lyrics </p>
+    </div>
+  </div>
+
+  <div id="maintitle" style="background-color:red">
     <p class="medium"> More than </p> 
     <p class="big"> blue jeans, trucks, and beer? </p> 
     <p class="small"> An exploration of country music lyrics </p> 
   </div>
 
-    <div id="maintitle" style="background-color:red">
+  <div id="maintitle" style="background-color:red">
     <p class="medium"> More than </p> 
     <p class="big"> blue jeans, trucks, and beer? </p> 
     <p class="small"> An exploration of country music lyrics </p> 
@@ -65,6 +107,7 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="js/scroller.js"></script>
 <script src="js/Word.js"></script>
+<script src="js/LinePlot.js"></script>
 <script src="js/ScatterPlot.js"></script>
 <script src="js/sections.js"></script>
 </body>

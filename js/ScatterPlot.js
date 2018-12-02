@@ -1,4 +1,3 @@
-
 const DOT_SIZE = 3;
 const HOVER_DOT_SIZE = 5;
 const MARGIN_LEFT = 100;
@@ -244,6 +243,34 @@ class ScatterPlot {
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
+
+		// hide tooltip
+		hideTooltip();
+	}
+
+	/* Hides the graph without animationas */
+	hideFast() {
+		// hide search bar
+		document.querySelector("#search").style.opacity = 0;
+
+		// hide plotted points
+		self.svg.selectAll(".dot")
+			.style("opacity", 0);
+		// hide line points
+		self.svg.selectAll(".line")
+			.style("opacity", 0);
+		// hide axes
+		self.svg.selectAll(".axis")
+			.style("opacity", 0);
+
+		// hide tooltip
+		if (self.currSearch != null) {
+		self.currSearch
+			.attr("r", DOT_SIZE)
+			.style("stroke-width", 0)
+		}
+		// remove tooltip
+		d3.selectAll("#tooltip").remove();	
 	}
 }
 
