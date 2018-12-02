@@ -16,8 +16,8 @@ class ScatterPlot {
 		this.height  = opts.height - self.margin.bottom - self.margin.top;			// graph height
 		this.width   = Math.min(this.width, this.height);
 		this.height  = this.width;
-		self.width   = opts.width;
-		self.height  = opts.height;
+		self.width   = this.width;
+		self.height  = this.height;
 		
 		this.x 		 = opts.x;			// for alternate x variable
 		this.y 		 = opts.y;			// for alternate y variable
@@ -47,6 +47,47 @@ class ScatterPlot {
 			}, 150);			
 		}
 
+		/* Set up word list functionality -- hovering over a word selects it in the vis */
+		var wordList = document.querySelector(".wordlistA").querySelectorAll("p");
+		wordList.forEach(function(d) {
+			// Highlight word in vis 
+			d.onmouseover = function(e) {
+				hideTooltip();
+				d.style.background = "#f2f2f2";
+				var selection = d3.select("#" + d.getAttribute("word"));
+				showTooltip.call(selection, selection.datum());
+				self.currSearch = selection;
+
+			}
+			// Dehighlight word in vis
+			d.onmouseout = function(e) {
+				d.style.background = "white";
+				var selection = d3.select("#" + d.getAttribute("word"));
+				hideTooltip();
+				self.currSearch = null;
+			}	
+		})
+		/* Set up word list functionality -- hovering over a word selects it in the vis */
+		var wordList = document.querySelector(".wordlistB").querySelectorAll("p");
+		wordList.forEach(function(d) {
+			// Highlight word in vis 
+			d.onmouseover = function(e) {
+				hideTooltip();
+				d.style.background = "#f2f2f2";
+				var selection = d3.select("#" + d.getAttribute("word"));
+				showTooltip.call(selection, selection.datum());
+				self.currSearch = selection;
+
+			}
+			// Dehighlight word in vis
+			d.onmouseout = function(e) {
+				d.style.background = "white";
+				var selection = d3.select("#" + d.getAttribute("word"));
+				hideTooltip();
+				self.currSearch = null;
+			}	
+		})
+
 		/* Draw triangles */
 		var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
 		var botTriangleData = [{"x": self.margin.left + this.width, "y": self.margin.top + this.height}, {"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
@@ -67,7 +108,6 @@ class ScatterPlot {
 	        .attr("stroke", "#0000ff")
 	        .attr("stroke-width", 0)
 	        .style("opacity", 0)
-
 
 		/* Draw top triangle labels and arrows */
 	    var topLabels = self.svg.append("g")
@@ -100,7 +140,6 @@ class ScatterPlot {
 	    	.attr("y", 60)
 	    	.attr("fill", "#ff3333")
 	    	.text("other genres")
-
 
 	    /* Draw bottom triangle labels and arrows */
 	    var topLabels = self.svg.append("g")
@@ -135,11 +174,6 @@ class ScatterPlot {
 	    	.text("other genres")
 
 
-
-
-
-
-
 		/* Draw line */
 		var lineData = [{"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
 		var line = d3.line()
@@ -163,7 +197,54 @@ class ScatterPlot {
 			yMap   = function(d) { return yScale(yValue(d)) + self.margin.top; },		// data --> display
 			yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);		// axis
 
-		var colorMap = function(d) { return d.getColor(); };
+		var colorMap = function(d) {
+			return "black";
+			var res = d.getGeneralFreq() - d.getCountryFreq();
+			// More common in country, bottom triangle
+			if (res < 0) {
+				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq())) * -1;
+				if (spectrum > 0 && spectrum <= self.height / 5.0) {
+					return "ccccff";
+				}
+				else if (spectrum > self.height && spectrum <= 2.0/5.0 * self.height) {
+					return "9999ff";
+				}
+				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+					return "6666ff";
+				}
+				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+					return "3333ff";
+				}
+				else if (spectrum > 4.0/5.0 * self.height) {
+					return "#0000ff";
+				}
+			}
+			// Less common in country, top triangle
+			else if (res > 0) {
+				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq()));
+				if (spectrum > 0 && spectrum <= self.height / 5.0) {
+					return "ffcccc";
+				}
+				else if (spectrum > self.height && spectrum <= 2.0/5.0 * self.height) {
+					return "ff9999";
+				}
+				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+					return "ff6666";
+				}
+				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+					return "ff3333";
+				}
+				else if (spectrum > 4.0/5.0 * self.height) {
+					return "#ff0000";
+				}
+
+			}
+			// Equally common in both genres
+			else {
+				return "black";
+			}
+			console.log(self.height)
+		};
 
 
 		/* Draw x axis */
@@ -353,9 +434,8 @@ class ScatterPlot {
 	}
 
 
+	/* Displays the triangles on the graph */
 	showTriangles() {
-		console.log("showing triangles");
-
 		self.svg.selectAll(".triangle")
 			.transition()
 			.duration(TRANSITION_DURATION)
@@ -367,8 +447,8 @@ class ScatterPlot {
 			.style("opacity", 1)
 	}
 
+	/* Hides the triangles on the graph */
 	hideTriangles() {
-		console.log("hiding triangles");
 		self.svg.selectAll(".triangle")
 			.transition()
 			.duration(TRANSITION_DURATION)
@@ -380,6 +460,7 @@ class ScatterPlot {
 			.style("opacity", 0)
 	}
 
+	/* Displays the search bar */
 	showSearch() {
 		// show search bar with animation
 		var search = document.querySelector("#search")
@@ -394,6 +475,7 @@ class ScatterPlot {
 		}, TRANSITION_DELAY * 2);
 	}
 
+	/* Hides the triangles on the graph */
 	hideSearch() {
 		// show search bar with animation
 		var search = document.querySelector("#search")

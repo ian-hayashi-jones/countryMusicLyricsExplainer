@@ -115,7 +115,7 @@ var scrollVis = function () {
     activateFunctions[0] = showCountryLinePlot;
     activateFunctions[1] = showYAxis;
     activateFunctions[2] = showCountryScatterPlot;
-    activateFunctions[3] = hideTriangles;
+    activateFunctions[3] = showWordList;
     activateFunctions[4] = showSection;
     activateFunctions[5] = showSection;
     activateFunctions[6] = showSection;
@@ -203,7 +203,7 @@ var scrollVis = function () {
     countryScatterPlot.hideSearch();
   }
 
-  function hideTriangles() {
+  function showWordList() {
     countryScatterPlot.hideTriangles();
     countryScatterPlot.showSearch();
   }

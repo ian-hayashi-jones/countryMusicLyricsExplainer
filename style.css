@@ -54,6 +54,26 @@
   line-height: 1.2em;
 }
 
+.sections .title.leastcountry {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #ff0000;
+  opacity: .6;
+  line-height: 1.2em;
+}
+
+.sections .title.mostcountry {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #0000ff;
+  opacity: .6;
+  line-height: 1.2em;
+}
+
 .sections .invis {
   font-size: 16px;
   margin-bottom: 2px;
