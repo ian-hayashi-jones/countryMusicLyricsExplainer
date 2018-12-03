@@ -21,18 +21,15 @@ class ScatterPlot {
 		self.width   = this.width;
 		self.height  = this.height;
 
-		self.csv = opts.csv;
-		
-		this.x 		 = opts.x;			// for alternate x variable
-		this.y 		 = opts.y;			// for alternate y variable
-		console.log("drawing scatter, width = " + self.width + ", margin left = " + self.margin.left )
+		this.csv = opts.csv;
+		this.type = opts.type;			// for alternate x/y variables
+
 		this.draw();
 	}
 
 
 	/* Draws the axes, labels, and plots the points */
 	draw() {
-		// console.log("drawing scatter, width = " + self.width + ", margin left = " + self.margin.left )
 		// x mappings
 		var xScale = d3.scaleLog()
 	    				.domain([
@@ -127,7 +124,7 @@ class ScatterPlot {
 	        .attr("stroke-width", 2)
 
 
-	    renderAxes();
+	    renderAxes(this.type);
 
 		var colorMap = function(d) {
 			var res = +d.y - +d.x;
@@ -176,7 +173,7 @@ class ScatterPlot {
 			}
 		};
 		// Plot points, store in array
-		d3.csv(self.csv).then(function (data) {
+		d3.csv(this.csv).then(function (data) {
 			self.svg.selectAll(".dot")
 				.data(data)
 				.enter().append("circle")
@@ -199,7 +196,7 @@ class ScatterPlot {
 
 
 	/* Shows the graph */
-	show(opacity) {
+	show(opacity, type) {
 		// show plotted points
 		self.svg.selectAll(".dot")
 		    .transition()
@@ -213,6 +210,10 @@ class ScatterPlot {
 			.style("opacity", 1.0);
 		// show axes
 		self.svg.selectAll(".scatter.axis")
+			.transition()
+     		.duration(TRANSITION_DURATION)
+			.style("opacity", 1.0);
+		self.svg.selectAll("." + type)
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
@@ -243,6 +244,11 @@ class ScatterPlot {
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
+		// hide type specific labels
+		self.svg.selectAll("." + this.type)
+			.transition()
+     		.duration(TRANSITION_DURATION)
+			.style("opacity", 0);
 
 		// hide tooltip
 		hideTooltip();
@@ -262,6 +268,10 @@ class ScatterPlot {
 			.style("opacity", 0);
 		// hide axes
 		self.svg.selectAll(".axis")
+			.style("opacity", 0);
+
+		// hide type specific labels
+		self.svg.selectAll("." + this.type)
 			.style("opacity", 0);
 
 		// hide tooltip
@@ -392,7 +402,6 @@ function searchWords() {
  */
 function showTooltip(d) {
 
-	console.log("showing tooltip for " + d.word);
 	self.currSearch = d3.select("#" + d.word);
 	// Animate dot enlarging
 	d3.select("#" + d.word).transition()
@@ -740,7 +749,7 @@ function renderTriangles() {
 }
 
 
-function renderAxes() {
+function renderAxes(type) {
 	var xScale = d3.scaleLog()
 	    				.domain([
 							0.041572436, 
@@ -816,24 +825,47 @@ function renderAxes() {
 	  	.attr("y", self.margin.top + (2 * v_spacing))
 	  	.text("Usage")
 	  	.style("font-style", "italic")
-	self.svg.append("text")
-	  	.attr("class", "scatter axis")
-	  	.attr("x", yAxisLabelsX)
-	  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
-	  	.text("In")
-	  	.style("font-weight", "bold")
-	self.svg.append("text")
-	  	.attr("class", "scatter y axis")
-	  	.attr("x", yAxisLabelsX)
-	  	.attr("y", self.margin.top + (self.height / 2))
-	  	.text("Other")
-	  	.style("font-weight", "bold")
-	self.svg.append("text")
-	  	.attr("class", "scatter y axis")
-	  	.attr("x", yAxisLabelsX)
-	  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
-	  	.text("Genres")
-	  	.style("font-weight", "bold")
+
+	if (type == "country") {
+		self.svg.append("text")
+		  	.attr("class", "country")
+		  	.attr("x", yAxisLabelsX)
+		  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
+		  	.text("In")
+		  	.style("font-weight", "bold")
+		self.svg.append("text")
+		  	.attr("class", "country")
+		  	.attr("x", yAxisLabelsX)
+		  	.attr("y", self.margin.top + (self.height / 2))
+		  	.text("Other")
+		  	.style("font-weight", "bold")
+		self.svg.append("text")
+		  	.attr("class", "country")
+		  	.attr("x", yAxisLabelsX)
+		  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
+		  	.text("Genres")
+		  	.style("font-weight", "bold")
+	} else if (type == "gender") {
+		self.svg.append("text")
+		  	.attr("class", "gender")
+		  	.attr("x", yAxisLabelsX)
+		  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
+		  	.text("In")
+		  	.style("font-weight", "bold")
+		self.svg.append("text")
+		  	.attr("class", "gender")
+		  	.attr("x", yAxisLabelsX)
+		  	.attr("y", self.margin.top + (self.height / 2))
+		  	.text("Male")
+		  	.style("font-weight", "bold")
+		self.svg.append("text")
+		  	.attr("class", "gender")
+		  	.attr("x", yAxisLabelsX)
+		  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
+		  	.text("Artists")
+		  	.style("font-weight", "bold")
+	}
+
 	self.svg.append("text")
 	  	.attr("class", "scatter y axis")
 	  	.attr("x", yAxisLabelsX + 20)

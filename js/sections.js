@@ -2,6 +2,8 @@ const TRANSITION_DURATION = 600;
 
 var countryScatterPlot;
 var countryLinePlot;
+var genderScatterPlot;
+var genderScatterPlot;
 
 /**
  * scrollVis - encapsulates
@@ -25,7 +27,8 @@ var scrollVis = function () {
   var activeIndex = 0;
 
   // main svg used for visualization
-  var svg = null;
+  var svg1 = null;
+  var svg2 = null;
 
   // d3 selection that will be used
   // for displaying visualizations
@@ -49,14 +52,25 @@ var scrollVis = function () {
    *  example, we will be drawing it in #vis
    */
   var vis = function (selection) {
-    selection.each(function (rawData) {
-      // create svg and give it a width and height
-      svg = d3.select(this).append('svg')
+    svg1 = d3.select(selection._groups[0][0]).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
+    // svg2 = d3.select(selection._groups[0][1]).append('svg')
+    //                        .attr('width', width + margin.left + margin.right)
+    //                        .attr('height', height + margin.top + margin.bottom)
+    
+    // selection.each(function () {
+      // create svg and give it a width and height
+      // svg1 = d3.select(this).append('svg')
+      //                      .attr('width', width + margin.left + margin.right)
+      //                      .attr('height', height + margin.top + margin.bottom)
       setupVis();
+      // svg2 = d3.select(d3.select(".vis.second")).append('svg')
+      //                      .attr('width', width + margin.left + margin.right)
+      //                      .attr('height', height + margin.top + margin.bottom)
+
       setupSections();
-    });
+    // });
   };
 
 
@@ -68,7 +82,7 @@ var scrollVis = function () {
 
     // Line plot
     countryLinePlot = new LinePlot({
-      svg: svg,
+      svg: svg1,
       width: width,
       height: height,
       margin: margin,
@@ -82,15 +96,40 @@ var scrollVis = function () {
 
     // Scatterplot
     countryScatterPlot = new ScatterPlot({
-      svg: svg,
+      svg: svg1,
       width: width,
       height: height,
       margin: margin,
       csv: '../data/country_hot.csv',
-      x: "In Country",
-      y: "In Other Genres",
+      type: "country"
     });
     countryScatterPlot.hideFast();
+
+
+  //   // Line plot
+  //   genderLinePlot = new LinePlot({
+  //     svg: svg2,
+  //     width: width,
+  //     height: height,
+  //     margin: margin,
+  //     data: [
+  //             new Word(['turtle', .12247131, .3516464]),
+  //             new Word(['nights', 4.36510576, 1.54109188]),
+  //             new Word(['shell', 1.621325, .74821127]),
+  //           ]
+  //   });
+
+
+  //   // Scatterplot
+  //   genderScatterPlot = new ScatterPlot({
+  //     svg: svg2,
+  //     width: width,
+  //     height: height,
+  //     margin: margin,
+  //     csv: '../data/country_hot.csv',
+  //     type: "gender"
+  //   });
+  //   genderScatterPlot.hideFast();
   };
    
 
@@ -112,6 +151,8 @@ var scrollVis = function () {
     activateFunctions[5] = showSection;
     activateFunctions[6] = showSection;
     activateFunctions[7] = showSection;
+    activateFunctions[8] = showSection;
+    activateFunctions[9] = showSection;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -152,6 +193,7 @@ var scrollVis = function () {
    * shows: most country words...
    */
   function showCountryLinePlot() {
+    console.log("section 1")
     countryLinePlot.show();
   }
 
@@ -163,21 +205,10 @@ var scrollVis = function () {
    * shows: most country words...
    */
   function showYAxis() {
+    console.log("section 2")
     countryScatterPlot.hide();
     countryLinePlot.showYAxis();
   }
-
-  // *
-  //  * stepTwoLinePlot
-  //  *
-  //  * index: ___
-  //  * hides: previous and next
-  //  * shows: most country words...
-   
-  // function stepTwoCountryLinePlot() {
-  //   countryScatterPlot.hide();
-  //   countryLinePlot.updateSecond();
-  // }
 
   /**
    * showScatterPlot - graph of ___
@@ -187,7 +218,7 @@ var scrollVis = function () {
    * shows: scatterplot
    */
   function showCountryScatterPlot() {
-
+    console.log("section 3")
     // linePlot.hide();
     countryLinePlot.updateToScatterPlot();
     countryScatterPlot.showTriangles();
@@ -196,10 +227,30 @@ var scrollVis = function () {
   }
 
   function showWordList() {
+    console.log("section 4")
     countryScatterPlot.hideTriangles();
     countryScatterPlot.showSearch();
     countryScatterPlot.show(1);
   }
+
+  /**
+   * showScatterPlot - graph of ___
+   *
+   * index: ___
+   * hides: previous and next
+   * shows: scatterplot
+   */
+  function showGenderScatterPlot() {
+
+    // linePlot.hide();
+    // genderLinePlot.updateToScatterPlot();
+    console.log("showing gender scatterplot")
+    genderScatterPlot.showTriangles();
+    genderScatterPlot.show(.1);
+    genderScatterPlot.hideSearch();
+  }
+
+
 
   /**
    * activate -
@@ -240,7 +291,7 @@ var scrollVis = function () {
 function display(visID, stepID) {
   // create visualization
   var vis = scrollVis();
-  d3.select(visID)
+  d3.selectAll(visID)
     .call(vis);
 
   // setup scroll functionality
