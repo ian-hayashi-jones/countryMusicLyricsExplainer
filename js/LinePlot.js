@@ -26,8 +26,55 @@ class LinePlot {
 		var xValue = function(d) { return d.getCountryFreq(); },					// x is string to specify value
 			xScale = d3.scaleLinear().range([0, this.width]),						// value --> display
 			xMap   = function(d) { return xScale(xValue(d)) + self.margin.left; },	// data --> display
-			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0); 					// axis
-		var colorMap = function(d) { return d.getColor(); };
+			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0), 					// axis
+			yScale = d3.scaleLinear().range([this.height, 0]);		// value --> display
+
+		var colorMap = function(d) {	
+			var res = d.getGeneralFreq() - d.getCountryFreq();
+			// More common in country, bottom triangle
+			if (res < 0) {
+				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq()));
+				if (spectrum > 0 && spectrum <= self.height / 5.0) {
+					return "#ccccff";
+				}
+				else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
+					return "#9999ff";
+				}
+				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+					return "#6666ff";
+				}
+				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+					return "#3333ff";
+				}
+				else if (spectrum > 4.0/5.0 * self.height) {
+					return "#0000ff";
+				}
+			}
+			// Less common in country, top triangle
+			else if (res > 0) {
+				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq())) * -1;
+				if (spectrum > 0 && spectrum <= self.height / 5.0) {
+					return "#ffcccc";
+				}
+				else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
+					return "#ff9999";
+				}
+				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+					return "#ff6666";
+				}
+				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+					return "#ff3333";
+				}
+				else if (spectrum > 4.0/5.0 * self.height) {
+					return "#ff0000";
+				}
+
+			}
+			// Equally common in both genres
+			else {
+				return "#e6e6e6";
+			}
+		};
 		
 		// x axis
 		var spacing = 30;
