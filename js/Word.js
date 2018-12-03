@@ -17,12 +17,12 @@ const NUM_COUNTRY_MALE_WORDS   = 5000;
 class Word {
 
 	constructor(opts) {
-		this.word = opts[0];
-		this.x    = opts[1] / NUM_COUNTRY_WORDS;
-		this.y 	  = opts[2] / NUM_GENERAL_WORDS;
+		this.word  = opts[0];
+		this.x     = opts[1];
+		this.y 	   = opts[2];
+		this.xOdds = opts[3];
+		this.yOdds = opts[4];
 	}
-
-	print() { console.log("printing word " + this.word); }
 
 	getWord() { return this.word; }
 
@@ -30,7 +30,9 @@ class Word {
 
 	getY() { return this.y; }
 
-	getOdds() { return 1.0 * this.x / this.y; }
+	getXOdds() { return this.xOdds; }
+
+	getYOdds() { return this.yOdds; }
 
 
 	/* Static info about corpuses */

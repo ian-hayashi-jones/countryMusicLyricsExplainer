@@ -1,4 +1,4 @@
-word,countryCount,generalCount,femaleCountryCount,femaleGenCount,maleCountryCount,maleGenCount
-howdy,500,100,200,75,300,25
-yo,100,500,50,100,50,400
-what,200,200,100,100,100,100
+word,x,y,xOdds,yOdds
+beer,5.94,0.0558,106,0.009
+southern,3.2,0.033,95.54,0.01
+whiskey,7.77,0.134,58.01,0.01

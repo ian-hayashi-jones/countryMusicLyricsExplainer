@@ -18,6 +18,8 @@ class ScatterPlot {
 		this.height  = this.width;
 		self.width   = this.width;
 		self.height  = this.height;
+
+		this.csv = opts.csv;
 		
 		this.x 		 = opts.x;			// for alternate x variable
 		this.y 		 = opts.y;			// for alternate y variable
@@ -27,331 +29,383 @@ class ScatterPlot {
 
 	/* Draws the axes, labels, and plots the points */
 	draw() {
-		// search bar
-		var search = document.querySelector('#search');
-		search.style.left = 1.2*self.margin.left + "px";
-		search.style.top = self.margin.top + 30 + "px";
-		
-		// Delay searching so that animation doesn't get cut off
-		var timeout = null;
-		search.onkeyup = function() {
-			clearTimeout(timeout);				// Restart delay if key is pressed
-			timeout = setTimeout(function() {	// Delay function call
-				searchWords();
-			}, 150);
-		}
-		search.onsearch = function() {	
-			clearTimeout(timeout);				// Restart delay if search is pressed
-			timeout = setTimeout(function() {	// Delay function call
-				searchWords();
-			}, 150);			
-		}
-
-		/* Set up word list functionality -- hovering over a word selects it in the vis */
-		var wordList = document.querySelector(".wordlistA").querySelectorAll("p");
-		wordList.forEach(function(d) {
-			// Highlight word in vis 
-			d.onmouseover = function(e) {
-				hideTooltip();
-				d.style.background = "#f2f2f2";
-				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip.call(selection, selection.datum());
-				self.currSearch = selection;
-
-			}
-			// Dehighlight word in vis
-			d.onmouseout = function(e) {
-				d.style.background = "white";
-				var selection = d3.select("#" + d.getAttribute("word"));
-				hideTooltip();
-				self.currSearch = null;
-			}	
-		})
-		/* Set up word list functionality -- hovering over a word selects it in the vis */
-		var wordList = document.querySelector(".wordlistB").querySelectorAll("p");
-		wordList.forEach(function(d) {
-			// Highlight word in vis 
-			d.onmouseover = function(e) {
-				hideTooltip();
-				d.style.background = "#f2f2f2";
-				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip.call(selection, selection.datum());
-				self.currSearch = selection;
-
-			}
-			// Dehighlight word in vis
-			d.onmouseout = function(e) {
-				d.style.background = "white";
-				var selection = d3.select("#" + d.getAttribute("word"));
-				hideTooltip();
-				self.currSearch = null;
-			}	
-		})
-
-		/* Draw triangles */
-		var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
-		var botTriangleData = [{"x": self.margin.left + this.width, "y": self.margin.top + this.height}, {"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
-		var line = d3.line()
-   			.x(function(d) { return d.x; })
-   			.y(function(d) { return d.y; })
-   		var topTriangle = self.svg.append("path")
-   			.attr("class", "triangle")
-	        .attr("d", line(topTriangleData))
-	        .attr("fill", "#ff0000")
-	        .attr("stroke", "#ff0000")
-	        .attr("stroke-width", 0)
-	        .style("opacity", 0)
-	    var botTriangle = self.svg.append("path")
-   			.attr("class", "triangle")
-	        .attr("d", line(botTriangleData))
-	        .attr("fill", "#0000ff")
-	        .attr("stroke", "#0000ff")
-	        .attr("stroke-width", 0)
-	        .style("opacity", 0)
-
-		/* Draw top triangle labels and arrows */
-	    var topLabels = self.svg.append("g")
-	    	.attr("class", "trianglelabels")
-	    	.attr("transform", "translate(" + this.width/2 + "," + this.height/3 + ")")
-	    	.style("opacity", 0)
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 0)
-	    	.attr("fill", "#ff3333")
-	    	.text("Less")
-	    	.style("font-weight", "bold")
-	    topLabels.append("text")
-	    	.attr("x", 34)
-	    	.attr("y", 0)
-	    	.attr("fill", "#ff3333")
-	    	.text("usage")
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 20)
-	    	.attr("fill", "#ff3333")
-	    	.text("in country")
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 40)
-	    	.attr("fill", "#ff3333")
-	    	.text("compared to")
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 60)
-	    	.attr("fill", "#ff3333")
-	    	.text("other genres")
-
-	    /* Draw bottom triangle labels and arrows */
-	    var topLabels = self.svg.append("g")
-	    	.attr("class", "trianglelabels")
-	    	.attr("transform", "translate(" + this.width*3/4 + "," + this.height*2/3 + ")")
-	    	.style("opacity", 0)
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 0)
-	    	.attr("fill", "#3333ff")
-	    	.style("font-weight", "bold")
-	    	.text("More")
-	    topLabels.append("text")
-	    	.attr("x", 40)
-	    	.attr("y", 0)
-	    	.attr("fill", "#3333ff")
-	    	.text("usage")
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 20)
-	    	.attr("fill", "#3333ff")
-	    	.text("in country")
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 40)
-	    	.attr("fill", "#3333ff")
-	    	.text("compared to")
-	    topLabels.append("text")
-	    	.attr("x", 0)
-	    	.attr("y", 60)
-	    	.attr("fill", "#3333ff")
-	    	.text("other genres")
-
-
-		/* Draw line */
-		var lineData = [{"x": self.margin.left, "y": this.height + self.margin.top}, {"x": self.margin.left + this.width, "y": self.margin.top}]
-		var line = d3.line()
-   			.x(function(d) { return d.x; })
-   			.y(function(d) { return d.y; })
-   		var lineGraph = self.svg.append("path")
-   			.attr("class", "scatter line")
-	        .attr("d", line(lineData))
-	        .attr("stroke", GREY_ACCENT)
-	        .attr("stroke-width", 2)
 
 		// x mappings
-		var xValue = function(d) { return d.getX(); },				// x is string to specify value
-			xScale = d3.scaleLinear().range([0, this.width]),					// value --> display
-			xMap   = function(d) { return xScale(xValue(d)) + self.margin.left; },	// data --> display
-			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0); 				// axis
+		var xValue = function(d) { return d.x; },				// x is string to specify value
+			xScale = d3.scaleLog()
+	    		.domain([
+					0.041572436, 
+					352.2016762
+	    			])
+				.range([0, self.width]),
+		xMap   = function(d) { return xScale(+d.x) + self.margin.left; },	// data --> display
+		xAxis  = d3.axisBottom(xScale).ticks(5); 				// axis
 
 		// y mappings
-		var yValue = function(d) { return d.getY(); },	// y is string to specify value
-			yScale = d3.scaleLinear().range([this.height, 0]),		// value --> display
-			yMap   = function(d) { return yScale(yValue(d)) + self.margin.top; },		// data --> display
-			yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);		// axis
+		var yValue = function(d) { return d.y; },	// y is string to specify value
+			yScale = d3.scaleLog()
+			    .domain([
+			    	0.033501997,
+			    	387.1602479
+			    	])
+			    .range([self.height, 0]),
+		yMap   = function(d) { return yScale(+d.y) + self.margin.top; },		// data --> display
+		yAxis  = d3.axisLeft(yScale).ticks(5);		// axis
+		
+		// Plot points, store in array
+		d3.csv('../data/country_hot.csv').then(function (data) {
+			self.svg.selectAll(".dot")
+				.data(data)
+				.enter().append("circle")
+				.attr("class", "scatter dot")
+				.attr("id", function(d) { return d.word; })
+				.attr("r", DOT_SIZE)
+				.attr("cx", xMap)
+				.attr("cy", yMap)
+				.on("mouseover", function(d) {
+			  		hideTooltip(d);
+			  		showTooltip(d);
+			  	})
+			  	.on("mouseout", hideTooltip)
+		})
+			// self.svg.append("circle")
+			// 	.attr("r", 2)
+			// 	.attr("cx", 30)
+			// 	.attr("cy", 30)
 
-		var colorMap = function(d) {
-			var res = d.getY() - d.getX();
-			// More common in country, bottom triangle
-			if (res < 0) {
-				var spectrum = (yScale(d.getY()) - yScale(d.getX()));
-				if (spectrum > 0 && spectrum <= self.height / 5.0) {
-					return "#ccccff";
-				}
-				else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
-					return "#9999ff";
-				}
-				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
-					return "#6666ff";
-				}
-				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
-					return "#3333ff";
-				}
-				else if (spectrum > 4.0/5.0 * self.height) {
-					return "#0000ff";
-				}
-			}
-			// Less common in country, top triangle
-			else if (res > 0) {
-				var spectrum = (yScale(d.getY()) - yScale(d.getX())) * -1;
-				if (spectrum > 0 && spectrum <= self.height / 5.0) {
-					return "#ffcccc";
-				}
-				else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
-					return "#ff9999";
-				}
-				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
-					return "#ff6666";
-				}
-				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
-					return "#ff3333";
-				}
-				else if (spectrum > 4.0/5.0 * self.height) {
-					return "#ff0000";
-				}
+			// /* Draw dots */
+			// self.svg.selectAll("dot")
+			// 	.data(d)
+			//   .enter().append("circle")
+			//   	.attr("class", "scatter dot")
+			//   	// .attr("id", function(d) { return "hi"; })
+			//   	.attr("r", DOT_SIZE)
+			//   	.attr("cx", 200)
+			//   	.attr("cy", 200)
+			//   	.style("fill", "red")
+			//   	// .on("mouseover", function(d) {
+			//   	// 	hideTooltip(data);
+			//   	// 	showTooltip(data);
+			//   	// })
+			//   	// .on("mouseout", hideTooltip)
+			// var min = d3.min(data, function(d) { return +data.x})
+			// console.log("min = "+ min);
+		// });
 
-			}
-			// Equally common in both genres
-			else {
-				return "#e6e6e6";
-			}
-		};
+		// self.svg.selectAll(".dot")
+		// 		.data(data)
+		// 	  .enter().append("circle")
+		// 	  	.attr("class", "scatter dot")
+		// 	  	.attr("id", function(d) { return "hi"; })
+		// 	  	.attr("r", DOT_SIZE)
+		// 	  	.attr("cx", function(d) { return xScale(100) + self.margin.left; })
+		// 	  	.attr("cy", function(d) { return yScale(100) + self.margin.top; })
+		// 	  	.style("fill", "black")
 
 
-		/* Draw x axis */
-		var xAxisShift = this.height + self.margin.top;
-		self.svg.append("g")
-			.attr("class", "scatter x axis")
-			.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
-			.call(xAxis)
+			// search bar
+			var search = document.querySelector('#search');
+			search.style.left = 1.2*self.margin.left + "px";
+			search.style.top = self.margin.top + 30 + "px";
 			
-		// x axis arrow
-		var xArrowX = this.width + self.margin.left;
-		var xArrowY = this.height + self.margin.top;
-		self.svg.append("svg:path")
-			.attr("class", "scatter x axis")
-			.attr("d", d3.symbol().type(d3.symbolTriangle))
-			.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
-			.attr("fill", "black")
+			// Delay searching so that animation doesn't get cut off
+			var timeout = null;
+			search.onkeyup = function() {
+				clearTimeout(timeout);				// Restart delay if key is pressed
+				timeout = setTimeout(function() {	// Delay function call
+					searchWords();
+				}, 150);
+			}
+			search.onsearch = function() {	
+				clearTimeout(timeout);				// Restart delay if search is pressed
+				timeout = setTimeout(function() {	// Delay function call
+					searchWords();
+				}, 150);			
+			}
 
-		// x axis labels
-		var spacing = 10;
-		var xAxisLabelsY = this.height  + self.margin.bottom + spacing;
-		self.svg.append("text")
-			.attr("class", "scatter x axis")
-		  	.attr("x", self.margin.left + (this.width / 2) - 50)
-		  	.attr("y", xAxisLabelsY)
-		  	.text("In Country")
-		  	.style("font-weight", "bold")
-		self.svg.append("text")
-			.attr("class", "scatter x axis")
-		  	.attr("x", this.width + self.margin.left - 70)
-		  	.attr("y", xAxisLabelsY)
-		  	.text("More Usage")
-		  	.style("font-style", "italic")
+			// /* Set up word list functionality -- hovering over a word selects it in the vis */
+			// var wordList = document.querySelector(".wordlistA").querySelectorAll("p");
+			// wordList.forEach(function(d) {
+			// 	// Highlight word in vis 
+			// 	d.onmouseover = function(e) {
+			// 		hideTooltip();
+			// 		d.style.background = "#f2f2f2";
+			// 		var selection = d3.select("#" + d.getAttribute("word"));
+			// 		showTooltip.call(selection, selection.datum());
+			// 		self.currSearch = selection;
+
+			// 	}
+			// 	// Dehighlight word in vis
+			// 	d.onmouseout = function(e) {
+			// 		d.style.background = "white";
+			// 		var selection = d3.select("#" + d.getAttribute("word"));
+			// 		hideTooltip();
+			// 		self.currSearch = null;
+			// 	}	
+			// })
+			// /* Set up word list functionality -- hovering over a word selects it in the vis */
+			// var wordList = document.querySelector(".wordlistB").querySelectorAll("p");
+			// wordList.forEach(function(d) {
+			// 	// Highlight word in vis 
+			// 	d.onmouseover = function(e) {
+			// 		hideTooltip();
+			// 		d.style.background = "#f2f2f2";
+			// 		var selection = d3.select("#" + d.getAttribute("word"));
+			// 		showTooltip.call(selection, selection.datum());
+			// 		self.currSearch = selection;
+
+			// 	}
+			// 	// Dehighlight word in vis
+			// 	d.onmouseout = function(e) {
+			// 		d.style.background = "white";
+			// 		var selection = d3.select("#" + d.getAttribute("word"));
+			// 		hideTooltip();
+			// 		self.currSearch = null;
+			// 	}	
+			// })
+
+			/* Draw triangles */
+			var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
+			var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
+			var line = d3.line()
+	   			.x(function(d) { return d.x; })
+	   			.y(function(d) { return d.y; })
+	   		var topTriangle = self.svg.append("path")
+	   			.attr("class", "triangle")
+		        .attr("d", line(topTriangleData))
+		        .attr("fill", "#ff0000")
+		        .attr("stroke", "#ff0000")
+		        .attr("stroke-width", 0)
+		        .style("opacity", 0)
+		    var botTriangle = self.svg.append("path")
+	   			.attr("class", "triangle")
+		        .attr("d", line(botTriangleData))
+		        .attr("fill", "#0000ff")
+		        .attr("stroke", "#0000ff")
+		        .attr("stroke-width", 0)
+		        .style("opacity", 0)
+
+			/* Draw top triangle labels and arrows */
+		    var topLabels = self.svg.append("g")
+		    	.attr("class", "trianglelabels")
+		    	.attr("transform", "translate(" + self.width/2 + "," + self.height/3 + ")")
+		    	.style("opacity", 0)
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 0)
+		    	.attr("fill", "#ff3333")
+		    	.text("Less")
+		    	.style("font-weight", "bold")
+		    topLabels.append("text")
+		    	.attr("x", 34)
+		    	.attr("y", 0)
+		    	.attr("fill", "#ff3333")
+		    	.text("usage")
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 20)
+		    	.attr("fill", "#ff3333")
+		    	.text("in country")
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 40)
+		    	.attr("fill", "#ff3333")
+		    	.text("compared to")
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 60)
+		    	.attr("fill", "#ff3333")
+		    	.text("other genres")
+
+		    /* Draw bottom triangle labels and arrows */
+		    var topLabels = self.svg.append("g")
+		    	.attr("class", "trianglelabels")
+		    	.attr("transform", "translate(" + self.width*3/4 + "," + self.height*2/3 + ")")
+		    	.style("opacity", 0)
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 0)
+		    	.attr("fill", "#3333ff")
+		    	.style("font-weight", "bold")
+		    	.text("More")
+		    topLabels.append("text")
+		    	.attr("x", 40)
+		    	.attr("y", 0)
+		    	.attr("fill", "#3333ff")
+		    	.text("usage")
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 20)
+		    	.attr("fill", "#3333ff")
+		    	.text("in country")
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 40)
+		    	.attr("fill", "#3333ff")
+		    	.text("compared to")
+		    topLabels.append("text")
+		    	.attr("x", 0)
+		    	.attr("y", 60)
+		    	.attr("fill", "#3333ff")
+		    	.text("other genres")
 
 
-		/* Draw y axis */
-		self.svg.append("g")
-			.attr("class", "scatter y axis")
-			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
-			.call(yAxis)
+			// /* Draw line */
+			// var lineData = [{"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
+			// var line = d3.line()
+	  //  			.x(function(d) { return d.x; })
+	  //  			.y(function(d) { return d.y; })
+	  //  		var lineGraph = self.svg.append("path")
+	  //  			.attr("class", "scatter line")
+		 //        .attr("d", line(lineData))
+		 //        .attr("stroke", GREY_ACCENT)
+		 //        .attr("stroke-width", 2)
 
-		// y axis arrow
-		self.svg.append("svg:path")
-			.attr("class", "scatter y axis")
-			.attr("d", d3.symbol().type(d3.symbolTriangle))
-			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
-			.attr("fill", "black")
 
-		// y axis labels
-		var v_spacing = 17;
-		var yAxisLabelsX = 40;
-		self.svg.append("text")
-		  	.attr("class", "scatter y axis")
-		  	.attr("x", yAxisLabelsX + 10)
-		  	.attr("y", self.margin.top + v_spacing)
-		  	.text("More")
-		  	.style("font-style", "italic")
-		self.svg.append("text")
-		  	.attr("class", "scatter y axis")
-		  	.attr("x", yAxisLabelsX + 10)
-		  	.attr("y", self.margin.top + (2 * v_spacing))
-		  	.text("Usage")
-		  	.style("font-style", "italic")
-		self.svg.append("text")
-		  	.attr("class", "scatter axis")
-		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", self.margin.top + (this.height / 2) - v_spacing)
-		  	.text("In")
-		  	.style("font-weight", "bold")
-		self.svg.append("text")
-		  	.attr("class", "scatter y axis")
-		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", self.margin.top + (this.height / 2))
-		  	.text("Other")
-		  	.style("font-weight", "bold")
-		self.svg.append("text")
-		  	.attr("class", "scatter y axis")
-		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", self.margin.top + (this.height / 2) + v_spacing)
-		  	.text("Genres")
-		  	.style("font-weight", "bold")
-		self.svg.append("text")
-		  	.attr("class", "scatter y axis")
-		  	.attr("x", yAxisLabelsX + 20)
-		  	.attr("y", self.margin.top + self.margin.bottom / 2 + this.height)
-		  	.text("Less")
-		  	.style("font-style", "italic")
-		self.svg.append("text")
-		  	.attr("class", "scatter y axis")
-		  	.attr("x", yAxisLabelsX + 15)
-		  	.attr("y", self.margin.top + self.margin.bottom / 2 + this.height + v_spacing)
-		  	.text("Usage")
-		  	.style("font-style", "italic")
 
-		/* Draw dots */
-		self.svg.selectAll(".dot")
-			.data(self.data)
-		  .enter().append("circle")
-		  	.attr("class", "scatter dot")
-		  	.attr("id", function(d) { return d.getWord(); })
-		  	.attr("r", DOT_SIZE)
-		  	.attr("cx", xMap)
-		  	.attr("cy", yMap)
-		  	.style("fill", colorMap)
-		  	.on("mouseover", function(d) {
-		  		hideTooltip(d);
-		  		showTooltip(d);
-		  	})
-		  	.on("mouseout", hideTooltip)
+
+			// var colorMap = function(d) {
+			// 	var res = d.y - d.x;
+			// 	// More common in country, bottom triangle
+			// 	if (res < 0) {
+			// 		var spectrum = (yScale(d.y) - yScale(d.x));
+			// 		if (spectrum > 0 && spectrum <= self.height / 5.0) {
+			// 			return "#ccccff";
+			// 		}
+			// 		else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
+			// 			return "#9999ff";
+			// 		}
+			// 		else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+			// 			return "#6666ff";
+			// 		}
+			// 		else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+			// 			return "#3333ff";
+			// 		}
+			// 		else if (spectrum > 4.0/5.0 * self.height) {
+			// 			return "#0000ff";
+			// 		}
+			// 	}
+			// 	// Less common in country, top triangle
+			// 	else if (res > 0) {
+			// 		var spectrum = (yScale(d.y) - yScale(d.x)) * -1;
+			// 		if (spectrum > 0 && spectrum <= self.height / 5.0) {
+			// 			return "#ffcccc";
+			// 		}
+			// 		else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
+			// 			return "#ff9999";
+			// 		}
+			// 		else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+			// 			return "#ff6666";
+			// 		}
+			// 		else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+			// 			return "#ff3333";
+			// 		}
+			// 		else if (spectrum > 4.0/5.0 * self.height) {
+			// 			return "#ff0000";
+			// 		}
+
+			// 	}
+			// 	// Equally common in both genres
+			// 	else {
+			// 		return "#e6e6e6";
+			// 	}
+			// };
+
+
+			/* Draw x axis */
+			var xAxisShift = self.height + self.margin.top;
+			self.svg.append("g")
+				.attr("class", "scatter x axis")
+				.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
+				.call(xAxis)
+				
+			// x axis arrow
+			var xArrowX = self.width + self.margin.left;
+			var xArrowY = self.height + self.margin.top;
+			self.svg.append("svg:path")
+				.attr("class", "scatter x axis")
+				.attr("d", d3.symbol().type(d3.symbolTriangle))
+				.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
+				.attr("fill", "black")
+
+			// x axis labels
+			var spacing = 10;
+			var xAxisLabelsY = self.height  + self.margin.bottom + spacing;
+			self.svg.append("text")
+				.attr("class", "scatter x axis")
+			  	.attr("x", self.margin.left + (self.width / 2) - 50)
+			  	.attr("y", xAxisLabelsY)
+			  	.text("In Country")
+			  	.style("font-weight", "bold")
+			self.svg.append("text")
+				.attr("class", "scatter x axis")
+			  	.attr("x", self.width + self.margin.left - 70)
+			  	.attr("y", xAxisLabelsY)
+			  	.text("More Usage")
+			  	.style("font-style", "italic")
+
+
+			/* Draw y axis */
+			self.svg.append("g")
+				.attr("class", "scatter y axis")
+				.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
+				.call(yAxis)
+
+			// y axis arrow
+			self.svg.append("svg:path")
+				.attr("class", "scatter y axis")
+				.attr("d", d3.symbol().type(d3.symbolTriangle))
+				.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
+				.attr("fill", "black")
+
+			// y axis labels
+			var v_spacing = 17;
+			var yAxisLabelsX = 40;
+			self.svg.append("text")
+			  	.attr("class", "scatter y axis")
+			  	.attr("x", yAxisLabelsX + 10)
+			  	.attr("y", self.margin.top + v_spacing)
+			  	.text("More")
+			  	.style("font-style", "italic")
+			self.svg.append("text")
+			  	.attr("class", "scatter y axis")
+			  	.attr("x", yAxisLabelsX + 10)
+			  	.attr("y", self.margin.top + (2 * v_spacing))
+			  	.text("Usage")
+			  	.style("font-style", "italic")
+			self.svg.append("text")
+			  	.attr("class", "scatter axis")
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
+			  	.text("In")
+			  	.style("font-weight", "bold")
+			self.svg.append("text")
+			  	.attr("class", "scatter y axis")
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (self.height / 2))
+			  	.text("Other")
+			  	.style("font-weight", "bold")
+			self.svg.append("text")
+			  	.attr("class", "scatter y axis")
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
+			  	.text("Genres")
+			  	.style("font-weight", "bold")
+			self.svg.append("text")
+			  	.attr("class", "scatter y axis")
+			  	.attr("x", yAxisLabelsX + 20)
+			  	.attr("y", self.margin.top + self.margin.bottom / 2 + self.height)
+			  	.text("Less")
+			  	.style("font-style", "italic")
+			self.svg.append("text")
+			  	.attr("class", "scatter y axis")
+			  	.attr("x", yAxisLabelsX + 15)
+			  	.attr("y", self.margin.top + self.margin.bottom / 2 + self.height + v_spacing)
+			  	.text("Usage")
+			  	.style("font-style", "italic")
+
+
+		
 	}
 
 
@@ -549,10 +603,10 @@ function searchWords() {
  */
 function showTooltip(d) {
 
-	console.log("showing tooltip for " + d.getWord());
-	self.currSearch = d3.select("#" + d.getWord());
+	console.log("showing tooltip for " + d.word);
+	self.currSearch = d3.select("#" + d.word);
 	// Animate dot enlarging
-	d3.select("#" + d.getWord()).transition()
+	d3.select("#" + d.word).transition()
 		.attr("r", HOVER_DOT_SIZE)
 		.style("stroke", "black")
 		.style("stroke-width", 2)
@@ -560,9 +614,9 @@ function showTooltip(d) {
 
 	d3.select("#howdy").attr("r", HOVER_DOT_SIZE)
 
-	var x = +d3.select("#" + d.getWord()).attr("cx"),
-	    y = +d3.select("#" + d.getWord()).attr("cy") + 20,
-	    rect_y = +d3.select("#" + d.getWord()).attr("cy");
+	var x = +d3.select("#" + d.word).attr("cx"),
+	    y = +d3.select("#" + d.word).attr("cy") + 20,
+	    rect_y = +d3.select("#" + d.word).attr("cy");
 
 	var dims = drawTooltipInfo(d, x, y, 0, 0, 0, false);
 	var rect_width = dims[0],
@@ -623,7 +677,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 		.attr("id", "tooltip")
 	    .attr("x", x + h_spacing)
 	    .attr("y", y + v_spacing)
-	    .text(d.getWord())
+	    .text(d.word)
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeA)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)
@@ -634,7 +688,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	var freqLabel1, freqLabel2 = null;
 	var freqLabelWidth;
 	// Same frequency, probaably super rare
-	if (d.getX() === d.getY()) {
+	if (d.x === d.y) {
 		freqLabel1 = self.svg.append("text")
 	    	.attr("id", "tooltip")
 			.attr("x", x + h_spacing)
@@ -648,12 +702,12 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	// Different frequencies
 	} else {
 		var freq, freqLabel;
-		if (d.getX() > d.getY()) {
-			freq = d.getX() / d.getY();
+		if (d.x > d.y) {
+			freq = d.x / d.y;
 			freq = Math.round(freq * 100) / 100;
 			freqLabel = " higher in Country";
-		} else if (d.getX() < d.getY()) {
-			freq = d.getY() / d.getX();
+		} else if (d.x < d.y) {
+			freq = d.y / d.x;
 			freq = Math.round(freq * 100) / 100;
 			freqLabel = " higher in other genres";
 		}
@@ -726,7 +780,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 		.attr("id", "tooltip")
     	.attr("x", countX)
    		.attr("y", y + (5 * v_spacing))
-	    .text(d.getX())
+	    .text(d.x)
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)
@@ -738,7 +792,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 		.attr("id", "tooltip")
     	.attr("x", countX)
    		.attr("y", y + (9 * v_spacing))
-	    .text(d.getY())
+	    .text(d.y)
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)

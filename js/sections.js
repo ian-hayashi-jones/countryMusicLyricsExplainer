@@ -90,12 +90,9 @@ var scrollVis = function () {
       x: "countryCount",
       y: "generalCount",
       data: [
-              new Word(['howdy', 500, 5000, 200, 75, 300, 25]),
-              new Word(['yo', 100, 500, 50, 100, 50, 400]),
-              new Word(['what', 200, 200, 100, 100, 100, 100]),
-              new Word(['wow', 3000, 2500, 200, 75, 300, 25]),
-              new Word(['advantage', 2000, 5000, 50, 100, 50, 400]),
-              new Word(['nascar', 7000, 8000, 100, 100, 100, 100]),
+              new Word(['beer', 5.94, .0558, 106, .009]),
+              new Word(['southern', 3.2, .033, 95.54, .01]),
+              new Word(['whiskey', 7.77, .134, 58.01, .01]),
             ]
     });
     countryScatterPlot.hideFast();
