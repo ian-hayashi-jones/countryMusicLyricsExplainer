@@ -38,7 +38,7 @@
 }
 
 .step {
-  margin-bottom: 200px;
+  margin-bottom: 250px;
   font-family: "TiemposTextWeb-Regular","Georgia";
   font-size: 16px;
   line-height: 23px;
@@ -107,6 +107,46 @@
 #search {
   position: relative;
 }
+
+
+.wordlist {
+  display: flex;
+  flex-direction: column;
+}
+
+.wordentry {
+  display: flex;
+  flex-direction: row;
+    margin-top: .25em;
+  margin-bottom: .25em;
+}
+
+.wordlistHeader {
+  display: flex;
+  flex-direction: row;
+  color: #b3b3b3;
+}
+
+.word {
+  flex: 1.5;
+  font-weight: bold;
+}
+
+.odds {
+  flex: 1; 
+}
+
+.countrywordcount {
+  flex: 1;
+}
+
+.otherwordcount {
+  flex: 1;
+}
+
+
+
+
 
 
 

@@ -73,9 +73,9 @@ var scrollVis = function () {
       height: height,
       margin: margin,
       data: [
-              new Word(['howdy', 500, 5000]),
-              new Word(['wow', 3000, 2500]),
-              new Word(['nascar', 7000, 8000]),
+              new Word(['turtle', .12247131, .3516464]),
+              new Word(['nights', 4.36510576, 1.54109188]),
+              new Word(['shell', 1.621325, .74821127]),
             ]
     });
 
@@ -86,14 +86,9 @@ var scrollVis = function () {
       width: width,
       height: height,
       margin: margin,
-      data: 'data/words.csv',
-      x: "countryCount",
-      y: "generalCount",
-      data: [
-              new Word(['beer', 5.94, .0558, 106, .009]),
-              new Word(['southern', 3.2, .033, 95.54, .01]),
-              new Word(['whiskey', 7.77, .134, 58.01, .01]),
-            ]
+      csv: '../data/country_hot.csv',
+      x: "In Country",
+      y: "In Other Genres",
     });
     countryScatterPlot.hideFast();
   };
@@ -196,13 +191,14 @@ var scrollVis = function () {
     // linePlot.hide();
     countryLinePlot.updateToScatterPlot();
     countryScatterPlot.showTriangles();
-    countryScatterPlot.show();
+    countryScatterPlot.show(.1);
     countryScatterPlot.hideSearch();
   }
 
   function showWordList() {
     countryScatterPlot.hideTriangles();
     countryScatterPlot.showSearch();
+    countryScatterPlot.show(1);
   }
 
   /**

@@ -6,14 +6,16 @@ class LinePlot {
 	constructor(opts) {
 		self.svg	 = opts.svg;		// background
 		self.margin  = opts.margin;
+		
+		// make width and height equal
 		this.width   = opts.width - self.margin.right - self.margin.left;			// graph width
 		this.height  = opts.height - self.margin.bottom - self.margin.top;			// graph height
 		this.width   = Math.min(this.width, this.height);
 		this.height  = this.width;
-		self.width   = opts.width;
-		self.height  = opts.height;
+		self.width   = this.width;
+		self.height  = this.height;
+
 		self.data 	 = opts.data;
-		
 		this.draw();
 	}
 
@@ -23,49 +25,64 @@ class LinePlot {
 	 */
 	draw() {
 		/* Render x axis */
-		var xValue = function(d) { return d.getX(); },					// x is string to specify value
-			xScale = d3.scaleLinear().range([0, this.width]),						// value --> display
-			xMap   = function(d) { return xScale(xValue(d)) + self.margin.left; },	// data --> display
-			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0), 					// axis
-			yScale = d3.scaleLinear().range([this.height, 0]);		// value --> display
+		// x mappings
+		var xScale = d3.scaleLog()
+	    				.domain([
+							0.041572436, 
+							352.2016762
+	    				])
+						.range([0, self.width]),
+			xMap   = function(d) { return xScale(+d.x) + self.margin.left; },
+			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0); 				
+		
 
-		var colorMap = function(d) {	
-			var res = d.getY() - d.getX();
+		// y mappings
+		var yScale = d3.scaleLog()
+			    		.domain([
+			    			0.033501997,
+			    			387.1602479
+			    		])
+			    		.range([self.height, 0]),
+			yMap   = function(d) { return yScale(+d.y) + self.margin.top; },	
+			yScale = d3.scaleLinear().range([this.height, 0]);	
+
+		var colorMap = function(d) {
+			var res = +d.y - +d.x;
 			// More common in country, bottom triangle
 			if (res < 0) {
-				var spectrum = (yScale(d.getY()) - yScale(d.getX()));
-				if (spectrum > 0 && spectrum <= self.height / 5.0) {
+				var spectrum = (yScale(+d.y) - yScale(+d.x));
+				if (spectrum > 0 && spectrum <= self.height / 20.0) {
 					return "#ccccff";
 				}
-				else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
+				else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
 					return "#9999ff";
 				}
-				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+				else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
 					return "#6666ff";
 				}
-				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+				else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
 					return "#3333ff";
 				}
-				else if (spectrum > 4.0/5.0 * self.height) {
+				else if (spectrum > 1.0/2.0 * self.height) {
 					return "#0000ff";
 				}
 			}
 			// Less common in country, top triangle
 			else if (res > 0) {
-				var spectrum = (yScale(d.getY()) - yScale(d.getX())) * -1;
-				if (spectrum > 0 && spectrum <= self.height / 5.0) {
+				var spectrum = (yScale(+d.y) - yScale(+d.x)) * -1;
+				if (spectrum > 0 && spectrum <= self.height / 20.0) {
 					return "#ffcccc";
 				}
-				else if (spectrum > self.height / 5.0 && spectrum <= 2.0/5.0 * self.height) {
+				else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
 					return "#ff9999";
 				}
-				else if (spectrum > 2.0/5.0 * self.height && spectrum <=  3.0/5.0 * self.height) {
+				else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
 					return "#ff6666";
 				}
-				else if (spectrum > 3.0/5.0 * self.height && spectrum <= 4.0/5.0 * self.height5) {
+				else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
 					return "#ff3333";
 				}
-				else if (spectrum > 4.0/5.0 * self.height) {
+				else if (spectrum > 1.0/2.0 * self.height) {
 					return "#ff0000";
 				}
 
@@ -129,7 +146,7 @@ class LinePlot {
 		  .enter().append("g")
 		pointG.append("circle")
 		  	.attr("class", "lineplotdot")
-		  	.attr("id", function(d) { return d.getWord(); })
+		  	.attr("id", function(d) { return d.word; })
 		  	.attr("r", DOT_SIZE)
 		  	.attr("cx", xMap)
 		  	.attr("cy", xAxisShift)
@@ -140,13 +157,13 @@ class LinePlot {
 		  	.attr("y", xAxisShift + 20)
 		  	.style("font-style", "italic")
 		  	.style("font-weight", "bold")
-		  	.text(function(d) { return d.getWord(); })
+		  	.text(function(d) { return d.word; })
 		pointG.append("text")
 		  	.attr("class", "lineplotdot info freq")
 		  	.attr("x", xMap)
 		  	.attr("y", xAxisShift + 40)
 		  	.attr("fill", "grey")
-		  	.text(function(d) { return d.getX(); })
+		  	.text(function(d) { return Math.round(d.x * 100) / 100; })
 
 		// Center labels around their corresponding points
 		var labels = self.svg.selectAll(".lineplotdot.info");
@@ -211,13 +228,13 @@ class LinePlot {
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("y", xAxisShift + 40)
+     		.style("opacity", 1)
 
      	// animate y axis hiding
 		self.svg.selectAll(".lineplotyaxis")
 			.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("x", 0)
-     		// .attr("transform", "translate(" + 0 + "," + 0 + ")")
 			.style("opacity", 0);
 	}
 
@@ -243,12 +260,15 @@ class LinePlot {
  		self.svg.selectAll(".lineplotdot")
  			.style("opacity", 1);
 
-
 		// y mappings
-		var yValue = function(d) { return d.getY(); },	// y is string to specify value
-			yScale = d3.scaleLinear().range([this.height, 0]),		// value --> display
-			yMap   = function(d) { return yScale(yValue(d)) + self.margin.top; },		// data --> display
-			yLabelMap   = function(d) { return yScale(yValue(d)) + self.margin.top - 10; },		// data --> display
+		var yScale = d3.scaleLog()
+			    		.domain([
+			    			0.033501997,
+			    			387.1602479
+			    		])
+			    		.range([self.height, 0]),
+			yMap   = function(d) { return yScale(+d.y) + self.margin.top; },		// data --> display
+			yLabelMap   = function(d) { return yScale(+d.y) + self.margin.top - 10; },		// data --> display
 			yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);		// axis
 
 		var xAxisShift = this.height + self.margin.top,
@@ -428,19 +448,6 @@ class LinePlot {
  				.style("opacity", 0);
 		}, TRANSITION_DURATION);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
