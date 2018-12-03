@@ -186,22 +186,22 @@ class ScatterPlot {
 	        .attr("stroke-width", 2)
 
 		// x mappings
-		var xValue = function(d) { return d.getCountryFreq(); },				// x is string to specify value
+		var xValue = function(d) { return d.getX(); },				// x is string to specify value
 			xScale = d3.scaleLinear().range([0, this.width]),					// value --> display
 			xMap   = function(d) { return xScale(xValue(d)) + self.margin.left; },	// data --> display
 			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0); 				// axis
 
 		// y mappings
-		var yValue = function(d) { return d.getGeneralFreq(); },	// y is string to specify value
+		var yValue = function(d) { return d.getY(); },	// y is string to specify value
 			yScale = d3.scaleLinear().range([this.height, 0]),		// value --> display
 			yMap   = function(d) { return yScale(yValue(d)) + self.margin.top; },		// data --> display
 			yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);		// axis
 
 		var colorMap = function(d) {
-			var res = d.getGeneralFreq() - d.getCountryFreq();
+			var res = d.getY() - d.getX();
 			// More common in country, bottom triangle
 			if (res < 0) {
-				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq()));
+				var spectrum = (yScale(d.getY()) - yScale(d.getX()));
 				if (spectrum > 0 && spectrum <= self.height / 5.0) {
 					return "#ccccff";
 				}
@@ -220,7 +220,7 @@ class ScatterPlot {
 			}
 			// Less common in country, top triangle
 			else if (res > 0) {
-				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq())) * -1;
+				var spectrum = (yScale(d.getY()) - yScale(d.getX())) * -1;
 				if (spectrum > 0 && spectrum <= self.height / 5.0) {
 					return "#ffcccc";
 				}
@@ -634,7 +634,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	var freqLabel1, freqLabel2 = null;
 	var freqLabelWidth;
 	// Same frequency, probaably super rare
-	if (d.getCountryFreq() === d.getGeneralFreq()) {
+	if (d.getX() === d.getY()) {
 		freqLabel1 = self.svg.append("text")
 	    	.attr("id", "tooltip")
 			.attr("x", x + h_spacing)
@@ -648,12 +648,12 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	// Different frequencies
 	} else {
 		var freq, freqLabel;
-		if (d.getCountryFreq() > d.getGeneralFreq()) {
-			freq = d.getCountryFreq() / d.getGeneralFreq();
+		if (d.getX() > d.getY()) {
+			freq = d.getX() / d.getY();
 			freq = Math.round(freq * 100) / 100;
 			freqLabel = " higher in Country";
-		} else if (d.getCountryFreq() < d.getGeneralFreq()) {
-			freq = d.getGeneralFreq() / d.getCountryFreq();
+		} else if (d.getX() < d.getY()) {
+			freq = d.getY() / d.getX();
 			freq = Math.round(freq * 100) / 100;
 			freqLabel = " higher in other genres";
 		}
@@ -726,7 +726,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 		.attr("id", "tooltip")
     	.attr("x", countX)
    		.attr("y", y + (5 * v_spacing))
-	    .text(d.getCountryFreq())
+	    .text(d.getX())
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)
@@ -738,7 +738,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 		.attr("id", "tooltip")
     	.attr("x", countX)
    		.attr("y", y + (9 * v_spacing))
-	    .text(d.getGeneralFreq())
+	    .text(d.getY())
 	    .attr("font-family", "sans-serif")
 	    .attr("font-size", fontSizeB)
 	    .attr("fill", TOOLTIP_TEXT_COLOR)

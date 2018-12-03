@@ -23,17 +23,17 @@ class LinePlot {
 	 */
 	draw() {
 		/* Render x axis */
-		var xValue = function(d) { return d.getCountryFreq(); },					// x is string to specify value
+		var xValue = function(d) { return d.getX(); },					// x is string to specify value
 			xScale = d3.scaleLinear().range([0, this.width]),						// value --> display
 			xMap   = function(d) { return xScale(xValue(d)) + self.margin.left; },	// data --> display
 			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0), 					// axis
 			yScale = d3.scaleLinear().range([this.height, 0]);		// value --> display
 
 		var colorMap = function(d) {	
-			var res = d.getGeneralFreq() - d.getCountryFreq();
+			var res = d.getY() - d.getX();
 			// More common in country, bottom triangle
 			if (res < 0) {
-				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq()));
+				var spectrum = (yScale(d.getY()) - yScale(d.getX()));
 				if (spectrum > 0 && spectrum <= self.height / 5.0) {
 					return "#ccccff";
 				}
@@ -52,7 +52,7 @@ class LinePlot {
 			}
 			// Less common in country, top triangle
 			else if (res > 0) {
-				var spectrum = (yScale(d.getGeneralFreq()) - yScale(d.getCountryFreq())) * -1;
+				var spectrum = (yScale(d.getY()) - yScale(d.getX())) * -1;
 				if (spectrum > 0 && spectrum <= self.height / 5.0) {
 					return "#ffcccc";
 				}
@@ -146,7 +146,7 @@ class LinePlot {
 		  	.attr("x", xMap)
 		  	.attr("y", xAxisShift + 40)
 		  	.attr("fill", "grey")
-		  	.text(function(d) { return d.getCountryFreq(); })
+		  	.text(function(d) { return d.getX(); })
 
 		// Center labels around their corresponding points
 		var labels = self.svg.selectAll(".lineplotdot.info");
@@ -245,7 +245,7 @@ class LinePlot {
 
 
 		// y mappings
-		var yValue = function(d) { return d.getGeneralFreq(); },	// y is string to specify value
+		var yValue = function(d) { return d.getY(); },	// y is string to specify value
 			yScale = d3.scaleLinear().range([this.height, 0]),		// value --> display
 			yMap   = function(d) { return yScale(yValue(d)) + self.margin.top; },		// data --> display
 			yLabelMap   = function(d) { return yScale(yValue(d)) + self.margin.top - 10; },		// data --> display

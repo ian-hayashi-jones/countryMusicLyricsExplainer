@@ -73,9 +73,9 @@ var scrollVis = function () {
       height: height,
       margin: margin,
       data: [
-              new Word(['howdy', 500, 5000, 200, 75, 300, 25]),
-              new Word(['wow', 3000, 2500, 200, 75, 300, 25]),
-              new Word(['nascar', 7000, 8000, 100, 100, 100, 100]),
+              new Word(['howdy', 500, 5000]),
+              new Word(['wow', 3000, 2500]),
+              new Word(['nascar', 7000, 8000]),
             ]
     });
 

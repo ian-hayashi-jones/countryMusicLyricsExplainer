@@ -16,50 +16,21 @@ const NUM_COUNTRY_MALE_WORDS   = 5000;
 
 class Word {
 
-
-	/* 
-	 * opts = [ word,
-	 			country word count, 
-	            general word count, 
-	            female general word count,
-	            male general word count,
-	            female country word count,
-	            male country word count ]
-	 */
 	constructor(opts) {
-		this.word 			   = opts[0];
-		this.countryFreq       = opts[1] / NUM_COUNTRY_WORDS;
-		this.generalFreq 	   = opts[2] / NUM_GENERAL_WORDS;
-		this.femaleCountryFreq = opts[3] / NUM_COUNTRY_FEMALE_WORDS;
-		this.femaleGeneralFreq = opts[4] / NUM_GEN_FEMALE_WORDS;
-		this.maleCountryFreq   = opts[5] / NUM_COUNTRY_MALE_WORDS;	
-		this.maleGeneralFreq   = opts[6] / NUM_GEN_MALE_WORDS;	
+		this.word = opts[0];
+		this.x    = opts[1] / NUM_COUNTRY_WORDS;
+		this.y 	  = opts[2] / NUM_GENERAL_WORDS;
 	}
 
 	print() { console.log("printing word " + this.word); }
 
 	getWord() { return this.word; }
 
-	getGeneralFreq() { return this.generalFreq; }
+	getX() { return this.x; }
 
-	getCountryFreq() { return this.countryFreq; }
+	getY() { return this.y; }
 
-	getFemaleGeneralFreq() { return this.femaleGeneralFreq; }
-
-	getFemalCountryFreq() { return this.femaleCountryFreq; }
-
-	getMaleGeneralFreq() { return this.maleGeneralFreq; }
-
-	getMaleCountryFreq() { return this.maleCountryFreq; }
-
-	getCountryOdds() { return this.countryFreq / this.generalFreq; }
-
-	// getColor() { 
-	// 	if (this.countryFreq > this.generalFreq) return "#CE4040";
-	// 	if (this.countryFreq < this.generalFreq) return "#4079CE";
-	// 	return "#C040CE";
-	// }
-
+	getOdds() { return 1.0 * this.x / this.y; }
 
 
 	/* Static info about corpuses */
