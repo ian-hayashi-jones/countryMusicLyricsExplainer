@@ -52,28 +52,19 @@ var scrollVis = function () {
    *  example, we will be drawing it in #vis
    */
   var vis = function (selection) {
+    // For country vis
     svg1 = d3.select(selection._groups[0][0]).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
                            .attr("id", "svg1")
+    // For gender vis
     svg2 = d3.select(selection._groups[0][1]).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
                            .attr("id", "svg2")
 
-    
-    // selection.each(function () {
-      // create svg and give it a width and height
-      // svg1 = d3.select(this).append('svg')
-      //                      .attr('width', width + margin.left + margin.right)
-      //                      .attr('height', height + margin.top + margin.bottom)
       setupVis();
-      // svg2 = d3.select(d3.select(".vis.second")).append('svg')
-      //                      .attr('width', width + margin.left + margin.right)
-      //                      .attr('height', height + margin.top + margin.bottom)
-
       setupSections();
-    // });
   };
 
 
@@ -82,22 +73,7 @@ var scrollVis = function () {
    * sections of the visualization.
    */
   var setupVis = function () {
-
-    // Line plot
-    countryLinePlot = new LinePlot({
-      svg: svg1,
-      width: width,
-      height: height,
-      margin: margin,
-      data: [
-              new Word(['turtle', .12247131, .3516464]),
-              new Word(['nights', 4.36510576, 1.54109188]),
-              new Word(['shell', 1.621325, .74821127]),
-            ]
-    });
-
-
-    // Scatterplot
+        // Country scatterplot
     countryScatterPlot = new ScatterPlot({
       svg: svg1,
       width: width,
@@ -108,31 +84,46 @@ var scrollVis = function () {
     });
     countryScatterPlot.hideFast();
 
-
-    // Line plot
-    genderLinePlot = new LinePlot({
-      svg: svg2,
+    // Country line plot
+    countryLinePlot = new LinePlot({
+      svg: svg1,
       width: width,
       height: height,
       margin: margin,
+      type: "country",
       data: [
               new Word(['turtle', .12247131, .3516464]),
               new Word(['nights', 4.36510576, 1.54109188]),
-              new Word(['shell', 1.621325, .74821127]),
+              new Word(['trailer', .71, .06]),
+              new Word(['baby', 48.7, 36.5]),
             ]
     });
 
-
-    // Scatterplot
+    // Gender scatterplot
     genderScatterPlot = new ScatterPlot({
       svg: svg2,
       width: width,
       height: height,
       margin: margin,
       csv: '../data/country_hot.csv',
-      type: "gender"
+      type: "gender",
     });
     genderScatterPlot.hideFast();
+
+
+    // Gender line plot
+    genderLinePlot = new LinePlot({
+      svg: svg2,
+      width: width,
+      height: height,
+      margin: margin,
+      type: "gender",
+      data: [
+              new Word(['turtle', .12247131, .3516464]),
+              new Word(['nights', 4.36510576, 1.54109188]),
+              new Word(['shell', 1.621325, .74821127]),
+            ]
+    });
   };
    
 
@@ -147,15 +138,16 @@ var scrollVis = function () {
     // activateFunctions are called each
     // time the active section changes
     activateFunctions[0] = showCountryLinePlot;
-    activateFunctions[1] = showYAxis;
+    activateFunctions[1] = showCountryYAxis;
     activateFunctions[2] = showCountryScatterPlot;
-    activateFunctions[3] = showWordList;
-    activateFunctions[4] = showSection;
-    activateFunctions[5] = showGenderScatterPlot;
-    activateFunctions[6] = showSection;
-    activateFunctions[7] = showSection;
-    activateFunctions[8] = showSection;
-    activateFunctions[9] = showSection;
+    activateFunctions[3] = showCountryWordList;
+    activateFunctions[4] = showCountryWordList;
+    activateFunctions[5] = showCountryWordList;
+    activateFunctions[6] = showGenderLinePlot;
+    activateFunctions[7] = showGenderYAxis;
+    activateFunctions[8] = showGenderScatterPlot;
+    activateFunctions[9] = showGenderWordList;
+    activateFunctions[10] = showGenderWordList;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -182,8 +174,6 @@ var scrollVis = function () {
    * user may be scrolling up or down).
    *
    */
-
-
   function showSection() {
     console.log("section showing");
   }
@@ -191,24 +181,19 @@ var scrollVis = function () {
   /**
    * showLinePlot
    *
-   * index: ___
-   * hides: previous and next
-   * shows: most country words...
+   * index: 0
    */
   function showCountryLinePlot() {
-    console.log("section 1")
     countryLinePlot.show();
   }
 
   /**
    * stepOneLinePlot
    *
-   * index: ___
-   * hides: previous and next
-   * shows: most country words...
+   * index: 1
    */
-  function showYAxis() {
-    console.log("section 2")
+  function showCountryYAxis() {
+    countryLinePlot.stopAnimation(-1);
     countryScatterPlot.hide();
     countryLinePlot.showYAxis();
   }
@@ -216,41 +201,68 @@ var scrollVis = function () {
   /**
    * showScatterPlot - graph of ___
    *
-   * index: ___
-   * hides: previous and next
-   * shows: scatterplot
+   * index: 2
    */
   function showCountryScatterPlot() {
-    console.log("section 3")
-    // linePlot.hide();
     countryLinePlot.updateToScatterPlot();
     countryScatterPlot.showTriangles();
     countryScatterPlot.show(.1);
     countryScatterPlot.hideSearch();
   }
 
-  function showWordList() {
-    console.log("section 4")
+  /**
+   * showScatterPlot - graph of ___
+   *
+   * index: 3/4
+   */
+  function showCountryWordList() {
+    countryLinePlot.stopAnimation(1);
+    countryScatterPlot.showTriangles();
     countryScatterPlot.hideTriangles();
     countryScatterPlot.showSearch();
     countryScatterPlot.show(1);
   }
 
   /**
+   * showLinePlot
+   *
+   * index: 5
+   */
+  function showGenderLinePlot() {
+    genderLinePlot.show();
+  }
+
+  /**
+   * stepOneLinePlot
+   *
+   * index: 6
+   */
+  function showGenderYAxis() {
+    genderScatterPlot.hide();
+    genderLinePlot.showYAxis();
+  }
+
+  /**
    * showScatterPlot - graph of ___
    *
-   * index: ___
-   * hides: previous and next
-   * shows: scatterplot
+   * index: 7
    */
   function showGenderScatterPlot() {
-
-    // linePlot.hide();
-    // genderLinePlot.updateToScatterPlot();
-    console.log("showing gender scatterplot")
+    genderLinePlot.updateToScatterPlot();
     genderScatterPlot.showTriangles();
     genderScatterPlot.show(.1);
     genderScatterPlot.hideSearch();
+  }
+
+  /**
+   * showScatterPlot - graph of ___
+   *
+   * index: 8/9
+   */
+  function showGenderWordList() {
+    genderScatterPlot.hideTriangles();
+    genderScatterPlot.showSearch();
+    genderScatterPlot.show(1);
   }
 
 

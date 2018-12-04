@@ -20,9 +20,8 @@ class ScatterPlot {
 		self.width   = this.width;
 		self.height  = this.height;
 
-		this.csv = opts.csv;
+		this.csv  = opts.csv;
 		this.type = opts.type;			// for alternate x/y variables
-
 		this.draw();
 	}
 
@@ -31,24 +30,41 @@ class ScatterPlot {
 	draw() {
 		var svg = this.svg;
 		var type = this.type;
-		// x mappings
-		var xScale = d3.scaleLog()
-	    				.domain([
-							0.041572436, 
-							352.2016762
-	    				])
-						.range([0, self.width]),
-			xMap   = function(d) { return xScale(+d.x) + self.margin.left; };	// data --> display
-		
 
-		// y mappings
-		var yScale = d3.scaleLog()
-			    		.domain([
-			    			0.033501997,
-			    			387.1602479
-			    		])
-			    		.range([self.height, 0]),
-			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };		// data --> display
+		// Different axis scales depending on dataset
+		var xScale, yScale;
+		if (type == "country") {
+			xScale = d3.scaleLog()
+		    				.domain([
+								0.041572436, 
+								352.2016762
+		    				])
+							.range([0, self.width]),
+			yScale = d3.scaleLog()
+				    		.domain([
+				    			0.033501997,
+				    			387.1602479
+				    		])
+				    		.range([self.height, 0]);
+
+		} else if (type == "gender") {
+			xScale = d3.scaleLog()
+		    				.domain([
+								0.041572436, 
+								352.2016762
+		    				])
+							.range([0, self.width]),
+			yScale = d3.scaleLog()
+				    		.domain([
+				    			0.033501997,
+				    			387.1602479
+				    		])
+				    		.range([self.height, 0]);
+
+		}
+		// Map data to the display values
+		var xMap   = function(d) { return xScale(+d.x) + self.margin.left; },	
+			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };	
 			
 
 		/* search bar */
@@ -117,10 +133,10 @@ class ScatterPlot {
 		/* Draw line */
 		var lineData = [{"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 		var line = d3.line()
-	 			.x(function(d) { return d.x; })
-	 			.y(function(d) { return d.y; })
-	 		var lineGraph = svg.append("path")
-	 			.attr("class", "scatter line")
+	 		.x(function(d) { return d.x; })
+	 		.y(function(d) { return d.y; })
+	 	var lineGraph = svg.append("path")
+	 		.attr("class", "scatter line")
 	        .attr("d", line(lineData))
 	        .attr("stroke", GREY_ACCENT)
 	        .attr("stroke-width", 2)
@@ -187,18 +203,20 @@ class ScatterPlot {
 				.attr("fill", colorMap)
 				.style("opacity", 0)
 				.on("mouseover", function(d) {
-			  		hideTooltip(d);
-			  		showTooltip(d, svg);
+					if (d3.select(this).style("opacity") == 1.0) {
+			  			hideTooltip(d);
+			  			showTooltip(d, svg);
+					}
 			  	})
 			  	.on("mouseout", hideTooltip)
 		})
 
-		renderTriangles(svg);
+		renderTriangles(svg, this.type);
 	}
 
 
 	/* Shows the graph */
-	show(opacity, type) {
+	show(opacity) {
 		// show plotted points
 		this.svg.selectAll(".dot")
 		    .transition()
@@ -212,10 +230,6 @@ class ScatterPlot {
 			.style("opacity", 1.0);
 		// show axes
 		this.svg.selectAll(".scatter.axis")
-			.transition()
-     		.duration(TRANSITION_DURATION)
-			.style("opacity", 1.0);
-		this.svg.selectAll("." + type)
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
@@ -318,10 +332,15 @@ class ScatterPlot {
 	showSearch() {
 		// show search bar with animation
 		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
-		search.style.display = "inline-block";;
-		search.style.width = '0px';
-		search.style.height = '0px';
-		search.style.opacity = 0;
+		search.style.display = "inline-block";
+
+		// only animates the entry when the search bar isn't already there
+		if (search.style.opacity != 1.0) {
+			search.style.width = '0px';
+			search.style.height = '0px';
+			search.style.opacity = 0;
+		}
+
 		window.setTimeout(function () {
 			search.style.width = '';
 			search.style.height = '';
@@ -664,14 +683,14 @@ function hideTooltip(d) {
 
 
 
-function renderTriangles(svg) {
+function renderTriangles(svg, type) {
 	/* Draw triangles */
 	var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var line = d3.line()
 			.x(function(d) { return d.x; })
 			.y(function(d) { return d.y; })
-		var topTriangle = svg.append("path")
+	var topTriangle = svg.append("path")
 			.attr("class", "triangle")
         .attr("d", line(topTriangleData))
         .attr("fill", "#ff0000")
@@ -702,58 +721,108 @@ function renderTriangles(svg) {
     	.attr("y", 0)
     	.attr("fill", "#ff3333")
     	.text("usage")
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 20)
-    	.attr("fill", "#ff3333")
-    	.text("in country")
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 40)
-    	.attr("fill", "#ff3333")
-    	.text("compared to")
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 60)
-    	.attr("fill", "#ff3333")
-    	.text("other genres")
+
 
     /* Draw bottom triangle labels and arrows */
-    var topLabels = svg.append("g")
+    var botLabels = svg.append("g")
     	.attr("class", "trianglelabels")
     	.attr("transform", "translate(" + self.width*3/4 + "," + self.height*2/3 + ")")
     	.style("opacity", 0)
-    topLabels.append("text")
+    botLabels.append("text")
     	.attr("x", 0)
     	.attr("y", 0)
     	.attr("fill", "#3333ff")
     	.style("font-weight", "bold")
     	.text("More")
-    topLabels.append("text")
+    botLabels.append("text")
     	.attr("x", 40)
     	.attr("y", 0)
     	.attr("fill", "#3333ff")
     	.text("usage")
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 20)
-    	.attr("fill", "#3333ff")
-    	.text("in country")
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 40)
-    	.attr("fill", "#3333ff")
-    	.text("compared to")
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 60)
-    	.attr("fill", "#3333ff")
-    	.text("other genres")
+
+
+   	if (type == "country") {
+   		// top triangle labels
+	   	topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 20)
+	    	.attr("fill", "#ff3333")
+	    	.text("in country")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 40)
+	    	.attr("fill", "#ff3333")
+	    	.text("compared to")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 60)
+	    	.attr("fill", "#ff3333")
+	    	.text("other genres")
+
+	   	// bot trianlge labels
+		botLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 20)
+	    	.attr("fill", "#3333ff")
+	    	.text("in country")
+	    botLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 40)
+	    	.attr("fill", "#3333ff")
+	    	.text("compared to")
+	    botLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 60)
+	    	.attr("fill", "#3333ff")
+	    	.text("other genres")
+
+   	} else if (type == "gender") {
+   		// top triangle labels
+	   	topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 20)
+	    	.attr("fill", "#ff3333")
+	    	.text("with female artists")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 40)
+	    	.attr("fill", "#ff3333")
+	    	.text("compared to")
+	    topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 60)
+	    	.attr("fill", "#ff3333")
+	    	.text("male artists")
+
+	    // bot triangle labels
+		botLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 20)
+	    	.attr("fill", "#3333ff")
+	    	.text("with female artists")
+	    botLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 40)
+	    	.attr("fill", "#3333ff")
+	    	.text("compared to")
+	    botLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 60)
+	    	.attr("fill", "#3333ff")
+	    	.text("male artists")
+   	}
 }
 
 
+/*
+ * Draws the x and y axes and labels 
+ */
 function renderAxes(svg, type) {
-	var xScale = d3.scaleLog()
+
+	// Different axis scales depending on dataset
+	var xScale, yScale;
+	if (type == "country") {
+		xScale = d3.scaleLog()
 	    				.domain([
 							0.041572436, 
 							352.2016762
@@ -765,6 +834,23 @@ function renderAxes(svg, type) {
 			    			387.1602479
 			    		])
 			    		.range([self.height, 0]);
+
+	} else if (type == "gender") {
+		xScale = d3.scaleLog()
+	    				.domain([
+							0.041572436, 
+							352.2016762
+	    				])
+						.range([0, self.width]),
+		yScale = d3.scaleLog()
+			    		.domain([
+			    			0.033501997,
+			    			387.1602479
+			    		])
+			    		.range([self.height, 0]);
+
+	}
+	
 	var xAxis = d3.axisBottom(xScale).ticks(0).tickSize(0); 	// x axis
         yAxis = d3.axisLeft(yScale).ticks(0).tickSize(0);		// y axis
 	/* Draw x axis */
@@ -786,12 +872,6 @@ function renderAxes(svg, type) {
 	// x axis labels
 	var spacing = 10;
 	var xAxisLabelsY = self.height  + self.margin.bottom + spacing;
-	svg.append("text")
-		.attr("class", "scatter x axis")
-	  	.attr("x", self.margin.left + (self.width / 2) - 50)
-	  	.attr("y", xAxisLabelsY)
-	  	.text("In Country")
-	  	.style("font-weight", "bold")
 	svg.append("text")
 		.attr("class", "scatter x axis")
 	  	.attr("x", self.width + self.margin.left - 70)
@@ -829,7 +909,14 @@ function renderAxes(svg, type) {
 	  	.text("Usage")
 	  	.style("font-style", "italic")
 
+	// Axis labels different depending on dataset
 	if (type == "country") {
+		svg.append("text")
+			.attr("class", "scatter x axis")
+		  	.attr("x", self.margin.left + (self.width / 2) - 50)
+		  	.attr("y", xAxisLabelsY)
+		  	.text("In Country")
+		  	.style("font-weight", "bold")
 		svg.append("text")
 		  	.attr("class", "country")
 		  	.attr("x", yAxisLabelsX)
@@ -850,21 +937,21 @@ function renderAxes(svg, type) {
 		  	.style("font-weight", "bold")
 	} else if (type == "gender") {
 		svg.append("text")
-		  	.attr("class", "gender")
-		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
-		  	.text("In")
+			.attr("class", "scatter x axis")
+		  	.attr("x", self.margin.left + (self.width / 2) - 65)
+		  	.attr("y", xAxisLabelsY)
+		  	.text("Female artists")
 		  	.style("font-weight", "bold")
 		svg.append("text")
 		  	.attr("class", "gender")
 		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", self.margin.top + (self.height / 2))
+		  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
 		  	.text("Male")
 		  	.style("font-weight", "bold")
 		svg.append("text")
 		  	.attr("class", "gender")
 		  	.attr("x", yAxisLabelsX)
-		  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
+		  	.attr("y", self.margin.top + (self.height / 2))
 		  	.text("Artists")
 		  	.style("font-weight", "bold")
 	}

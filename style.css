@@ -90,17 +90,17 @@
 }
 
 .vis-title {
+  text-align: center;
   font-family: Arial,Helvetica,"san-serif";
   font-size: 1.5em;
   font-weight: bold;
-  text-align: center;
   margin: .25em;
 }
 
 .vis-subtitle {
+  text-align: center;
   font-family: Arial,Helvetica,"san-serif";
   font-size: 1em;
-  text-align: center;
   margin: .25em;
 }
 

@@ -17,22 +17,38 @@
   <!-- First visualization -->
   <div class='vis-container first'>
 
+    <!-- 236,707 words country -->
+    <!-- 895,469 words other genres -->
+    <!-- 797 songs country -->
+    <!-- 2247 songs Hot -->
+
     <!-- Scrolling sections -->
     <div class='sections first'>
       <section class="step first">
-        <div class="title">Section 1</div>
-        First, we&#39re going to rank words that are most common in country lyrics. &quot;Love&quot;, for example, appears 21 times for every 10,000 words.
-        Among these few words, &quot;love&quot; is used in country more. But what matters for our analysis is usage in country compared to usage in all music lyrics. We want words unique to the genre: high frequency in country, low everywhere else.
+        <!-- <div class="title">Section 1</div> -->
+        First, we&#39re going to rank words that are most common in country lyrics. &quot;Baby&quot;, for example, appears 49 times for every 10,000 words.
+        Looking only at these words, it seems that &quot;baby&quot; is used in country the most. But what we really care about in our analysis is usage in country <b>compared to</b> usage in all music lyrics. 
+        <br>
+        We want to determine words that make &quot;country&quot; feel &quot;country&quot;, that is, words that have high frequency in country and low frequency everywhere else.
+        <br>
+        A lot of this analysis focuses on comparing lyric occurrence between different categories. First, we'll look at lyric occurrence in country vs. all other genres. 
       </section>
 
       <section class="step first">
-        <div class="title">Section 2</div>
-        Now we&#39ll compare country usage to other genres. We used lyrics from X songs (about Y million words) across all music genres available on Genius lyrics, except country. In this non-country dataset, words such as &quot;love&quot; are even more common: 71 times per 10,000 words (vs. 21 in hip hop).
+        <!-- <div class="title">Section 2</div> -->
+        In order to compare the two categories, we first compiled a &quot;country&quot; corpus and an &quot;all other genres&quot; corpus. To create the &quot;country&quot; corpus, we took songs from the Billboard Country charts from December 2013 - November 2018; to create the &quot;all other genres&quot; corpus, we took songs from the Billboard Top charts (removing any songs that appeared in the Billboard Country charts) during the same time period.
+        <br>
+        This resulted in a grand total of 3044 songs (about 1.1 million words) that we then gathered from Genius Lyrics.
       </section>
 
       <section class="step first">
-        <div class="title">Section 3</div>
-        Now you can see all the words we measured. Dots farther to the right are more popular in country. Dots farther up are more popular in other genres.
+        <!-- <div class="title">Section 3</div> -->
+        As you can see, although &quot;baby&quot; occurs in country the most out of these few words, it also occurs frequently in all other genres. Interestingly, although &quot;trailer&quot; appears much less frequently in both categories, it occurs much more frequently in country music <i>compared to</i> all other genres - this is what we care about.        
+      </section>
+
+      <section class="step first">
+        <!-- <div class="title">Section 3</div> -->
+        Now you can see all the words we measured. Dots farther to the right are more popular in country. Dots farther up are more popular in other genres. Keep scrolling to see the some interesting trends we found (don't worry, you'll still be able to play around with the graph).
       </section>
 
       <!-- Least country section -->
@@ -106,10 +122,17 @@
             <div class="otherwordcount"> 149 </div> 
           </div>
         </div>
+        <br>
+        Notice anything about these particular words? Sound like words that are pretty common in hip-hop songs, right? We think this is super interesting: looking into the list of "least country words", it appears that country and hip-hop are pretty much opposites when it comes to common word usage.
       </section>
-
+        
+      
       <!-- Most country section -->
       <section class="step first">
+        This is the one you've all been waiting for. We present the top 10 "country" words.
+        <br>
+        <br>
+
         <div class="title mostcountry">The "Most Country" words</div>
         <div class="wordlistHeader">
           <div class="word"> </div>
