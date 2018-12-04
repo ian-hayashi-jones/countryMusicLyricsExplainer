@@ -8,9 +8,8 @@ class ScatterPlot {
 
 
 	constructor(opts) {
-		self.svg	 = opts.svg;		// background
+		this.svg	 = opts.svg;		// background
 		self.currSearch = null;			// keep track of currently selected search term
-		self.data 	 = opts.data;
 		self.margin = opts.margin;
 
 		// make width and height equal
@@ -30,6 +29,8 @@ class ScatterPlot {
 
 	/* Draws the axes, labels, and plots the points */
 	draw() {
+		var svg = this.svg;
+		var type = this.type;
 		// x mappings
 		var xScale = d3.scaleLog()
 	    				.domain([
@@ -51,7 +52,7 @@ class ScatterPlot {
 			
 
 		/* search bar */
-		var search = document.querySelector('#search');
+		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
 		search.style.left = 1.2*self.margin.left + "px";
 		search.style.top = self.margin.top + 30 + "px";
 		
@@ -60,14 +61,14 @@ class ScatterPlot {
 		search.onkeyup = function() {
 			clearTimeout(timeout);				// Restart delay if key is pressed
 			timeout = setTimeout(function() {	// Delay function call
-				searchWords();
-			}, 150);
+				searchWords(svg, type);
+			}, 300);
 		}
 		search.onsearch = function() {	
 			clearTimeout(timeout);				// Restart delay if search is pressed
 			timeout = setTimeout(function() {	// Delay function call
-				searchWords();
-			}, 150);			
+				searchWords(svg, type);
+			}, 300);			
 		}
 
 		/* Set up word list functionality -- hovering over a word selects it in the vis */
@@ -78,7 +79,7 @@ class ScatterPlot {
 				hideTooltip();
 				d.style.background = "#f2f2f2";
 				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip.call(selection, selection.datum());
+				showTooltip(selection.datum(), svg);
 				self.currSearch = selection;
 
 			}
@@ -98,7 +99,7 @@ class ScatterPlot {
 				hideTooltip();
 				d.style.background = "#f2f2f2";
 				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip.call(selection, selection.datum());
+				showTooltip(selection.datum(), svg);
 				self.currSearch = selection;
 
 			}
@@ -117,14 +118,14 @@ class ScatterPlot {
 		var line = d3.line()
 	 			.x(function(d) { return d.x; })
 	 			.y(function(d) { return d.y; })
-	 		var lineGraph = self.svg.append("path")
+	 		var lineGraph = svg.append("path")
 	 			.attr("class", "scatter line")
 	        .attr("d", line(lineData))
 	        .attr("stroke", GREY_ACCENT)
 	        .attr("stroke-width", 2)
 
 
-	    renderAxes(this.type);
+	    renderAxes(svg, this.type);
 
 		var colorMap = function(d) {
 			var res = +d.y - +d.x;
@@ -174,7 +175,7 @@ class ScatterPlot {
 		};
 		// Plot points, store in array
 		d3.csv(this.csv).then(function (data) {
-			self.svg.selectAll(".dot")
+			svg.selectAll(".dot")
 				.data(data)
 				.enter().append("circle")
 				.attr("class", "scatter dot")
@@ -186,34 +187,34 @@ class ScatterPlot {
 				.style("opacity", 0)
 				.on("mouseover", function(d) {
 			  		hideTooltip(d);
-			  		showTooltip(d);
+			  		showTooltip(d, svg);
 			  	})
 			  	.on("mouseout", hideTooltip)
 		})
 
-		renderTriangles();
+		renderTriangles(svg);
 	}
 
 
 	/* Shows the graph */
 	show(opacity, type) {
 		// show plotted points
-		self.svg.selectAll(".dot")
+		this.svg.selectAll(".dot")
 		    .transition()
      		.delay(function(d, i) { return (i % 5) * TRANSITION_DELAY; })
      		.duration(TRANSITION_DURATION)
 			.style("opacity", opacity);
 		// show line
-		self.svg.selectAll(".scatter.line")
+		this.svg.selectAll(".scatter.line")
 		    .transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
 		// show axes
-		self.svg.selectAll(".scatter.axis")
+		this.svg.selectAll(".scatter.axis")
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
-		self.svg.selectAll("." + type)
+		this.svg.selectAll("." + type)
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 1.0);
@@ -223,29 +224,29 @@ class ScatterPlot {
 	/* Hides the graph */
 	hide() {
 		// hide search bar
-		var search = document.querySelector("#search")
+		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
 		window.setTimeout(function () {
 			search.style.opacity = 0;
 		}, TRANSITION_DELAY);
 
 		// hide plotted points
-		self.svg.selectAll(".dot")
+		this.svg.selectAll(".dot")
 		    .transition()
 		    .delay(function(d, i) { return (i % 5) * TRANSITION_DELAY; })
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
 		// hide line points
-		self.svg.selectAll(".scatter.line")
+		this.svg.selectAll(".scatter.line")
 		    .transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
 		// hide axes
-		self.svg.selectAll(".scatter.axis")
+		this.svg.selectAll(".scatter.axis")
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
 		// hide type specific labels
-		self.svg.selectAll("." + this.type)
+		this.svg.selectAll("." + this.type)
 			.transition()
      		.duration(TRANSITION_DURATION)
 			.style("opacity", 0);
@@ -258,20 +259,21 @@ class ScatterPlot {
 	/* Hides the graph without animationas */
 	hideFast() {
 		// hide search bar
-		document.querySelector("#search").style.opacity = 0;
+		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
+		search.style.opacity = 0;
 
 		// hide plotted points
-		self.svg.selectAll(".dot")
+		this.svg.selectAll(".dot")
 			.style("opacity", 0);
 		// hide line points
-		self.svg.selectAll(".scatter.line")
+		this.svg.selectAll(".scatter.line")
 			.style("opacity", 0);
 		// hide axes
-		self.svg.selectAll(".axis")
+		this.svg.selectAll(".axis")
 			.style("opacity", 0);
 
 		// hide type specific labels
-		self.svg.selectAll("." + this.type)
+		this.svg.selectAll("." + this.type)
 			.style("opacity", 0);
 
 		// hide tooltip
@@ -287,12 +289,12 @@ class ScatterPlot {
 
 	/* Displays the triangles on the graph */
 	showTriangles() {
-		self.svg.selectAll(".triangle")
+		this.svg.selectAll(".triangle")
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", .1)
 
-		self.svg.selectAll(".trianglelabels")
+		this.svg.selectAll(".trianglelabels")
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", 1)
@@ -300,12 +302,12 @@ class ScatterPlot {
 
 	/* Hides the triangles on the graph */
 	hideTriangles() {
-		self.svg.selectAll(".triangle")
+		this.svg.selectAll(".triangle")
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", 0)
 
-		self.svg.selectAll(".trianglelabels")
+		this.svg.selectAll(".trianglelabels")
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", 0)
@@ -314,7 +316,7 @@ class ScatterPlot {
 	/* Displays the search bar */
 	showSearch() {
 		// show search bar with animation
-		var search = document.querySelector("#search")
+		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
 		search.style.display = "inline-block";;
 		search.style.width = '0px';
 		search.style.height = '0px';
@@ -329,7 +331,7 @@ class ScatterPlot {
 	/* Hides the triangles on the graph */
 	hideSearch() {
 		// show search bar with animation
-		var search = document.querySelector("#search")
+		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
 		search.style.display = "inline-block";;
 
 		window.setTimeout(function () {
@@ -345,8 +347,8 @@ class ScatterPlot {
  * Allows searching functionality of the dataset
  * If word is found, animates a visual to highlight the searched word on the graph
  */
-function searchWords() {
-	var search = document.querySelector("#search");
+function searchWords(svg, type) {
+	var search = type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
 
 	// If a word is found, animate a transition to highlight it on the graph
 	if (search.value != "" && !d3.select("#" + search.value).empty()) {
@@ -372,7 +374,7 @@ function searchWords() {
 
 			// animate from origin
 			selection.attr("cx", self.margin.left);
-			selection.attr("cy", this.height - self.margin.bottom);
+			selection.attr("cy", self.height - self.margin.bottom);
 		}
 
 		// Animate dot enlarging
@@ -384,7 +386,7 @@ function searchWords() {
 			.style("stroke-width", 2)
 			.duration(TRANSITION_DURATION)
 
-		setTimeout(function() { showTooltip.call(selection, selection.datum()); }, TRANSITION_DURATION);
+		setTimeout(function() { showTooltip(selection.datum(), svg); }, TRANSITION_DURATION);
 	
 		self.currSearch = selection;		// keep track of currently searched term
 	} else {
@@ -400,7 +402,10 @@ function searchWords() {
 /*
  * Renders the tooltip information next to the given point
  */
-function showTooltip(d) {
+function showTooltip(d, svg) {
+	console.log("d = " + d.word)
+	console.log("coords = " + d.x + ", " + d.y)
+
 
 	self.currSearch = d3.select("#" + d.word);
 	// Animate dot enlarging
@@ -414,7 +419,19 @@ function showTooltip(d) {
 	    y = +d3.select("#" + d.word).attr("cy") + 20,
 	    rect_y = +d3.select("#" + d.word).attr("cy");
 
-	var dims = drawTooltipInfo(d, x, y, 0, 0, 0, false);
+	// Bounding rectangle, animated
+	var rect = svg.append("rect")
+	 	.attr('x', 40)
+		.attr('y', 40)
+		.attr('rx', 4)
+		.attr('ry', 4)
+		.attr('width', 40)
+		.attr('height', 40)
+
+
+	console.log("HEREE")
+
+	var dims = drawTooltipInfo(svg, d, x, y, 0, 0, 0, false);
 	var rect_width = dims[0],
 		wordWidth = dims[1],
 		freqWidth = dims[2],
@@ -429,7 +446,7 @@ function showTooltip(d) {
 	}
 
 	// Bounding rectangle, animated
-	var rect = self.svg.append("rect")
+	var rect = svg.append("rect")
 		.attr('id', 'tooltip')
 	 	.attr('x', x)
 		.attr('y', rect_y)
@@ -443,14 +460,15 @@ function showTooltip(d) {
 		.attr('width', rect_width)
 		.attr('height', 75)
 
-	drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, true);
+	drawTooltipInfo(svg, d, x, y, wordWidth, freqWidth, freqLabelWidth, true);
 }
 
 
 /* 
  * Draws the tooltip on the svg element
  */
-function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transition) {
+function drawTooltipInfo(svg, d, x, y, wordWidth, freqWidth, freqLabelWidth, transition) {
+	console.log("drawing, d = " + d.word)
 	// Spacing
 	var h_spacing = 10,
 		v_spacing = 5;
@@ -469,7 +487,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 
 	// FIRST COLUMN
 	// Word
-	var word = self.svg.append("text")
+	var word = svg.append("text")
 		.attr("id", "tooltip")
 	    .attr("x", x + h_spacing)
 	    .attr("y", y + v_spacing)
@@ -485,7 +503,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	var freqLabelWidth;
 	// Same frequency, probaably super rare
 	if (d.x === d.y) {
-		freqLabel1 = self.svg.append("text")
+		freqLabel1 = svg.append("text")
 	    	.attr("id", "tooltip")
 			.attr("x", x + h_spacing)
 			.attr("y", y + (5 * v_spacing))
@@ -508,7 +526,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 			freqLabel = " higher in other genres";
 		}
 
-		var freqLabel1 = self.svg.append("text")
+		var freqLabel1 = svg.append("text")
 	    	.attr("id", "tooltip")
 			.attr("x", x + h_spacing)
 			.attr("y", y + (5 * v_spacing))
@@ -518,7 +536,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 			.attr("fill", TOOLTIP_TEXT_COLOR)
 			.attr("opacity", opacity)
 			.style("font-weight", "bold")
-		var freqLabel2 = self.svg.append("text")
+		var freqLabel2 = svg.append("text")
 	    	.attr("id", "tooltip")
 			.attr("x", x + h_spacing + freqWidth + 4)
 			.attr("y", y + (5 * v_spacing))
@@ -537,7 +555,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
     // SECOND COLUMN
     var colWidth = Math.max(wordWidth, freqLabelWidth) + (3 * h_spacing);
 	// Usage
-	var usage = self.svg.append("text")
+	var usage = svg.append("text")
     	.attr("id", "tooltip")
 		.attr("x", x + colWidth)
 		.attr("y", y + v_spacing)
@@ -549,7 +567,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 		.style("font-weight", "lighter")
 	
 	// Country frequency
-	var countryFreq = self.svg.append("text")
+	var countryFreq = svg.append("text")
 		.attr("id", "tooltip")
     	.attr("x", x + colWidth)
    		.attr("y", y + (5 * v_spacing))
@@ -560,7 +578,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	    .attr("opacity", opacity)
 	
 	// General Frequency label
-	var generalFreq = self.svg.append("text")
+	var generalFreq = svg.append("text")
     	.attr("id", "tooltip")
 		.attr("x", x + colWidth)
 		.attr("y", y + (9 * v_spacing))
@@ -572,7 +590,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 
 	var countX = x + colWidth + 120;
 	// Country count
-	var countryCount = self.svg.append("text")
+	var countryCount = svg.append("text")
 		.attr("id", "tooltip")
     	.attr("x", countX)
    		.attr("y", y + (5 * v_spacing))
@@ -586,7 +604,7 @@ function drawTooltipInfo(d, x, y, wordWidth, freqWidth, freqLabelWidth, transiti
 	    .style("font-weight", "bold")
 
 	// General count
-	var otherCount = self.svg.append("text")
+	var otherCount = svg.append("text")
 		.attr("id", "tooltip")
     	.attr("x", countX)
    		.attr("y", y + (9 * v_spacing))
@@ -661,21 +679,21 @@ function hideTooltip(d) {
 
 
 
-function renderTriangles() {
+function renderTriangles(svg) {
 	/* Draw triangles */
 	var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var line = d3.line()
 			.x(function(d) { return d.x; })
 			.y(function(d) { return d.y; })
-		var topTriangle = self.svg.append("path")
+		var topTriangle = svg.append("path")
 			.attr("class", "triangle")
         .attr("d", line(topTriangleData))
         .attr("fill", "#ff0000")
         .attr("stroke", "#ff0000")
         .attr("stroke-width", 0)
         .style("opacity", 0)
-    var botTriangle = self.svg.append("path")
+    var botTriangle = svg.append("path")
 			.attr("class", "triangle")
         .attr("d", line(botTriangleData))
         .attr("fill", "#0000ff")
@@ -684,7 +702,7 @@ function renderTriangles() {
         .style("opacity", 0)
 
 	/* Draw top triangle labels and arrows */
-    var topLabels = self.svg.append("g")
+    var topLabels = svg.append("g")
     	.attr("class", "trianglelabels")
     	.attr("transform", "translate(" + self.width/2 + "," + self.height/3 + ")")
     	.style("opacity", 0)
@@ -716,7 +734,7 @@ function renderTriangles() {
     	.text("other genres")
 
     /* Draw bottom triangle labels and arrows */
-    var topLabels = self.svg.append("g")
+    var topLabels = svg.append("g")
     	.attr("class", "trianglelabels")
     	.attr("transform", "translate(" + self.width*3/4 + "," + self.height*2/3 + ")")
     	.style("opacity", 0)
@@ -749,7 +767,7 @@ function renderTriangles() {
 }
 
 
-function renderAxes(type) {
+function renderAxes(svg, type) {
 	var xScale = d3.scaleLog()
 	    				.domain([
 							0.041572436, 
@@ -766,7 +784,7 @@ function renderAxes(type) {
         yAxis = d3.axisLeft(yScale).ticks(0).tickSize(0);		// y axis
 	/* Draw x axis */
 	var xAxisShift = self.height + self.margin.top;
-	self.svg.append("g")
+	svg.append("g")
 		.attr("class", "scatter x axis")
 		.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
 		.call(xAxis)
@@ -774,7 +792,7 @@ function renderAxes(type) {
 	// x axis arrow
 	var xArrowX = self.width + self.margin.left;
 	var xArrowY = self.height + self.margin.top;
-	self.svg.append("svg:path")
+	svg.append("svg:path")
 		.attr("class", "scatter x axis")
 		.attr("d", d3.symbol().type(d3.symbolTriangle))
 		.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
@@ -783,13 +801,13 @@ function renderAxes(type) {
 	// x axis labels
 	var spacing = 10;
 	var xAxisLabelsY = self.height  + self.margin.bottom + spacing;
-	self.svg.append("text")
+	svg.append("text")
 		.attr("class", "scatter x axis")
 	  	.attr("x", self.margin.left + (self.width / 2) - 50)
 	  	.attr("y", xAxisLabelsY)
 	  	.text("In Country")
 	  	.style("font-weight", "bold")
-	self.svg.append("text")
+	svg.append("text")
 		.attr("class", "scatter x axis")
 	  	.attr("x", self.width + self.margin.left - 70)
 	  	.attr("y", xAxisLabelsY)
@@ -798,13 +816,13 @@ function renderAxes(type) {
 
 
 	/* Draw y axis */
-	self.svg.append("g")
+	svg.append("g")
 		.attr("class", "scatter y axis")
 		.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
 		.call(yAxis)
 
 	// y axis arrow
-	self.svg.append("svg:path")
+	svg.append("svg:path")
 		.attr("class", "scatter y axis")
 		.attr("d", d3.symbol().type(d3.symbolTriangle))
 		.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
@@ -813,13 +831,13 @@ function renderAxes(type) {
 	// y axis labels
 	var v_spacing = 17;
 	var yAxisLabelsX = 40;
-	self.svg.append("text")
+	svg.append("text")
 	  	.attr("class", "scatter y axis")
 	  	.attr("x", yAxisLabelsX + 10)
 	  	.attr("y", self.margin.top + v_spacing)
 	  	.text("More")
 	  	.style("font-style", "italic")
-	self.svg.append("text")
+	svg.append("text")
 	  	.attr("class", "scatter y axis")
 	  	.attr("x", yAxisLabelsX + 10)
 	  	.attr("y", self.margin.top + (2 * v_spacing))
@@ -827,38 +845,38 @@ function renderAxes(type) {
 	  	.style("font-style", "italic")
 
 	if (type == "country") {
-		self.svg.append("text")
+		svg.append("text")
 		  	.attr("class", "country")
 		  	.attr("x", yAxisLabelsX)
 		  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
 		  	.text("In")
 		  	.style("font-weight", "bold")
-		self.svg.append("text")
+		svg.append("text")
 		  	.attr("class", "country")
 		  	.attr("x", yAxisLabelsX)
 		  	.attr("y", self.margin.top + (self.height / 2))
 		  	.text("Other")
 		  	.style("font-weight", "bold")
-		self.svg.append("text")
+		svg.append("text")
 		  	.attr("class", "country")
 		  	.attr("x", yAxisLabelsX)
 		  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
 		  	.text("Genres")
 		  	.style("font-weight", "bold")
 	} else if (type == "gender") {
-		self.svg.append("text")
+		svg.append("text")
 		  	.attr("class", "gender")
 		  	.attr("x", yAxisLabelsX)
 		  	.attr("y", self.margin.top + (self.height / 2) - v_spacing)
 		  	.text("In")
 		  	.style("font-weight", "bold")
-		self.svg.append("text")
+		svg.append("text")
 		  	.attr("class", "gender")
 		  	.attr("x", yAxisLabelsX)
 		  	.attr("y", self.margin.top + (self.height / 2))
 		  	.text("Male")
 		  	.style("font-weight", "bold")
-		self.svg.append("text")
+		svg.append("text")
 		  	.attr("class", "gender")
 		  	.attr("x", yAxisLabelsX)
 		  	.attr("y", self.margin.top + (self.height / 2) + v_spacing)
@@ -866,13 +884,13 @@ function renderAxes(type) {
 		  	.style("font-weight", "bold")
 	}
 
-	self.svg.append("text")
+	svg.append("text")
 	  	.attr("class", "scatter y axis")
 	  	.attr("x", yAxisLabelsX + 20)
 	  	.attr("y", self.margin.top + self.margin.bottom / 2 + self.height)
 	  	.text("Less")
 	  	.style("font-style", "italic")
-	self.svg.append("text")
+	svg.append("text")
 	  	.attr("class", "scatter y axis")
 	  	.attr("x", yAxisLabelsX + 15)
 	  	.attr("y", self.margin.top + self.margin.bottom / 2 + self.height + v_spacing)

@@ -55,9 +55,9 @@ var scrollVis = function () {
     svg1 = d3.select(selection._groups[0][0]).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
-    // svg2 = d3.select(selection._groups[0][1]).append('svg')
-    //                        .attr('width', width + margin.left + margin.right)
-    //                        .attr('height', height + margin.top + margin.bottom)
+    svg2 = d3.select(selection._groups[0][1]).append('svg')
+                           .attr('width', width + margin.left + margin.right)
+                           .attr('height', height + margin.top + margin.bottom)
     
     // selection.each(function () {
       // create svg and give it a width and height
@@ -106,30 +106,30 @@ var scrollVis = function () {
     countryScatterPlot.hideFast();
 
 
-  //   // Line plot
-  //   genderLinePlot = new LinePlot({
-  //     svg: svg2,
-  //     width: width,
-  //     height: height,
-  //     margin: margin,
-  //     data: [
-  //             new Word(['turtle', .12247131, .3516464]),
-  //             new Word(['nights', 4.36510576, 1.54109188]),
-  //             new Word(['shell', 1.621325, .74821127]),
-  //           ]
-  //   });
+    // Line plot
+    genderLinePlot = new LinePlot({
+      svg: svg2,
+      width: width,
+      height: height,
+      margin: margin,
+      data: [
+              new Word(['turtle', .12247131, .3516464]),
+              new Word(['nights', 4.36510576, 1.54109188]),
+              new Word(['shell', 1.621325, .74821127]),
+            ]
+    });
 
 
-  //   // Scatterplot
-  //   genderScatterPlot = new ScatterPlot({
-  //     svg: svg2,
-  //     width: width,
-  //     height: height,
-  //     margin: margin,
-  //     csv: '../data/country_hot.csv',
-  //     type: "gender"
-  //   });
-  //   genderScatterPlot.hideFast();
+    // Scatterplot
+    genderScatterPlot = new ScatterPlot({
+      svg: svg2,
+      width: width,
+      height: height,
+      margin: margin,
+      csv: '../data/country_hot.csv',
+      type: "gender"
+    });
+    genderScatterPlot.hideFast();
   };
    
 
@@ -148,7 +148,7 @@ var scrollVis = function () {
     activateFunctions[2] = showCountryScatterPlot;
     activateFunctions[3] = showWordList;
     activateFunctions[4] = showSection;
-    activateFunctions[5] = showSection;
+    activateFunctions[5] = showGenderScatterPlot;
     activateFunctions[6] = showSection;
     activateFunctions[7] = showSection;
     activateFunctions[8] = showSection;

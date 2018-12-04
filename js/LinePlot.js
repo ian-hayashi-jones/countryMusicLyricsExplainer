@@ -4,7 +4,7 @@ class LinePlot {
 
 
 	constructor(opts) {
-		self.svg	 = opts.svg;		// background
+		this.svg	 = opts.svg;		// background
 		self.margin  = opts.margin;
 		
 		// make width and height equal
@@ -15,7 +15,7 @@ class LinePlot {
 		self.width   = this.width;
 		self.height  = this.height;
 
-		self.data 	 = opts.data;
+		this.data 	 = opts.data;
 		this.draw();
 	}
 
@@ -97,14 +97,14 @@ class LinePlot {
 		var spacing = 30;
 		var xAxisLabelsY = self.margin.top;
 		var xAxisShift = xAxisLabelsY + spacing;
-		self.svg.append("g")
+		this.svg.append("g")
 			.attr("class", "lineaxis")
 			.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
 			.call(xAxis)
 			
 		// x axis arrow
 		var xArrowX = this.width + self.margin.left;
-		self.svg.append("svg:path")
+		this.svg.append("svg:path")
 			.attr("class", "lineaxisarrow")
 			.attr("d", d3.symbol().type(d3.symbolTriangle))
 			.attr("transform", "translate(" + xArrowX + "," + xAxisShift + ")rotate(90)")
@@ -112,28 +112,28 @@ class LinePlot {
 
 		// x axis labels
 		// "In Country"
-		self.svg.append("text")
+		this.svg.append("text")
 			.attr("id", "lineaxislabelincountry")
 		  	.attr("x", self.margin.left + (this.width / 2) - 50)
 		  	.attr("y", xAxisLabelsY)
 		  	.text("In Country")
 		  	.style("font-weight", "bold")
 		// "More usage"
-		self.svg.append("text")
+		this.svg.append("text")
 			.attr("id", "lineaxislabelmore")
 		  	.attr("x", this.width + self.margin.left - 70)
 		  	.attr("y", xAxisLabelsY)
 		  	.text("More Usage")
 		  	.style("font-style", "italic")
 		// "Less"
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("id", "lineaxislabelless")
 		  	.attr("x", self.margin.left)
 		  	.attr("y", xAxisLabelsY)
 		  	.text("Less")
 		  	.style("font-style", "italic")
 		// "Usage"
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("id", "lineaxislabelusage")
 		  	.attr("x", self.margin.left + 32)
 		  	.attr("y", xAxisLabelsY)
@@ -141,8 +141,8 @@ class LinePlot {
 		  	.style("font-style", "italic")
 
 		/* Plot points */
-		var pointG = self.svg.selectAll(".lineplotdot")
-			.data(self.data)
+		var pointG = this.svg.selectAll(".lineplotdot")
+			.data(this.data)
 		  .enter().append("g")
 		pointG.append("circle")
 		  	.attr("class", "lineplotdot")
@@ -166,7 +166,7 @@ class LinePlot {
 		  	.text(function(d) { return Math.round(d.x * 100) / 100; })
 
 		// Center labels around their corresponding points
-		var labels = self.svg.selectAll(".lineplotdot.info");
+		var labels = this.svg.selectAll(".lineplotdot.info");
 		labels._groups[0].forEach(function(d) {
 			var x = d.getAttribute("x");
 			d.setAttribute("x", x - d.getComputedTextLength()/2)
@@ -186,52 +186,52 @@ class LinePlot {
 		var xArrowX = this.width + self.margin.left;
 
 		// animate x axis rise
-		self.svg.selectAll(".lineaxis")
+		this.svg.selectAll(".lineaxis")
 		    .transition()
      		.duration(TRANSITION_DURATION)
 			.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
-		self.svg.selectAll(".lineaxisarrow")
+		this.svg.selectAll(".lineaxisarrow")
 		    .transition()
      		.duration(TRANSITION_DURATION)
 			.attr("transform", "translate(" + xArrowX + "," + xAxisShift + ")rotate(90)")
 
 		// animate labels coming back up
-     	self.svg.selectAll("#lineaxislabelincountry")
+     	this.svg.selectAll("#lineaxislabelincountry")
      		.transition()
      		.duration(TRANSITION_DURATION)
 		  	.attr("y", xAxisLabelsY)
-     	self.svg.selectAll("#lineaxislabelmore")
+     	this.svg.selectAll("#lineaxislabelmore")
      		.transition()
      		.duration(TRANSITION_DURATION)
 		  	.attr("y", xAxisLabelsY)
-     	self.svg.selectAll("#lineaxislabelless")
+     	this.svg.selectAll("#lineaxislabelless")
      		.transition()
      		.duration(TRANSITION_DURATION)
 		  	.attr("x", self.margin.left)
      		.attr("y", xAxisLabelsY)
-     	self.svg.selectAll("#lineaxislabelusage")
+     	this.svg.selectAll("#lineaxislabelusage")
      		.transition()
      		.duration(TRANSITION_DURATION)
 		  	.attr("x", self.margin.left + 32)
 	  		.attr("y", xAxisLabelsY)
 
 	  	// animate data falling into place on the scatter plot
-     	self.svg.selectAll(".lineplotdot")
+     	this.svg.selectAll(".lineplotdot")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("cy", xAxisShift)
-     	self.svg.selectAll(".lineplotdot.info.word")
+     	this.svg.selectAll(".lineplotdot.info.word")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("y", xAxisShift + 20)
-     	self.svg.selectAll(".lineplotdot.info.freq")
+     	this.svg.selectAll(".lineplotdot.info.freq")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("y", xAxisShift + 40)
      		.style("opacity", 1)
 
      	// animate y axis hiding
-		self.svg.selectAll(".lineplotyaxis")
+		this.svg.selectAll(".lineplotyaxis")
 			.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("x", 0)
@@ -245,19 +245,19 @@ class LinePlot {
 	showYAxis() {
 
 		// Re-show if coming from below
-		self.svg.selectAll(".lineaxis")
+		this.svg.selectAll(".lineaxis")
  			.style("opacity", 1);
- 		self.svg.selectAll(".lineaxisarrow")
+ 		this.svg.selectAll(".lineaxisarrow")
  		    .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelincountry")
+ 		this.svg.selectAll("#lineaxislabelincountry")
  		     .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelmore")
+ 		this.svg.selectAll("#lineaxislabelmore")
  		    .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelless")
+ 		this.svg.selectAll("#lineaxislabelless")
  		    .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelusage")
+ 		this.svg.selectAll("#lineaxislabelusage")
  			.style("opacity", 1);
- 		self.svg.selectAll(".lineplotdot")
+ 		this.svg.selectAll(".lineplotdot")
  			.style("opacity", 1);
 
 		// y mappings
@@ -280,7 +280,7 @@ class LinePlot {
 
 
 		/* Draw y axis */
-		self.svg.append("g")
+		this.svg.append("g")
 			.attr("class", "lineplotyaxis")
 			.style("opacity", 0)
 			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
@@ -290,7 +290,7 @@ class LinePlot {
 			.call(yAxis)
 
 		// y axis arrow
-		self.svg.append("svg:path")
+		this.svg.append("svg:path")
 			.attr("class", "lineplotyaxis")
 			.style("opacity", 0)
 			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
@@ -303,7 +303,7 @@ class LinePlot {
 		// y axis labels
 		var v_spacing = 17;
 		var yAxisLabelsX = 40;
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("class", "lineplotyaxis")
 		  	.style("opacity", 0)
 			.transition()
@@ -313,7 +313,7 @@ class LinePlot {
 		  	.attr("y", self.margin.top + v_spacing)
 		  	.text("More")
 		  	.style("font-style", "italic")
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("class", "lineplotyaxis")
 		  	.style("opacity", 0)
 			.transition()
@@ -323,7 +323,7 @@ class LinePlot {
 		  	.attr("y", self.margin.top + (2 * v_spacing))
 		  	.text("Usage")
 		  	.style("font-style", "italic")
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("class", "lineplotyaxis")
 		  	.style("opacity", 0)
 			.transition()
@@ -333,7 +333,7 @@ class LinePlot {
 		  	.attr("y", self.margin.top + (this.height / 2) - v_spacing)
 		  	.text("In")
 		  	.style("font-weight", "bold")
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("class", "lineplotyaxis")
 		  	.style("opacity", 0)
 			.transition()
@@ -343,7 +343,7 @@ class LinePlot {
 		  	.attr("y", self.margin.top + (this.height / 2))
 		  	.text("Other")
 		  	.style("font-weight", "bold")
-		self.svg.append("text")
+		this.svg.append("text")
 		  	.attr("class", "lineplotyaxis")
 		  	.style("opacity", 0)
 			.transition()
@@ -356,49 +356,49 @@ class LinePlot {
 
 
 		// animate x axis drop
-		self.svg.selectAll(".lineaxis")
+		this.svg.selectAll(".lineaxis")
 		    .transition()
      		.duration(TRANSITION_DURATION)
      		.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
-		self.svg.selectAll(".lineaxisarrow")
+		this.svg.selectAll(".lineaxisarrow")
 		    .transition()
      		.duration(TRANSITION_DURATION)
      		.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
 
      	// animate axis labels drop
-     	self.svg.selectAll("#lineaxislabelincountry")
+     	this.svg.selectAll("#lineaxislabelincountry")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("y", xAxisLabelsY)
-     	self.svg.selectAll("#lineaxislabelmore")
+     	this.svg.selectAll("#lineaxislabelmore")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("x", this.width + self.margin.left - 70)
 		  	.attr("y", xAxisLabelsY)
-     	self.svg.selectAll("#lineaxislabelless")
+     	this.svg.selectAll("#lineaxislabelless")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("x", yAxisLabelsX + 20)
      		.attr("y", self.margin.top + self.margin.bottom / 2 + this.height)
-     	self.svg.selectAll("#lineaxislabelusage")
+     	this.svg.selectAll("#lineaxislabelusage")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("x", yAxisLabelsX + 15)
      		.attr("y", self.margin.top + self.margin.bottom / 2 + this.height + v_spacing)
 
      	// animate data falling into place on the scatter plot
-     	self.svg.selectAll(".lineplotdot")
+     	this.svg.selectAll(".lineplotdot")
      		.transition()
      		.duration(TRANSITION_DURATION)
      		.attr("y", yMap)
      		.attr("cy", yMap)
 
-		self.svg.selectAll(".lineplotdot.info.word")
+		this.svg.selectAll(".lineplotdot.info.word")
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.attr("y", yLabelMap)   		
 
-		self.svg.selectAll(".lineplotdot.info.freq")
+		this.svg.selectAll(".lineplotdot.info.freq")
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", 0)
@@ -408,19 +408,19 @@ class LinePlot {
 	 * Animates the transition to the second change in the displayed data
 	 */
 	updateSecond() {
-		self.svg.selectAll(".lineaxis")
+		this.svg.selectAll(".lineaxis")
  			.style("opacity", 1);
- 		self.svg.selectAll(".lineaxisarrow")
+ 		this.svg.selectAll(".lineaxisarrow")
  		    .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelincountry")
+ 		this.svg.selectAll("#lineaxislabelincountry")
  		     .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelmore")
+ 		this.svg.selectAll("#lineaxislabelmore")
  		    .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelless")
+ 		this.svg.selectAll("#lineaxislabelless")
  		    .style("opacity", 1);
- 		self.svg.selectAll("#lineaxislabelusage")
+ 		this.svg.selectAll("#lineaxislabelusage")
  			.style("opacity", 1);
- 		self.svg.selectAll(".lineplotdot")
+ 		this.svg.selectAll(".lineplotdot")
  			.style("opacity", 1);
 	}
 
@@ -429,22 +429,22 @@ class LinePlot {
 	 * Animates the transition to the scatter plot datas
 	 */
 	updateToScatterPlot() {
-
+		var svg = this.svg;
      	// wait till animation is over and then remove these so that there aren't two of everything once scatterplot is rendered
      	window.setTimeout(function () {
-			self.svg.selectAll(".lineaxis")
+			svg.selectAll(".lineaxis")
      			.style("opacity", 0);
-     		self.svg.selectAll(".lineaxisarrow")
+     		svg.selectAll(".lineaxisarrow")
      		    .style("opacity", 0);
-     		self.svg.selectAll("#lineaxislabelincountry")
+     		svg.selectAll("#lineaxislabelincountry")
      		     .style("opacity", 0);
-     		self.svg.selectAll("#lineaxislabelmore")
+     		svg.selectAll("#lineaxislabelmore")
      		    .style("opacity", 0);
-     		self.svg.selectAll("#lineaxislabelless")
+     		svg.selectAll("#lineaxislabelless")
      		    .style("opacity", 0);
-     		self.svg.selectAll("#lineaxislabelusage")
+     		svg.selectAll("#lineaxislabelusage")
      			.style("opacity", 0);
-     		self.svg.selectAll(".lineplotdot")
+     		svg.selectAll(".lineplotdot")
  				.style("opacity", 0);
 		}, TRANSITION_DURATION);
 	}

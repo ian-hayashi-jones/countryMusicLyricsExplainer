@@ -104,8 +104,14 @@
   margin: .25em;
 }
 
-#search {
+#searchA {
   position: relative;
+
+}
+
+#searchB {
+  position: relative;
+
 }
 
 
