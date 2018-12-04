@@ -55,9 +55,12 @@ var scrollVis = function () {
     svg1 = d3.select(selection._groups[0][0]).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
+                           .attr("id", "svg1")
     svg2 = d3.select(selection._groups[0][1]).append('svg')
                            .attr('width', width + margin.left + margin.right)
                            .attr('height', height + margin.top + margin.bottom)
+                           .attr("id", "svg2")
+
     
     // selection.each(function () {
       // create svg and give it a width and height

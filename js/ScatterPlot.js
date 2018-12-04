@@ -75,16 +75,16 @@ class ScatterPlot {
 		var wordList = document.querySelector(".wordlist.A").querySelectorAll(".wordentry");
 		wordList.forEach(function(d) {
 			// Highlight word in vis 
-			d.onmouseover = function(e) {
+			d.onmouseover = function() {
 				hideTooltip();
 				d.style.background = "#f2f2f2";
 				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip(selection.datum(), svg);
+				showTooltip(selection.datum(), d3.select("#svg1"));
 				self.currSearch = selection;
 
 			}
 			// Dehighlight word in vis
-			d.onmouseout = function(e) {
+			d.onmouseout = function() {
 				d.style.background = "white";
 				var selection = d3.select("#" + d.getAttribute("word"));
 				hideTooltip();
@@ -93,13 +93,14 @@ class ScatterPlot {
 		})
 		/* Set up word list functionality -- hovering over a word selects it in the vis */
 		var wordList = document.querySelector(".wordlist.B").querySelectorAll(".wordentry");
+
 		wordList.forEach(function(d) {
 			// Highlight word in vis 
-			d.onmouseover = function(e) {
+			d.onmouseover = function() {
 				hideTooltip();
 				d.style.background = "#f2f2f2";
 				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip(selection.datum(), svg);
+				showTooltip(selection.datum(), d3.select("#svg1"));
 				self.currSearch = selection;
 
 			}
@@ -403,9 +404,6 @@ function searchWords(svg, type) {
  * Renders the tooltip information next to the given point
  */
 function showTooltip(d, svg) {
-	console.log("d = " + d.word)
-	console.log("coords = " + d.x + ", " + d.y)
-
 
 	self.currSearch = d3.select("#" + d.word);
 	// Animate dot enlarging
@@ -418,18 +416,6 @@ function showTooltip(d, svg) {
 	var x = +d3.select("#" + d.word).attr("cx"),
 	    y = +d3.select("#" + d.word).attr("cy") + 20,
 	    rect_y = +d3.select("#" + d.word).attr("cy");
-
-	// Bounding rectangle, animated
-	var rect = svg.append("rect")
-	 	.attr('x', 40)
-		.attr('y', 40)
-		.attr('rx', 4)
-		.attr('ry', 4)
-		.attr('width', 40)
-		.attr('height', 40)
-
-
-	console.log("HEREE")
 
 	var dims = drawTooltipInfo(svg, d, x, y, 0, 0, 0, false);
 	var rect_width = dims[0],
@@ -468,7 +454,6 @@ function showTooltip(d, svg) {
  * Draws the tooltip on the svg element
  */
 function drawTooltipInfo(svg, d, x, y, wordWidth, freqWidth, freqLabelWidth, transition) {
-	console.log("drawing, d = " + d.word)
 	// Spacing
 	var h_spacing = 10,
 		v_spacing = 5;
