@@ -1,4 +1,4 @@
-word,country_count,x,hot_count,y,hot_over_country,country_over_hot
+word,country_count,x,hot_count,y,yOdds,xOdds
 beer,143,5.944858321,5,0.055836662,0.009392429,106.4687267
 southern,77,3.201077558,3,0.033501997,0.01046585,95.54885731
 whiskey,187,7.774045497,12,0.134007989,0.01723787,58.01180623

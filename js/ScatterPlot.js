@@ -222,7 +222,8 @@ class ScatterPlot {
 		    .transition()
      		.delay(function(d, i) { return (i % 5) * TRANSITION_DELAY; })
      		.duration(TRANSITION_DURATION)
-			.style("opacity", opacity);
+			.style("opacity", opacity)
+			.attr("r", DOT_SIZE);
 		// show line
 		this.svg.selectAll(".scatter.line")
 		    .transition()
@@ -326,6 +327,11 @@ class ScatterPlot {
 			.transition()
 			.duration(TRANSITION_DURATION)
 			.style("opacity", 0)
+
+		this.svg.selectAll(".highlight")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 0)
 	}
 
 	/* Displays the search bar */
@@ -359,6 +365,71 @@ class ScatterPlot {
 			search.style.height = '';
 			search.style.opacity = 0;
 		}, TRANSITION_DELAY * 2);
+	}
+
+	/* Highlights the words that have better x odds */
+	highlightXWords() {
+		this.svg.selectAll(".scatter.dot")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.attr("r", function(d) {
+				if (+d.yOdds < +d.xOdds) return 4;
+				return DOT_SIZE;
+		})
+
+		this.svg.selectAll(".highlight.y")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 0)
+
+
+		/* Draw triangles */
+		var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
+		var line = d3.line()
+				.x(function(d) { return d.x; })
+				.y(function(d) { return d.y; })
+	    var triangle = this.svg.append("path")
+				.attr("class", "highlight x")
+	        .attr("d", line(botTriangleData))
+	        .attr("fill", "#0000ff")
+	        .attr("stroke", "#0000ff")
+	        .attr("stroke-width", 0)
+	        .style("opacity", 0)
+	        .transition()
+	        .duration(TRANSITION_DURATION)
+	        .style("opacity", 0.1)
+	}
+
+	/* Highlights the words that have better y odds */
+	highlightYWords() {
+		this.svg.selectAll(".scatter.dot")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.attr("r", function(d) {
+				if (+d.yOdds > +d.xOdds) return 4;
+				return DOT_SIZE;
+			})
+
+		this.svg.selectAll(".highlight.x")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 0)
+
+		/* Draw triangle */
+		var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
+		var line = d3.line()
+				.x(function(d) { return d.x; })
+				.y(function(d) { return d.y; })
+		this.svg.append("path")
+				.attr("class", "highlight y")
+	        .attr("d", line(topTriangleData))
+	        .attr("fill", "#ff0000")
+	        .attr("stroke", "#ff0000")
+	        .attr("stroke-width", 0)
+	        .style("opacity", 0)
+	        .transition()
+	        .duration(TRANSITION_DURATION)
+	        .style("opacity", 0.1)
 	}
 }
 

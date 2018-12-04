@@ -222,7 +222,6 @@ class LinePlot {
 	 * Animates the transition back to the original state from draw() method
 	 */
 	show() {
-		console.log("show");
 		/* Animate x axis appearing */
 		var spacing = 30;
 		var xAxisLabelsY = self.margin.top;
@@ -299,7 +298,6 @@ class LinePlot {
 	 * Animates the transition to the first change in the displayed data
 	 */
 	showYAxis() {
-		console.log("showYAxis")
 		// Animate line appearing
      	this.svg.selectAll(".lineplotline")
      		.transition()
@@ -500,7 +498,6 @@ class LinePlot {
 	 * Animates the transition to the scatter plot datas
 	 */
 	updateToScatterPlot() {
-		console.log("updateToScatterPlot")
 		// y mappings
 		var yScale = d3.scaleLog()
 			    		.domain([
@@ -580,7 +577,6 @@ class LinePlot {
 	 * Stops the pulsing circles and hides labels
 	 */
 	stopAnimation(progress) {
-		console.log("stopAnimation" + progress)
 		if (progress == 1) {
 			this.svg.selectAll(".lineplotdot")
 				.style("opacity", 0); 

@@ -139,10 +139,10 @@ var scrollVis = function () {
     // time the active section changes
     activateFunctions[0] = showCountryLinePlot;
     activateFunctions[1] = showCountryYAxis;
-    activateFunctions[2] = showCountryScatterPlot;
-    activateFunctions[3] = showCountryWordList;
-    activateFunctions[4] = showCountryWordList;
-    activateFunctions[5] = showCountryWordList;
+    activateFunctions[2] = showCountryTriangles;
+    activateFunctions[3] = showCountryScatterPlot;
+    activateFunctions[4] = showLeastCountry;
+    activateFunctions[5] = showMostCountry;
     activateFunctions[6] = showGenderLinePlot;
     activateFunctions[7] = showGenderYAxis;
     activateFunctions[8] = showGenderScatterPlot;
@@ -174,9 +174,6 @@ var scrollVis = function () {
    * user may be scrolling up or down).
    *
    */
-  function showSection() {
-    console.log("section showing");
-  }
 
   /**
    * showLinePlot
@@ -203,7 +200,7 @@ var scrollVis = function () {
    *
    * index: 2
    */
-  function showCountryScatterPlot() {
+  function showCountryTriangles() {
     countryLinePlot.updateToScatterPlot();
     countryScatterPlot.showTriangles();
     countryScatterPlot.show(.1);
@@ -215,12 +212,30 @@ var scrollVis = function () {
    *
    * index: 3/4
    */
-  function showCountryWordList() {
+  function showCountryScatterPlot() {
     countryLinePlot.stopAnimation(1);
     countryScatterPlot.showTriangles();
     countryScatterPlot.hideTriangles();
     countryScatterPlot.showSearch();
     countryScatterPlot.show(1);
+  }
+
+  function showLeastCountry() {
+    // countryLinePlot.stopAnimation(1);
+    countryScatterPlot.showTriangles();
+    countryScatterPlot.hideTriangles();
+    countryScatterPlot.showSearch();
+    countryScatterPlot.show(1);
+    countryScatterPlot.highlightYWords();
+  }
+
+  function showMostCountry() {
+    // countryLinePlot.stopAnimation(1);
+    countryScatterPlot.showTriangles();
+    countryScatterPlot.hideTriangles();
+    countryScatterPlot.showSearch();
+    countryScatterPlot.show(1);
+    countryScatterPlot.highlightXWords();
   }
 
   /**
