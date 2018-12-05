@@ -547,7 +547,7 @@ class LinePlot {
      	// Show/hide 
 	    this.svg.selectAll(".lineplotdot")
 	    	.style("opacity", 1)
-	        .style("stroke", "black") 
+	        // .style("stroke", "black") 
 			.style("stroke-width", 2) 
 		this.svg.selectAll(".lineplotdot.info")
 	        .style("stroke", "black") 

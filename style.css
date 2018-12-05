@@ -22,7 +22,10 @@ html, body {
   justify-content: center;
   margin-top: 0px;
   margin-bottom: 0px;
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  /*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;*/
+  /*font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;*/
+  font-family: "Arial", "Helvetica", sans-serif;
+  /*font-family: "TiemposTextWeb-Regular","Georgia";*/
 }
 
 #maintitle .big {
@@ -35,6 +38,14 @@ html, body {
 
 #maintitle .small {
   font-size: 1.5em;
+  padding-bottom: .5em;
+  /*font-family: "Times New Roman", Times, serif;*/
+  font-family: "TiemposTextWeb-Regular","Georgia";
+}
+
+#maintitle .authors {
+  color: #767678;
+  font-family: "TiemposTextWeb-Regular","Georgia";
 }
 
 .spacing {
@@ -50,9 +61,9 @@ html, body {
 .parallax {
     /* The image used */
     background-image: url("../images/concert.jpg");
-/*    background-image: url("../images/boot.jpg");
-    background-image: url("../images/cowboy-cartoon.svg");
-    background-image: url("../images/cowboy-landscape.jpg");*/
+    /*background-image: url("../images/boot.jpg");*/
+    /*background-image: url("../images/cowboy-cartoon.svg");*/
+    /*background-image: url("../images/cowboy-landscape.jpg");*/
     /*width:500px;*/
     flex: 0 5 100%;
     /*object-fit: cover;*/
@@ -80,7 +91,7 @@ html, body {
 .step {
   margin-bottom: 250px;
   font-family: "TiemposTextWeb-Regular","Georgia";
-  font-size: 16px;
+  font-size: 1.1em;
   line-height: 23px;
   color: #767678;
 }
@@ -204,7 +215,30 @@ html, body {
 }
 
 
+#methodology-container {
+  border-left: .15em solid black;
+  padding-left: 1em;
+  margin:auto;
+  width: 30%;
+}
 
+#methodology-header {
+  margin:auto;
+  text-align: center;
+  padding-bottom: 1em;
+  font-size: 1.1em;
+  font-family: "Arial", "Helvetica", sans-serif;
+
+}
+
+#methodology-notes {
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  font-family: "TiemposTextWeb-Regular","Georgia";
+  font-size: .8em;
+  color: #767678;
+}
 
 
 

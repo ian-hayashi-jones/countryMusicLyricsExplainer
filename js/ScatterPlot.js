@@ -1,7 +1,8 @@
 const DOT_SIZE = 3;
-const HOVER_DOT_SIZE = 5;
+const HOVER_DOT_SIZE = 6;
 const TOOLTIP_TEXT_COLOR = "black";
 const GREY_ACCENT = "#f2f2f2";
+const DOT_STROKE_COLOR = "#4d4d4d";
 const TRANSITION_DELAY = 100;
 
 class ScatterPlot {
@@ -451,7 +452,7 @@ function searchWords(svg, type) {
 			.attr("cx", endX)
 			.attr("cy", endY)
 			.attr("r", HOVER_DOT_SIZE)
-			.style("stroke", "black")
+			.style("stroke", DOT_STROKE_COLOR)
 			.style("stroke-width", 2)
 			.duration(TRANSITION_DURATION)
 
@@ -477,7 +478,7 @@ function showTooltip(d, svg) {
 	// Animate dot enlarging
 	d3.select("#" + d.word).transition()
 		.attr("r", HOVER_DOT_SIZE)
-		.style("stroke", "black")
+		.style("stroke", DOT_STROKE_COLOR)
 		.style("stroke-width", 2)
 		.duration(TRANSITION_DURATION);	
 

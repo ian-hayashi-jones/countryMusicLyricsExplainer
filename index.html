@@ -9,9 +9,9 @@
   <div class="parallax-container">
     <div class="parallax">
       <div id="maintitle">
-        <!-- <p class="medium"> More than </p>  -->
         <p class="big"> More than blue jeans, trucks, and beer? </p> 
         <p class="small"> An exploration of country music lyrics </p> 
+        <p class="authors"> <u> Data analysis </u>:  Darby Schumacher&nbsp;|&nbsp;<u>Data visualization</u>: Ian Jones </p>
       </div>
     </div>
   </div>
@@ -127,6 +127,7 @@
             <div class="countrywordcount"> 1 </div> 
             <div class="otherwordcount"> 149 </div> 
           </div>
+          <br>
         </div>
         Notice anything about these particular words? Sound like words that are pretty common in hip-hop songs, right? We think this is super interesting: looking into the list of "least country words", it appears that country and hip-hop are pretty much opposites when it comes to common word usage.
       </section>
@@ -266,11 +267,28 @@
       <input id='searchB' type="search" placeholder="Search words...">
     </div>
   </div>
+  <div class="spacing"> </div>
+
+
+  <div id="methodology-container">
+    <div id= "methodology-header"> 
+      Methodology Notes
+    </div>
+    <div id="methodology-notes">
+      All lyric data was compiled from the last five years of songs that charted on the Billboard Hot 100 and Hot Country charts. 
+      <br>
+      <br>
+      Using the GeniusR package, we scraped the lyrics for each song and created a corpus with the count of lyrics for each word on each chart. 
+      We removed all songs from the Hot 100 corpus that also charted on Hot Country. For each word in each corpus, we calculated its occurrence per 10,000 lyrics.
+      <br>
+      <br>
+      We used Javascript's D3 library to implement our visualizations. 
+    </div>
+  </div>
+
 
   <div class="spacing"> </div>
-  <div class="spacing"> </div>
-  <div class="spacing"> </div>
-  <div class="spacing"> </div>
+
 
 
 
