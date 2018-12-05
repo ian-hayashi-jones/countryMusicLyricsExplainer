@@ -14,7 +14,7 @@ var genderScatterPlot;
 var scrollVis = function () {
   // constants to define the size
   // and margins of the vis area.
-  var width = 1000;
+  var width = 500;
   var height = 500;
   var margin = { top: 20, left: 100, bottom: 40, right: 20 };
 
