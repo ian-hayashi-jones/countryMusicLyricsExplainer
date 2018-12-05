@@ -14,7 +14,7 @@ var genderScatterPlot;
 var scrollVis = function () {
   // constants to define the size
   // and margins of the vis area.
-  var width = 500;
+  var width = 800;
   var height = 500;
   var margin = { top: 20, left: 100, bottom: 40, right: 20 };
 
@@ -244,7 +244,8 @@ var scrollVis = function () {
    * index: 5
    */
   function showGenderLinePlot() {
-    genderLinePlot.show();
+    genderScatterPlot.hide();
+    // genderLinePlot.show();
   }
 
   /**
@@ -253,8 +254,8 @@ var scrollVis = function () {
    * index: 6
    */
   function showGenderYAxis() {
-    genderScatterPlot.hide();
-    genderLinePlot.showYAxis();
+    // genderScatterPlot.hide();
+    // genderLinePlot.showYAxis();
   }
 
   /**
@@ -263,10 +264,10 @@ var scrollVis = function () {
    * index: 7
    */
   function showGenderScatterPlot() {
-    genderLinePlot.updateToScatterPlot();
-    genderScatterPlot.showTriangles();
-    genderScatterPlot.show(.1);
-    genderScatterPlot.hideSearch();
+    // genderLinePlot.updateToScatterPlot();
+    // genderScatterPlot.showTriangles();
+    // genderScatterPlot.show(.1);
+    // genderScatterPlot.hideSearch();
   }
 
   /**
@@ -275,9 +276,9 @@ var scrollVis = function () {
    * index: 8/9
    */
   function showGenderWordList() {
-    genderScatterPlot.hideTriangles();
-    genderScatterPlot.showSearch();
-    genderScatterPlot.show(1);
+    // genderScatterPlot.hideTriangles();
+    // genderScatterPlot.showSearch();
+    // genderScatterPlot.show(1);
   }
 
 

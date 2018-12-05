@@ -1,14 +1,19 @@
 html, body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
 }
 
+
 #maintitle {
-  background-color: grey;
-  width: 60%;
   margin:auto;
   margin-top: 300px;
-  padding: 20px;
+  padding: .8em;
+  width: 52%;
+  border-radius: .2em;
+  background-color: #fafafa;
+  /* horizontal offset, vertical offset, blur, spread, color */
+  box-shadow: 2px 6px 8px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* Main title */
@@ -21,15 +26,15 @@ html, body {
 }
 
 #maintitle .big {
-  font-size: 5em;
-}
-
-#maintitle .medium {
   font-size: 3em;
 }
 
-#maintitle .small {
+#maintitle .medium {
   font-size: 2em;
+}
+
+#maintitle .small {
+  font-size: 1.5em;
 }
 
 .spacing {
@@ -38,15 +43,19 @@ html, body {
 
 .parallax-container {
   width: 100%;
-    height: 1000px;
+  height: 1000px;
   display: flex;
 }
 
 .parallax {
     /* The image used */
-    background-image: url("../images/guitar_background.jpg");
+    background-image: url("../images/concert.jpg");
+/*    background-image: url("../images/boot.jpg");
+    background-image: url("../images/cowboy-cartoon.svg");
+    background-image: url("../images/cowboy-landscape.jpg");*/
+    /*width:500px;*/
     flex: 0 5 100%;
-    object-fit: cover;
+    /*object-fit: cover;*/
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -76,6 +85,17 @@ html, body {
   color: #767678;
 }
 
+.paragraph {
+  /*background-color: #f3f3f2;*/
+  padding-left: 1em;
+  border-left: .15em solid black;
+}
+
+.list {
+  padding-left: 1em;
+  border-left: .15em solid black;
+}
+
 .sections .title {
   font-family: Arial,Helvetica,"san-serif";
   font-size: 16px;
@@ -91,7 +111,7 @@ html, body {
   font-weight: bold;
   margin-bottom: 2px;
   color: #ff0000;
-  opacity: .6;
+  opacity: .8;
   line-height: 1.2em;
 }
 
@@ -101,7 +121,7 @@ html, body {
   font-weight: bold;
   margin-bottom: 2px;
   color: #0000ff;
-  opacity: .6;
+  opacity: .8;
   line-height: 1.2em;
 }
 
@@ -136,11 +156,13 @@ html, body {
 }
 
 #searchA {
+  /*background-color: #fff7ee;*/
   position: relative;
 
 }
 
 #searchB {
+  /*background-color: #f9f2ec;*/
   position: relative;
 
 }

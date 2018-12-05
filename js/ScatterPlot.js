@@ -1,7 +1,7 @@
 const DOT_SIZE = 3;
 const HOVER_DOT_SIZE = 5;
 const TOOLTIP_TEXT_COLOR = "black";
-const GREY_ACCENT = "#ddd";
+const GREY_ACCENT = "#f2f2f2";
 const TRANSITION_DELAY = 100;
 
 class ScatterPlot {
@@ -101,7 +101,7 @@ class ScatterPlot {
 			}
 			// Dehighlight word in vis
 			d.onmouseout = function() {
-				d.style.background = "white";
+				d.style.background = document.querySelector("body").style.background;
 				var selection = d3.select("#" + d.getAttribute("word"));
 				hideTooltip();
 				self.currSearch = null;
@@ -122,7 +122,7 @@ class ScatterPlot {
 			}
 			// Dehighlight word in vis
 			d.onmouseout = function(e) {
-				d.style.background = "white";
+				d.style.background = document.querySelector("body").style.background;
 				var selection = d3.select("#" + d.getAttribute("word"));
 				hideTooltip();
 				self.currSearch = null;
@@ -509,7 +509,7 @@ function showTooltip(d, svg) {
 		.attr('width', 0)
 		.attr('height', 0)
 		.attr('fill', GREY_ACCENT)
-		.style("opacity", .8)
+		.style("opacity", .9)
 	rect.transition()
 		.attr('width', rect_width)
 		.attr('height', 75)
