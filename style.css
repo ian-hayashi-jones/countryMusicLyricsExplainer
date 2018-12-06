@@ -60,7 +60,7 @@ html, body {
 
 .parallax {
     /* The image used */
-    background-image: url("../images/concert.jpg");
+    background-image: url("images/concert.jpg");
     /*background-image: url("../images/boot.jpg");*/
     /*background-image: url("../images/cowboy-cartoon.svg");*/
     /*background-image: url("../images/cowboy-landscape.jpg");*/

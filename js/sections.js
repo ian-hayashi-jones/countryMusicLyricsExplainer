@@ -79,7 +79,7 @@ var scrollVis = function () {
       width: width,
       height: height,
       margin: margin,
-      csv: '../data/country_hot.csv',
+      csv: 'data/country_hot.csv',
       type: "country"
     });
     countryScatterPlot.hideFast();
@@ -105,7 +105,7 @@ var scrollVis = function () {
       width: width,
       height: height,
       margin: margin,
-      csv: '../data/country_hot.csv',
+      csv: 'data/country_hot.csv',
       type: "gender",
     });
     genderScatterPlot.hideFast();
