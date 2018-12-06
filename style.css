@@ -94,18 +94,10 @@ html, body {
   font-size: 1.1em;
   line-height: 23px;
   color: #767678;
-}
-
-.paragraph {
-  /*background-color: #f3f3f2;*/
   padding-left: 1em;
   border-left: .15em solid black;
 }
 
-.list {
-  padding-left: 1em;
-  border-left: .15em solid black;
-}
 
 .sections .title {
   font-family: Arial,Helvetica,"san-serif";
@@ -215,6 +207,103 @@ html, body {
 }
 
 
+#transition-container {
+  margin:auto;
+  width: 30%;
+}
+
+#transition-header {
+  margin:auto;
+  text-align: center;
+  padding: 1em;
+  font-size: 1.3em;
+  font-family: "Arial", "Helvetica", sans-serif;
+
+}
+
+#transition-body {
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  font-family: "TiemposTextWeb-Regular","Georgia";
+  font-size: 1.1em;
+  color: #767678;
+}
+
+
+/* Container for top songs, soundcloud stuff */
+#topsongs-container {
+/*  background-color: red;*/
+  width: 80%;
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10em;
+}
+
+#topsongs-descript {
+  border-left: .15em solid black;
+  padding-left: 1em;
+  margin:auto;
+  width: 30%;
+  font-family: "TiemposTextWeb-Regular","Georgia";
+  font-size: 1.1em;
+  color: #767678;
+}
+
+
+
+#topsongs-title {
+  margin-top: 2em;
+  /*margin-bottom: .5em;*/
+  text-align: center;
+  font-family: "Arial", "Helvetica", sans-serif;
+  color:black;
+  font-size: 3em;
+  opacity: .8;
+}
+
+.topsongs-row {
+  width: 100%;
+  margin:auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*margin-bottom: 10em;*/
+}
+
+.topsong-entry {
+  /*background-color: blue;*/
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.topsong-header {
+  font-family: "TiemposTextWeb-Regular","Georgia";
+  font-size: 1.1em;
+  color: #767678;
+  text-align: center;
+  margin-bottom: .5em;
+}
+
+a:visited {
+  color: #767678;
+}
+
+/* embedded soundcloud links*/
+iframe {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+/*  margin-top: 2em;
+  margin-bottom: 2em;*/
+}
+
+
+/* container for methodology notes at end*/
 #methodology-container {
   border-left: .15em solid black;
   padding-left: 1em;
@@ -231,7 +320,7 @@ html, body {
 
 }
 
-#methodology-notes {
+#methodology-body {
   text-align: center;
   margin: auto;
   width: 100%;

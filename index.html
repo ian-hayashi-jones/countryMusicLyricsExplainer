@@ -30,7 +30,7 @@
 
     <!-- Scrolling sections -->
     <div class='sections'>
-      <section class="step paragraph">
+      <section class="step">
         <!-- <div class="title">Section 1</div> -->
         First, we&#39re going to rank words that are most common in country lyrics. &quot;Baby&quot;, for example, appears 49 times for every 10,000 words.
         Looking only at these words, it seems that &quot;baby&quot; is used in country the most. But what we really care about in our analysis is usage in country <b>compared to</b> usage in all music lyrics. 
@@ -40,25 +40,25 @@
         A lot of this analysis focuses on comparing lyric occurrence between different categories. First, we'll look at lyric occurrence in country vs. all other genres. 
       </section>
 
-      <section class="step paragraph">
+      <section class="step">
         <!-- <div class="title">Section 2</div> -->
         In order to compare the two categories, we first compiled a &quot;country&quot; corpus and an &quot;all other genres&quot; corpus. To create the &quot;country&quot; corpus, we took songs from the Billboard Country charts from December 2013 - November 2018; to create the &quot;all other genres&quot; corpus, we took songs from the Billboard Top charts (removing any songs that appeared in the Billboard Country charts) during the same time period.
         <br>
         This resulted in a grand total of 3044 songs (about 1.1 million words) that we then gathered from Genius Lyrics.
       </section>
 
-      <section class="step paragraph">
+      <section class="step">
         <!-- <div class="title">Section 3</div> -->
         As you can see, although &quot;baby&quot; occurs in country the most out of these few words, it also occurs frequently in all other genres. Interestingly, although &quot;trailer&quot; appears much less frequently in both categories, it occurs much more frequently in country music <i>compared to</i> all other genres - this is what we care about.        
       </section>
 
-      <section class="step paragraph">
+      <section class="step">
         <!-- <div class="title">Section 3</div> -->
         Now you can see all the words we measured. Dots farther to the right are more popular in country. Dots farther up are more popular in other genres. Keep scrolling to see the some interesting trends we found (don't worry, you'll still be able to play around with the graph).
       </section>
 
       <!-- Least country section -->
-      <section class="step list">
+      <section class="step">
         <div class="title leastcountry">The "Least Country" words</div>
         <div class="wordlistHeader">
           <div class="word"> </div>
@@ -134,7 +134,7 @@
         
       
       <!-- Most country section -->
-      <section class="step list">
+      <section class="step">
         This is the one you've all been waiting for. We present the top 10 "country" words. 
         <br>
         <br>
@@ -226,7 +226,15 @@
   <div class="spacing"> </div>
 
 
+<!--   <div id="transition-container">
+    <div id="transition-body">
+      Hope you found that interesting! Now we want to dig even deeper. 
+    </div>
 
+    <div id="transition-header">
+      Within country music, what lyrical differences can we find between gender?
+    </div>
+  </div> -->
 
 
 
@@ -269,12 +277,201 @@
   </div>
   <div class="spacing"> </div>
 
+  <section class="step" style="border-left:0px">
+    <div id="topsongs-descript">
+      Now that all that analysis is behind us, you probably want to actually <i>listen</i> to some music, huh? 
+      <br>
+      We're going to leave you with our Top 15 chart. We used a measure called &quot;cosine similarity&quot; to determine which songs most closely resemble the country corpus. Here are our results, hope you enjoy:
+    </div>
+  </section>
+
+  <section class="step" style="border-left:0px">
+    <div id="topsongs-container">
+      <div id="topsongs-title"> 
+        <b>The Top Fifteen</b>
+        <br>
+        <br>
+        <i>Most Country Songs</i>
+      </div>
+
+        <!-- row 1 -->
+        <div class="topsongs-row">
+          <!-- Song 1 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>1.</b> 
+              <a href="https://genius.com/Dan-shay-speechless-lyrics" target="_blank">Speechless</a> 
+              by 
+              <a href="https://soundcloud.com/danandshay" target="_blank">Dan and Shay</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/442707048&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 2 -->
+          <div class="topsong-entry">
+            <div class="topsong-header">           
+              <b>2.</b> 
+              <a href="https://genius.com/Kane-brown-lose-it-lyrics" target="_blank">Lose It</a> 
+              by 
+              <a href="https://soundcloud.com/kane-brown-music" target="_blank">Kane Brown</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/588038637&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 3 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>3.</b> 
+              <a href="https://genius.com/Luke-combs-she-got-the-best-of-me-lyrics" target="_blank">She Got the Best of Me</a> 
+              by 
+              <a href="https://soundcloud.com/lukecombs" target="_blank">Luke Combs</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/448591956&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+        </div>
+
+        <!-- row 2 -->
+        <div class="topsongs-row">
+          <!-- Song 4 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>4.</b> 
+              <a href="https://genius.com/Dan-shay-speechless-lyrics" target="_blank">Speechless</a> 
+              by 
+              <a href="https://soundcloud.com/danandshay" target="_blank">Dan and Shay</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/442707048&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 5 -->
+          <div class="topsong-entry">
+            <div class="topsong-header">
+              <b>5.</b> 
+              <a href="https://genius.com/Kane-brown-lose-it-lyrics" target="_blank">Lose It</a> 
+              by 
+              <a href="https://soundcloud.com/kane-brown-music" target="_blank">Kane Brown</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/588038637&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 6 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>6.</b>
+              <a href="https://genius.com/Luke-combs-she-got-the-best-of-me-lyrics" target="_blank">She Got the Best of Me</a> 
+              by 
+              <a href="https://soundcloud.com/lukecombs" target="_blank">Luke Combs</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/448591956&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+        </div>
+
+        <!-- row 2 -->
+        <div class="topsongs-row">
+          <!-- Song 4 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>7.</b> 
+              <a href="https://genius.com/Dan-shay-speechless-lyrics" target="_blank">Speechless</a> 
+              by 
+              <a href="https://soundcloud.com/danandshay" target="_blank">Dan and Shay</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/442707048&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 5 -->
+          <div class="topsong-entry">
+            <div class="topsong-header">
+              <b>8.</b> 
+              <a href="https://genius.com/Kane-brown-lose-it-lyrics" target="_blank">Lose It</a> 
+              by 
+              <a href="https://soundcloud.com/kane-brown-music" target="_blank">Kane Brown</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/588038637&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 6 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>9.</b>
+              <a href="https://genius.com/Luke-combs-she-got-the-best-of-me-lyrics" target="_blank">She Got the Best of Me</a> 
+              by 
+              <a href="https://soundcloud.com/lukecombs" target="_blank">Luke Combs</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/448591956&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+        </div>
+
+        <!-- row 2 -->
+        <div class="topsongs-row">
+          <!-- Song 4 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>10.</b> 
+              <a href="https://genius.com/Dan-shay-speechless-lyrics" target="_blank">Speechless</a> 
+              by 
+              <a href="https://soundcloud.com/danandshay" target="_blank">Dan and Shay</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/442707048&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 5 -->
+          <div class="topsong-entry">
+            <div class="topsong-header">
+              <b>11.</b> 
+              <a href="https://genius.com/Kane-brown-lose-it-lyrics" target="_blank">Lose It</a> 
+              by 
+              <a href="https://soundcloud.com/kane-brown-music" target="_blank">Kane Brown</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/588038637&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 6 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>12.</b>
+              <a href="https://genius.com/Luke-combs-she-got-the-best-of-me-lyrics" target="_blank">She Got the Best of Me</a> 
+              by 
+              <a href="https://soundcloud.com/lukecombs" target="_blank">Luke Combs</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/448591956&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+        </div>
+
+        <!-- row 2 -->
+        <div class="topsongs-row">
+          <!-- Song 4 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>13.</b> 
+              <a href="https://genius.com/Dan-shay-speechless-lyrics" target="_blank">Speechless</a> 
+              by 
+              <a href="https://soundcloud.com/danandshay" target="_blank">Dan and Shay</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/442707048&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 5 -->
+          <div class="topsong-entry">
+            <div class="topsong-header">
+              <b>14.</b> 
+              <a href="https://genius.com/Kane-brown-lose-it-lyrics" target="_blank">Lose It</a> 
+              by 
+              <a href="https://soundcloud.com/kane-brown-music" target="_blank">Kane Brown</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/588038637&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+          <!-- Song 6 -->
+          <div class="topsong-entry">
+            <div class="topsong-header"> 
+              <b>15.</b>
+              <a href="https://genius.com/Luke-combs-she-got-the-best-of-me-lyrics" target="_blank">She Got the Best of Me</a> 
+              by 
+              <a href="https://soundcloud.com/lukecombs" target="_blank">Luke Combs</a> 
+            </div>
+            <iframe height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/448591956&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+        </div>
+    </div>
+  </section>
+
 
   <div id="methodology-container">
     <div id= "methodology-header"> 
       Methodology Notes
     </div>
-    <div id="methodology-notes">
+    <div id="methodology-body">
       All lyric data was compiled from the last five years of songs that charted on the Billboard Hot 100 and Hot Country charts. 
       <br>
       <br>
@@ -282,9 +479,13 @@
       We removed all songs from the Hot 100 corpus that also charted on Hot Country. For each word in each corpus, we calculated its occurrence per 10,000 lyrics.
       <br>
       <br>
-      We used Javascript's D3 library to implement our visualizations. 
+      We used Javascript's D3 library to implement our visualizations.
+      <br>
+      <br>
+      Stanford University | CS 448B | Maneesh Agrawala 
     </div>
   </div>
+
 
 
   <div class="spacing"> </div>
