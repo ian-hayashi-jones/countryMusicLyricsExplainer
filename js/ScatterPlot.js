@@ -37,8 +37,8 @@ class ScatterPlot {
 		if (type == "country") {
 			xScale = d3.scaleLog()
 		    				.domain([
-								0.041572436, 
-								352.2016762
+								0.033501997, 
+								387.1602479
 		    				])
 							.range([0, self.width]),
 			yScale = d3.scaleLog()
@@ -51,14 +51,14 @@ class ScatterPlot {
 		} else if (type == "gender") {
 			xScale = d3.scaleLog()
 		    				.domain([
-								0.601051841, 
+								0.102227538, 
 								353.4184823
 		    				])
 							.range([0, self.width]),
 			yScale = d3.scaleLog()
 				    		.domain([
 				    			0.102227538,
-				    			352.7361201
+				    			353.4184823
 				    		])
 				    		.range([self.height, 0]);
 
