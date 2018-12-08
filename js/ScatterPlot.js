@@ -51,14 +51,14 @@ class ScatterPlot {
 		} else if (type == "gender") {
 			xScale = d3.scaleLog()
 		    				.domain([
-								0.041572436, 
-								352.2016762
+								0.601051841, 
+								353.4184823
 		    				])
 							.range([0, self.width]),
 			yScale = d3.scaleLog()
 				    		.domain([
-				    			0.033501997,
-				    			387.1602479
+				    			0.102227538,
+				    			352.7361201
 				    		])
 				    		.range([self.height, 0]);
 
@@ -89,42 +89,84 @@ class ScatterPlot {
 		}
 
 		/* Set up word list functionality -- hovering over a word selects it in the vis */
-		var wordList = document.querySelector(".wordlist.A").querySelectorAll(".wordentry");
-		wordList.forEach(function(d) {
+		var wordListA = document.querySelector(".wordlist.A").querySelectorAll(".wordentry");
+		wordListA.forEach(function(d) {
 			// Highlight word in vis 
 			d.onmouseover = function() {
 				hideTooltip();
 				d.style.background = "#f2f2f2";
-				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip(selection.datum(), d3.select("#svg1"));
+				var selection = d3.select("#country-" + d.getAttribute("word"));
+				showTooltip(selection.datum(), d3.select("#svg1"), "country");
 				self.currSearch = selection;
 
 			}
 			// Dehighlight word in vis
 			d.onmouseout = function() {
 				d.style.background = document.querySelector("body").style.background;
-				var selection = d3.select("#" + d.getAttribute("word"));
+				var selection = d3.select("#country-" + d.getAttribute("word"));
 				hideTooltip();
 				self.currSearch = null;
 			}	
 		})
 		/* Set up word list functionality -- hovering over a word selects it in the vis */
-		var wordList = document.querySelector(".wordlist.B").querySelectorAll(".wordentry");
+		var wordListB = document.querySelector(".wordlist.B").querySelectorAll(".wordentry");
 
-		wordList.forEach(function(d) {
+		wordListB.forEach(function(d) {
 			// Highlight word in vis 
 			d.onmouseover = function() {
 				hideTooltip();
 				d.style.background = "#f2f2f2";
-				var selection = d3.select("#" + d.getAttribute("word"));
-				showTooltip(selection.datum(), d3.select("#svg1"));
+				var selection = d3.select("#country-" + d.getAttribute("word"));
+				showTooltip(selection.datum(), d3.select("#svg1"), "country");
 				self.currSearch = selection;
 
 			}
 			// Dehighlight word in vis
 			d.onmouseout = function(e) {
 				d.style.background = document.querySelector("body").style.background;
-				var selection = d3.select("#" + d.getAttribute("word"));
+				var selection = d3.select("#country-" + d.getAttribute("word"));
+				hideTooltip();
+				self.currSearch = null;
+			}	
+		})
+
+				/* Set up word list functionality -- hovering over a word selects it in the vis */
+		var wordListC = document.querySelector(".wordlist.C").querySelectorAll(".wordentry");
+		wordListC.forEach(function(d) {
+			// Highlight word in vis 
+			d.onmouseover = function() {
+				hideTooltip();
+				d.style.background = "#f2f2f2";
+				var selection = d3.select("#gender-" + d.getAttribute("word"));
+				showTooltip(selection.datum(), d3.select("#svg2"), "gender");
+				self.currSearch = selection;
+
+			}
+			// Dehighlight word in vis
+			d.onmouseout = function() {
+				d.style.background = document.querySelector("body").style.background;
+				var selection = d3.select("#gender-" + d.getAttribute("word"));
+				hideTooltip();
+				self.currSearch = null;
+			}	
+		})
+		/* Set up word list functionality -- hovering over a word selects it in the vis */
+		var wordListD = document.querySelector(".wordlist.D").querySelectorAll(".wordentry");
+
+		wordListD.forEach(function(d) {
+			// Highlight word in vis 
+			d.onmouseover = function() {
+				hideTooltip();
+				d.style.background = "#f2f2f2";
+				var selection = d3.select("#gender-" + d.getAttribute("word"));
+				showTooltip(selection.datum(), d3.select("#svg2"), "gender");
+				self.currSearch = selection;
+
+			}
+			// Dehighlight word in vis
+			d.onmouseout = function(e) {
+				d.style.background = document.querySelector("body").style.background;
+				var selection = d3.select("#gender-" + d.getAttribute("word"));
 				hideTooltip();
 				self.currSearch = null;
 			}	
@@ -191,13 +233,14 @@ class ScatterPlot {
 				return "#e6e6e6";
 			}
 		};
+
 		// Plot points, store in array
 		d3.csv(this.csv).then(function (data) {
 			svg.selectAll(".dot")
 				.data(data)
 				.enter().append("circle")
 				.attr("class", "scatter dot")
-				.attr("id", function(d) { return d.word; })
+				.attr("id", function(d) { return type + "-" + d.word; })
 				.attr("r", DOT_SIZE)
 				.attr("cx", xMap)
 				.attr("cy", yMap)
@@ -206,7 +249,7 @@ class ScatterPlot {
 				.on("mouseover", function(d) {
 					if (d3.select(this).style("opacity") == 1.0) {
 			  			hideTooltip(d);
-			  			showTooltip(d, svg);
+			  			showTooltip(d, svg, type);
 					}
 			  	})
 			  	.on("mouseout", hideTooltip)
@@ -421,8 +464,8 @@ function searchWords(svg, type) {
 	var search = type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
 
 	// If a word is found, animate a transition to highlight it on the graph
-	if (search.value != "" && !d3.select("#" + search.value).empty()) {
-		var selection = d3.select("#" + search.value);
+	if (search.value != "" && !d3.select("#" + type + "-" + search.value).empty()) {
+		var selection = d3.select("#" + type + "-" + search.value);
 		var endX = selection.attr("cx"),
 		    endY = selection.attr("cy");
 
@@ -456,7 +499,7 @@ function searchWords(svg, type) {
 			.style("stroke-width", 2)
 			.duration(TRANSITION_DURATION)
 
-		setTimeout(function() { showTooltip(selection.datum(), svg); }, TRANSITION_DURATION);
+		setTimeout(function() { showTooltip(selection.datum(), svg, type); }, TRANSITION_DURATION);
 	
 		self.currSearch = selection;		// keep track of currently searched term
 	} else {
@@ -472,21 +515,24 @@ function searchWords(svg, type) {
 /*
  * Renders the tooltip information next to the given point
  */
-function showTooltip(d, svg) {
-
-	self.currSearch = d3.select("#" + d.word);
+function showTooltip(d, svg, type) {
+	console.log("showing tooltip for " + d.word)
+	self.currSearch = d3.select("#" + type + "-" + d.word);
+	var dot = d3.select("#" + type + "-" + d.word);
 	// Animate dot enlarging
-	d3.select("#" + d.word).transition()
+	dot.transition()
 		.attr("r", HOVER_DOT_SIZE)
 		.style("stroke", DOT_STROKE_COLOR)
 		.style("stroke-width", 2)
 		.duration(TRANSITION_DURATION);	
 
-	var x = +d3.select("#" + d.word).attr("cx"),
-	    y = +d3.select("#" + d.word).attr("cy") + 20,
-	    rect_y = +d3.select("#" + d.word).attr("cy");
+	var x = +dot.attr("cx"),
+	    y = +dot.attr("cy") + 20,
+	    rect_y = +dot.attr("cy");
 
-	var dims = drawTooltipInfo(svg, d, x, y, 0, 0, 0, false);
+	console.log("showing tooltip for " + d.word + "at coordinates (" + x + ", " + y + ")")
+
+	var dims = drawTooltipInfo(svg, type, d, x, y, 0, 0, 0, false);
 	var rect_width = dims[0],
 		wordWidth = dims[1],
 		freqWidth = dims[2],
@@ -515,14 +561,14 @@ function showTooltip(d, svg) {
 		.attr('width', rect_width)
 		.attr('height', 75)
 
-	drawTooltipInfo(svg, d, x, y, wordWidth, freqWidth, freqLabelWidth, true);
+	drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidth, true);
 }
 
 
 /* 
  * Draws the tooltip on the svg element
  */
-function drawTooltipInfo(svg, d, x, y, wordWidth, freqWidth, freqLabelWidth, transition) {
+function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidth, transition) {
 	// Spacing
 	var h_spacing = 10,
 		v_spacing = 5;

@@ -105,7 +105,7 @@ var scrollVis = function () {
       width: width,
       height: height,
       margin: margin,
-      csv: 'data/country_hot.csv',
+      csv: 'data/gender.csv',
       type: "gender",
     });
     genderScatterPlot.hideFast();
@@ -143,12 +143,12 @@ var scrollVis = function () {
     activateFunctions[3] = showCountryScatterPlot;
     activateFunctions[4] = showLeastCountry;
     activateFunctions[5] = showMostCountry;
-    activateFunctions[6] = showSection;
-    activateFunctions[7] = showSection;
-    activateFunctions[8] = showSection;
-    activateFunctions[9] = showSection;
-    activateFunctions[10] = showSection;
-    activateFunctions[11] = showSection;
+    activateFunctions[6] = showGenderLinePlot;
+    activateFunctions[7] = showGenderYAxis;
+    activateFunctions[8] = showGenderTriangles;
+    activateFunctions[9] = showGenderScatterPlot;
+    activateFunctions[10] = showMaleWordList;
+    activateFunctions[11] = showFemaleWordList;
     activateFunctions[12] = showSection;
     activateFunctions[13] = showSection;
 
@@ -182,7 +182,7 @@ var scrollVis = function () {
   }
 
   /**
-   * showLinePlot
+   * Shows the country line plot
    *
    * index: 0
    */
@@ -191,7 +191,7 @@ var scrollVis = function () {
   }
 
   /**
-   * stepOneLinePlot
+   * Shows the country y axis
    *
    * index: 1
    */
@@ -202,7 +202,7 @@ var scrollVis = function () {
   }
 
   /**
-   * showScatterPlot - graph of ___
+   * Shows the country scatterplot with triangles
    *
    * index: 2
    */
@@ -214,9 +214,9 @@ var scrollVis = function () {
   }
 
   /**
-   * showScatterPlot - graph of ___
+   * Hides the triangles
    *
-   * index: 3/4
+   * index: 3
    */
   function showCountryScatterPlot() {
     countryLinePlot.stopAnimation(1);
@@ -226,6 +226,12 @@ var scrollVis = function () {
     countryScatterPlot.show(1);
   }
 
+
+  /**
+   * Shows the least country word list triangle
+   *
+   * index: 4
+   */
   function showLeastCountry() {
     // countryLinePlot.stopAnimation(1);
     countryScatterPlot.showTriangles();
@@ -235,6 +241,12 @@ var scrollVis = function () {
     countryScatterPlot.highlightYWords();
   }
 
+
+  /**
+   * Shows the most country word list triangle
+   *
+   * index: 5
+   */
   function showMostCountry() {
     // countryLinePlot.stopAnimation(1);
     countryScatterPlot.showTriangles();
@@ -245,46 +257,74 @@ var scrollVis = function () {
   }
 
   /**
-   * showLinePlot
-   *
-   * index: 5
-   */
-  function showGenderLinePlot() {
-    genderScatterPlot.hide();
-    // genderLinePlot.show();
-  }
-
-  /**
-   * stepOneLinePlot
+   * Shows the gender line plot
    *
    * index: 6
    */
-  function showGenderYAxis() {
-    // genderScatterPlot.hide();
-    // genderLinePlot.showYAxis();
+  function showGenderLinePlot() {
+    genderLinePlot.show();
   }
 
   /**
-   * showScatterPlot - graph of ___
+   * Shows the gender y axis
    *
    * index: 7
    */
-  function showGenderScatterPlot() {
-    // genderLinePlot.updateToScatterPlot();
-    // genderScatterPlot.showTriangles();
-    // genderScatterPlot.show(.1);
-    // genderScatterPlot.hideSearch();
+  function showGenderYAxis() {
+    genderLinePlot.stopAnimation(-1);
+    genderScatterPlot.hide();
+    genderLinePlot.showYAxis();
   }
 
   /**
-   * showScatterPlot - graph of ___
+   * Shows the gender scatterplot with triangles
    *
-   * index: 8/9
+   * index: 8
    */
-  function showGenderWordList() {
-    // genderScatterPlot.hideTriangles();
-    // genderScatterPlot.showSearch();
-    // genderScatterPlot.show(1);
+  function showGenderTriangles() {
+    genderLinePlot.updateToScatterPlot();
+    genderScatterPlot.showTriangles();
+    genderScatterPlot.show(.1);
+    genderScatterPlot.hideSearch();
+  }
+
+  /**
+   * Hides the triangles
+   *
+   * index: 9
+   */
+  function showGenderScatterPlot() {
+    genderLinePlot.stopAnimation(1);
+    genderScatterPlot.showTriangles();
+    genderScatterPlot.hideTriangles();
+    genderScatterPlot.showSearch();
+    genderScatterPlot.show(1);
+  }
+
+  /**
+   * Shows the male word list triangle
+   *
+   * index: 10
+   */
+  function showMaleWordList() {
+    genderScatterPlot.showTriangles();
+    genderScatterPlot.hideTriangles();
+    genderScatterPlot.showSearch();
+    genderScatterPlot.show(1);
+    genderScatterPlot.highlightYWords();
+  }
+
+  /**
+   * Shows the female word list triangle
+   *
+   * index: 11
+   */
+  function showFemaleWordList() {
+    genderScatterPlot.showTriangles();
+    genderScatterPlot.hideTriangles();
+    genderScatterPlot.showSearch();
+    genderScatterPlot.show(1);
+    genderScatterPlot.highlightXWords();
   }
 
 
