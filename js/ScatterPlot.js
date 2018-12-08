@@ -516,7 +516,6 @@ function searchWords(svg, type) {
  * Renders the tooltip information next to the given point
  */
 function showTooltip(d, svg, type) {
-	console.log("showing tooltip for " + d.word)
 	self.currSearch = d3.select("#" + type + "-" + d.word);
 	var dot = d3.select("#" + type + "-" + d.word);
 	// Animate dot enlarging
@@ -530,7 +529,6 @@ function showTooltip(d, svg, type) {
 	    y = +dot.attr("cy") + 20,
 	    rect_y = +dot.attr("cy");
 
-	console.log("showing tooltip for " + d.word + "at coordinates (" + x + ", " + y + ")")
 
 	var dims = drawTooltipInfo(svg, type, d, x, y, 0, 0, 0, false);
 	var rect_width = dims[0],
@@ -603,15 +601,28 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 	var freqLabelWidth;
 	// Same frequency, probaably super rare
 	if (d.x === d.y) {
-		freqLabel1 = svg.append("text")
-	    	.attr("id", "tooltip")
-			.attr("x", x + h_spacing)
-			.attr("y", y + (5 * v_spacing))
-			.text("Equally common in Country and other genres")
-			.attr("font-family", "sans-serif")
-			.attr("font-size", fontSizeB)
-			.attr("fill", TOOLTIP_TEXT_COLOR)
-			.attr("opacity", opacity)
+		if (type == "country") {
+			freqLabel1 = svg.append("text")
+		    	.attr("id", "tooltip")
+				.attr("x", x + h_spacing)
+				.attr("y", y + (5 * v_spacing))
+				.text("Equally common in Country and other genres")
+				.attr("font-family", "sans-serif")
+				.attr("font-size", fontSizeB)
+				.attr("fill", TOOLTIP_TEXT_COLOR)
+				.attr("opacity", opacity)
+		} else if (type == "gender") {
+			freqLabel1 = svg.append("text")
+		    	.attr("id", "tooltip")
+				.attr("x", x + h_spacing)
+				.attr("y", y + (5 * v_spacing))
+				.text("Equally common in male and female lyrics")
+				.attr("font-family", "sans-serif")
+				.attr("font-size", fontSizeB)
+				.attr("fill", TOOLTIP_TEXT_COLOR)
+				.attr("opacity", opacity)
+		}
+
 		freqLabelWidth = Math.max(freqLabelWidth, freqLabel1.node().getComputedTextLength());
 	// Different frequencies
 	} else {
@@ -619,11 +630,22 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 		if (d.x > d.y) {
 			freq = d.x / d.y;
 			freq = Math.round(freq * 100) / 100;
-			freqLabel = " higher in Country";
+
+			if (type == "country") {
+				freqLabel = " higher in Country";
+			} else if (type == "gender") {
+				freqLabel = " higher in female lyrics";
+			}
+			
 		} else if (d.x < d.y) {
 			freq = d.y / d.x;
 			freq = Math.round(freq * 100) / 100;
-			freqLabel = " higher in other genres";
+
+			if (type == "country") {
+				freqLabel = " higher in other genres";
+			} else if (type == "gender") {
+				freqLabel = " higher in male lyrics";
+			}
 		}
 
 		var freqLabel1 = svg.append("text")
@@ -666,56 +688,83 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 		.attr("opacity", opacity)
 		.style("font-weight", "lighter")
 	
-	// Country frequency
-	var countryFreq = svg.append("text")
-		.attr("id", "tooltip")
-    	.attr("x", x + colWidth)
-   		.attr("y", y + (5 * v_spacing))
-	    .text("Country")
-	    .attr("font-family", "sans-serif")
-	    .attr("font-size", fontSizeB)
-	    .attr("fill", TOOLTIP_TEXT_COLOR)
-	    .attr("opacity", opacity)
+	// x and y frequency
+	var xFreq, yFreq;
+	if (type == "country") {
+		// Country Frequency label
+		xFreq = svg.append("text")
+			.attr("id", "tooltip")
+	    	.attr("x", x + colWidth)
+	   		.attr("y", y + (5 * v_spacing))
+		    .text("Country")
+		    .attr("font-family", "sans-serif")
+		    .attr("font-size", fontSizeB)
+		    .attr("fill", TOOLTIP_TEXT_COLOR)
+		    .attr("opacity", opacity)
 	
-	// General Frequency label
-	var generalFreq = svg.append("text")
-    	.attr("id", "tooltip")
-		.attr("x", x + colWidth)
-		.attr("y", y + (9 * v_spacing))
-		.text("Other Genres")
-		.attr("font-family", "sans-serif")
-		.attr("font-size", fontSizeB)
-		.attr("fill", TOOLTIP_TEXT_COLOR)
-		.attr("opacity", opacity)
+		// General Frequency label
+		yFreq = svg.append("text")
+	    	.attr("id", "tooltip")
+			.attr("x", x + colWidth)
+			.attr("y", y + (9 * v_spacing))
+			.text("Other Genres")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", fontSizeB)
+			.attr("fill", TOOLTIP_TEXT_COLOR)
+			.attr("opacity", opacity)
+
+	} else if (type == "gender") {
+		// Female Frequency label
+		xFreq = svg.append("text")
+			.attr("id", "tooltip")
+	    	.attr("x", x + colWidth)
+	   		.attr("y", y + (5 * v_spacing))
+		    .text("Female lyrics")
+		    .attr("font-family", "sans-serif")
+		    .attr("font-size", fontSizeB)
+		    .attr("fill", TOOLTIP_TEXT_COLOR)
+		    .attr("opacity", opacity)
+	
+		// Male Frequency label
+		yFreq = svg.append("text")
+	    	.attr("id", "tooltip")
+			.attr("x", x + colWidth)
+			.attr("y", y + (9 * v_spacing))
+			.text("Male lyrics")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", fontSizeB)
+			.attr("fill", TOOLTIP_TEXT_COLOR)
+			.attr("opacity", opacity)
+	}
 
 	var countX = x + colWidth + 120;
-	// Country count
-	var countryCount = svg.append("text")
-		.attr("id", "tooltip")
-    	.attr("x", countX)
-   		.attr("y", y + (5 * v_spacing))
-	    .text(function() { 
-	    	return Math.round(d.x * 100) / 100;
-	    })
-	    .attr("font-family", "sans-serif")
-	    .attr("font-size", fontSizeB)
-	    .attr("fill", TOOLTIP_TEXT_COLOR)
-	    .attr("opacity", opacity)
-	    .style("font-weight", "bold")
+	// x count
+	var xCount = svg.append("text")
+			.attr("id", "tooltip")
+	    	.attr("x", countX)
+	   		.attr("y", y + (5 * v_spacing))
+		    .text(function() { 
+		    	return Math.round(d.x * 100) / 100;
+		    })
+		    .attr("font-family", "sans-serif")
+		    .attr("font-size", fontSizeB)
+		    .attr("fill", TOOLTIP_TEXT_COLOR)
+		    .attr("opacity", opacity)
+		    .style("font-weight", "bold")
 
-	// General count
-	var otherCount = svg.append("text")
-		.attr("id", "tooltip")
-    	.attr("x", countX)
-   		.attr("y", y + (9 * v_spacing))
-	    .text(function() { 
-	    	return Math.round(d.y * 100) / 100;
-	    })
-	    .attr("font-family", "sans-serif")
-	    .attr("font-size", fontSizeB)
-	    .attr("fill", TOOLTIP_TEXT_COLOR)
-	    .attr("opacity", opacity)
-	    .style("font-weight", "bold")
+	// y count
+	var yCount = svg.append("text")
+			.attr("id", "tooltip")
+	    	.attr("x", countX)
+	   		.attr("y", y + (9 * v_spacing))
+		    .text(function() { 
+		    	return Math.round(d.y * 100) / 100;
+		    })
+		    .attr("font-family", "sans-serif")
+		    .attr("font-size", fontSizeB)
+		    .attr("fill", TOOLTIP_TEXT_COLOR)
+		    .attr("opacity", opacity)
+		    .style("font-weight", "bold")
 
 	// Animations
 	if (transition) {
@@ -737,19 +786,19 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 
-		countryFreq.transition()
+		xFreq.transition()
 			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 
-		generalFreq.transition()
+		yFreq.transition()
 			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 
-		countryCount.transition()
+		xCount.transition()
 			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 
-		otherCount.transition()
+		yCount.transition()
 			.attr("font-size", endFontSizeB)
 			.attr("opacity", 1.0)
 	}
@@ -806,17 +855,6 @@ function renderTriangles(svg, type) {
     	.attr("class", "trianglelabels")
     	.attr("transform", "translate(" + self.width/2 + "," + self.height/3 + ")")
     	.style("opacity", 0)
-    topLabels.append("text")
-    	.attr("x", 0)
-    	.attr("y", 0)
-    	.attr("fill", "#ff3333")
-    	.text("Less")
-    	.style("font-weight", "bold")
-    topLabels.append("text")
-    	.attr("x", 34)
-    	.attr("y", 0)
-    	.attr("fill", "#ff3333")
-    	.text("usage")
 
 
     /* Draw bottom triangle labels and arrows */
@@ -839,6 +877,17 @@ function renderTriangles(svg, type) {
 
    	if (type == "country") {
    		// top triangle labels
+   		topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 0)
+	    	.attr("fill", "#ff3333")
+	    	.text("Less")
+	    	.style("font-weight", "bold")
+	   	topLabels.append("text")
+	    	.attr("x", 34)
+	    	.attr("y", 0)
+	    	.attr("fill", "#ff3333")
+	    	.text("usage")
 	   	topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 20)
@@ -874,11 +923,22 @@ function renderTriangles(svg, type) {
 
    	} else if (type == "gender") {
    		// top triangle labels
+   		topLabels.append("text")
+	    	.attr("x", 0)
+	    	.attr("y", 0)
+	    	.attr("fill", "#ff3333")
+	    	.text("More")
+	    	.style("font-weight", "bold")
+	    topLabels.append("text")
+	    	.attr("x", 40)
+	    	.attr("y", 0)
+	    	.attr("fill", "#ff3333")
+	    	.text("usage")
 	   	topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 20)
 	    	.attr("fill", "#ff3333")
-	    	.text("with female artists")
+	    	.text("with male artists")
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 40)
@@ -888,7 +948,7 @@ function renderTriangles(svg, type) {
 	    	.attr("x", 0)
 	    	.attr("y", 60)
 	    	.attr("fill", "#ff3333")
-	    	.text("male artists")
+	    	.text("female artists")
 
 	    // bot triangle labels
 		botLabels.append("text")
