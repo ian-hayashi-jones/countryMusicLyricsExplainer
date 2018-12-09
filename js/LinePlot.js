@@ -2,7 +2,6 @@
 
 class LinePlot {
 
-
 	constructor(opts) {
 		this.svg	 = opts.svg;		// background
 		self.margin  = opts.margin;
@@ -507,25 +506,6 @@ class LinePlot {
 				if (res < 0) {
 					var spectrum = (yScale(d.getNewY()) - yScale(d.getNewX()));
 					if (spectrum > 0 && spectrum <= self.height / 20.0) {
-						return "#ccccff";
-					}
-					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
-						return "#9999ff";
-					}
-					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
-						return "#6666ff";
-					}
-					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
-						return "#3333ff";
-					}
-					else if (spectrum > 1.0/2.0 * self.height) {
-						return "#0000ff";
-					}
-				}
-				// Less common in country, top triangle
-				else if (res > 0) {
-					var spectrum = (yScale(d.getNewY()) - yScale(d.getNewX())) * -1;
-					if (spectrum > 0 && spectrum <= self.height / 20.0) {
 						return "#ffcccc";
 					}
 					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
@@ -539,6 +519,25 @@ class LinePlot {
 					}
 					else if (spectrum > 1.0/2.0 * self.height) {
 						return "#ff0000";
+					}
+				}
+				// Less common in country, top triangle
+				else if (res > 0) {
+					var spectrum = (yScale(d.getNewY()) - yScale(d.getNewX())) * -1;
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ccccff";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#9999ff";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#6666ff";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#3333ff";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#0000ff";
 					}
 				}
 				// Equally common in both genres

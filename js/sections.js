@@ -137,20 +137,22 @@ var scrollVis = function () {
   var setupSections = function () {
     // activateFunctions are called each
     // time the active section changes
-    activateFunctions[0] = showCountryLinePlot;
-    activateFunctions[1] = showCountryYAxis;
-    activateFunctions[2] = showCountryTriangles;
-    activateFunctions[3] = showCountryScatterPlot;
-    activateFunctions[4] = showLeastCountry;
-    activateFunctions[5] = showMostCountry;
-    activateFunctions[6] = showSection;
-    activateFunctions[7] = showGenderLinePlot;
-    activateFunctions[8] = showGenderYAxis;
-    activateFunctions[9] = showGenderTriangles;
-    activateFunctions[10] = showGenderScatterPlot;
-    activateFunctions[11] = showMaleWordList;
-    activateFunctions[12] = showFemaleWordList;
-    activateFunctions[13] = showSection;
+    activateFunctions[0] = showSection;
+    activateFunctions[1] = showCountryLinePlot;
+    activateFunctions[2] = showCountryYAxis;
+    activateFunctions[3] = showCountryTriangles;
+    activateFunctions[4] = showCountryScatterPlot;
+    activateFunctions[5] = showLeastCountry;
+    activateFunctions[6] = showMostCountry;
+    activateFunctions[7] = showSection;
+    activateFunctions[8] = showGenderLinePlot;
+    activateFunctions[9] = showGenderYAxis;
+    activateFunctions[10] = showGenderTriangles;
+    activateFunctions[11] = showGenderScatterPlot;
+    activateFunctions[12] = showMaleWordList;
+    activateFunctions[13] = showFemaleWordList;
+    activateFunctions[14] = showSection;
+    activateFunctions[15] = showSection;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -158,7 +160,7 @@ var scrollVis = function () {
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for (var i = 0; i < 14; i++) {
+    for (var i = 0; i < 16; i++) {
       updateFunctions[i] = function () {};
     }
   };

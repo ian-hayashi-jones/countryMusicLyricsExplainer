@@ -155,53 +155,103 @@ class ScatterPlot {
 	    // Map data to the display values
 		var xMap   = function(d) { return xScale(+d.x) + self.margin.left; },	
 			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };
+		var colorMap;
 
-		var colorMap = function(d) {
-			var res = +d.y - +d.x;
-			// More common in country, bottom triangle
-			if (res < 0) {
-				var spectrum = (yScale(+d.y) - yScale(+d.x));
-				if (spectrum > 0 && spectrum <= self.height / 20.0) {
-					return "#ccccff";
+		if (this.type == "country") {
+			colorMap = function(d) {
+				var res = +d.y - +d.x;
+				// More common in country, bottom triangle
+				if (res < 0) {
+					var spectrum = (yScale(+d.y) - yScale(+d.x));
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ccccff";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#9999ff";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#6666ff";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#3333ff";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#0000ff";
+					}
 				}
-				else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
-					return "#9999ff";
-				}
-				else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
-					return "#6666ff";
-				}
-				else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
-					return "#3333ff";
-				}
-				else if (spectrum > 1.0/2.0 * self.height) {
-					return "#0000ff";
-				}
-			}
-			// Less common in country, top triangle
-			else if (res > 0) {
-				var spectrum = (yScale(+d.y) - yScale(+d.x)) * -1;
-				if (spectrum > 0 && spectrum <= self.height / 20.0) {
-					return "#ffcccc";
-				}
-				else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
-					return "#ff9999";
-				}
-				else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
-					return "#ff6666";
-				}
-				else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
-					return "#ff3333";
-				}
-				else if (spectrum > 1.0/2.0 * self.height) {
-					return "#ff0000";
-				}
+				// Less common in country, top triangle
+				else if (res > 0) {
+					var spectrum = (yScale(+d.y) - yScale(+d.x)) * -1;
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ffcccc";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#ff9999";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#ff6666";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#ff3333";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#ff0000";
+					}
 
-			}
-			// Equally common in both genres
-			else {
-				return "#e6e6e6";
-			}
-		};
+				}
+				// Equally common in both genres
+				else {
+					return "#e6e6e6";
+				}
+			};
+		} else if (this.type == "gender") {
+			colorMap = function(d) {
+				var res = +d.y - +d.x;
+				// More common in country, bottom triangle
+				if (res < 0) {
+					var spectrum = (yScale(+d.y) - yScale(+d.x));
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ffcccc";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#ff9999";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#ff6666";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#ff3333";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#ff0000";
+					}
+				}
+				// Less common in country, top triangle
+				else if (res > 0) {
+					var spectrum = (yScale(+d.y) - yScale(+d.x)) * -1;
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ccccff";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#9999ff";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#6666ff";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#3333ff";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#0000ff";
+					}
+				}
+				// Equally common in both genres
+				else {
+					return "#e6e6e6";
+				}
+			};
+		}
+
 
 		// Plot points, store in array
 		d3.csv(this.csv).then(function (data) {
@@ -225,7 +275,7 @@ class ScatterPlot {
 		})
 
 		renderTriangles(svg, this.type);
-		renderHighlightTriangles(svg);
+		renderHighlightTriangles(svg, this.type);
 	}
 
 
@@ -807,15 +857,11 @@ function renderTriangles(svg, type) {
 	var topTriangle = svg.append("path")
 			.attr("class", "triangle")
         .attr("d", line(topTriangleData))
-        .attr("fill", "#ff0000")
-        .attr("stroke", "#ff0000")
         .attr("stroke-width", 0)
         .style("opacity", 0)
     var botTriangle = svg.append("path")
 			.attr("class", "triangle")
         .attr("d", line(botTriangleData))
-        .attr("fill", "#0000ff")
-        .attr("stroke", "#0000ff")
         .attr("stroke-width", 0)
         .style("opacity", 0)
 
@@ -834,13 +880,11 @@ function renderTriangles(svg, type) {
     botLabels.append("text")
     	.attr("x", 0)
     	.attr("y", 0)
-    	.attr("fill", "#3333ff")
     	.style("font-weight", "bold")
     	.text("More")
     botLabels.append("text")
     	.attr("x", 40)
     	.attr("y", 0)
-    	.attr("fill", "#3333ff")
     	.text("usage")
 
 
@@ -849,92 +893,94 @@ function renderTriangles(svg, type) {
    		topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 0)
-	    	.attr("fill", "#ff3333")
 	    	.text("Less")
 	    	.style("font-weight", "bold")
 	   	topLabels.append("text")
 	    	.attr("x", 34)
 	    	.attr("y", 0)
-	    	.attr("fill", "#ff3333")
 	    	.text("usage")
 	   	topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 20)
-	    	.attr("fill", "#ff3333")
 	    	.text("in country")
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 40)
-	    	.attr("fill", "#ff3333")
 	    	.text("compared to")
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 60)
-	    	.attr("fill", "#ff3333")
 	    	.text("other genres")
 
 	   	// bot trianlge labels
 		botLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 20)
-	    	.attr("fill", "#3333ff")
 	    	.text("in country")
 	    botLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 40)
-	    	.attr("fill", "#3333ff")
 	    	.text("compared to")
 	    botLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 60)
-	    	.attr("fill", "#3333ff")
 	    	.text("other genres")
+
+	    topTriangle
+	    	.attr("fill", "#ff0000")
+        	.attr("stroke", "#ff0000")
+        botTriangle
+	    	.attr("fill", "#0000ff")
+        	.attr("stroke", "#0000ff")
+	    topLabels.attr("fill", "#ff3333")
+	    botLabels.attr("fill", "#3333ff")
 
    	} else if (type == "gender") {
    		// top triangle labels
    		topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 0)
-	    	.attr("fill", "#ff3333")
 	    	.text("More")
 	    	.style("font-weight", "bold")
 	    topLabels.append("text")
 	    	.attr("x", 40)
 	    	.attr("y", 0)
-	    	.attr("fill", "#ff3333")
 	    	.text("usage")
 	   	topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 20)
-	    	.attr("fill", "#ff3333")
 	    	.text("with male artists")
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 40)
-	    	.attr("fill", "#ff3333")
 	    	.text("compared to")
 	    topLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 60)
-	    	.attr("fill", "#ff3333")
 	    	.text("female artists")
 
 	    // bot triangle labels
 		botLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 20)
-	    	.attr("fill", "#3333ff")
 	    	.text("with female artists")
 	    botLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 40)
-	    	.attr("fill", "#3333ff")
 	    	.text("compared to")
 	    botLabels.append("text")
 	    	.attr("x", 0)
 	    	.attr("y", 60)
-	    	.attr("fill", "#3333ff")
 	    	.text("male artists")
+
+	    topTriangle
+	    	.attr("fill", "#0000ff")
+        	.attr("stroke", "#0000ff")
+        botTriangle
+	    	.attr("fill", "#ff0000")
+        	.attr("stroke", "#ff0000")
+	    topLabels.attr("fill", "#3333ff")
+	    botLabels.attr("fill", "#ff3333")
    	}
 }
 
@@ -942,7 +988,7 @@ function renderTriangles(svg, type) {
 /*
  * Renders the triangles for highlighting the least/most lists
  */
-function renderHighlightTriangles(svg) {
+function renderHighlightTriangles(svg, type) {
 	/* Draw triangles */
 	var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
@@ -950,21 +996,34 @@ function renderHighlightTriangles(svg) {
 		.x(function(d) { return +d.x; })
 		.y(function(d) { return +d.y; })
 
-    svg.append("path")
+    var botTriangle = svg.append("path")
 		.attr("class", "highlight x")
         .attr("d", line(botTriangleData))
-        .attr("fill", "#0000ff")
-        .attr("stroke", "#0000ff")
         .attr("stroke-width", 0)
         .style("opacity", 0)
 
-	svg.append("path")
+	var topTriangle = svg.append("path")
 		.attr("class", "highlight y")
         .attr("d", line(topTriangleData))
-        .attr("fill", "#ff0000")
-        .attr("stroke", "#ff0000")
         .attr("stroke-width", 0)
         .style("opacity", 0)
+
+	if (type == "country") {
+		botTriangle
+		    .attr("fill", "#0000ff")
+        	.attr("stroke", "#0000ff")
+        topTriangle
+		    .attr("fill", "#ff0000")
+        	.attr("stroke", "#ff0000")
+
+	} else if (type == "gender") {
+		botTriangle
+		    .attr("fill", "#ff0000")
+        	.attr("stroke", "#ff0000")
+        topTriangle
+		    .attr("fill", "#0000ff")
+        	.attr("stroke", "#0000ff")
+	}
 }
 
 /*
