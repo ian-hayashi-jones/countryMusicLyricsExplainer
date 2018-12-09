@@ -379,7 +379,7 @@ class LinePlot {
 	/*
 	 * Animates the transition to the first change in the displayed data
 	 */
-	showYAxis(type) {
+	showYAxis() {
 		// Animate line appearing
      	this.svg.selectAll(".lineplotline")
      		.transition()
@@ -411,7 +411,7 @@ class LinePlot {
 		var xScale, xMap;
 		var yScale, yAxis, yMap, yLabelMap, yFreqMap;
 
-		if (type == "country") {
+		if (this.type == "country") {
 			xScale = d3.scaleLog()
 				.domain([
 					0.033501997, 
@@ -429,7 +429,7 @@ class LinePlot {
 			yMap   	   = function(d) { return yScale(+d.y) + self.margin.top; },				// data --> display
 			yLabelMap  = function(d) { return yScale(+d.y) + self.margin.top - 28; },		// data --> display
 			yFreqMap   = function(d) { return yScale(+d.y) + self.margin.top - 10 ; };		// data --> display
-		} else if (type == "gender") {
+		} else if (this.type == "gender") {
 			xScale = d3.scaleLog()
 				.domain([
 					.102228, 
@@ -453,7 +453,7 @@ class LinePlot {
 
 		var colorMap;
 
-		if (type == "country") {
+		if (this.type == "country") {
 			colorMap = function(d) {
 				var res = +d.y - +d.x;
 				// More common in country, bottom triangle
@@ -500,7 +500,7 @@ class LinePlot {
 				}
 			};
 
-		} else if (type == "gender") {
+		} else if (this.type == "gender") {
 			colorMap = function(d) {
 				var res = d.getNewY() - d.getNewX();
 				// More common in country, bottom triangle
@@ -660,13 +660,13 @@ class LinePlot {
      		.duration(TRANSITION_DURATION)
      		.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
 
-     	if (type == "country") {
+     	if (this.type == "country") {
 	     	// animate axis labels drop
 	     	this.svg.selectAll("#lineaxislabel")
 	     		.transition()
 	     		.duration(TRANSITION_DURATION)
 	     		.attr("y", xAxisLabelsY)
-     	} else if (type == "gender") {
+     	} else if (this.type == "gender") {
      		// animate axis labels drop
      		this.svg.selectAll("#lineaxislabel")
 	     		.transition()
@@ -705,7 +705,7 @@ class LinePlot {
 
 
  		// No x position change
-		if (type == "country") {
+		if (this.type == "country") {
 			this.svg.selectAll(".lineplotdot.info.word")
 				.transition()
 				.duration(TRANSITION_DURATION)
@@ -719,7 +719,7 @@ class LinePlot {
 				.style("opacity", 1)
 
 		// x position change
-		} else if (type == "gender") {
+		} else if (this.type == "gender") {
 			// Center labels around their corresponding points
 			var labels = this.svg.selectAll(".lineplotdot.info.word");
 			labels._groups[0].forEach(function(d) {
@@ -754,16 +754,27 @@ class LinePlot {
 	 * Animates the transition to the scatter plot datas
 	 */
 	updateToScatterPlot() {
-		// y mappings
-		var yScale = d3.scaleLog()
-			    		.domain([
-			    			0.033501997,
-			    			387.1602479
-			    		])
-			    		.range([self.height, 0]),
-			yMap   = function(d) { return yScale(+d.y) + self.margin.top; },
-			yLabelMap   = function(d) { return yScale(+d.y) + self.margin.top - 10; };	
+		var yScale, yMap, yLabelMap;
 
+		if (this.type == "country") {
+			yScale = d3.scaleLog()
+	    		.domain([
+	    			0.033501997,
+	    			387.1602479
+	    		])
+	    		.range([self.height, 0]),
+			yMap   	   = function(d) { return yScale(+d.y) + self.margin.top; },			// data --> display
+			yLabelMap  = function(d) { return yScale(+d.y) + self.margin.top - 10; };		// data --> display
+		} else if (this.type == "gender") {
+			yScale = d3.scaleLog()
+	    		.domain([
+	    			.102228,
+	    			353.4184823
+	    		])
+	    		.range([self.height, 0]),
+			yMap      = function(d) { return yScale(d.getNewY()) + self.margin.top; },				// data --> display
+	    	yLabelMap = function(d) { return yScale(d.getNewY()) + self.margin.top - 10; };			// data --> display
+		}
 
 		// hide line appearing
      	this.svg.selectAll(".lineplotline")
@@ -804,7 +815,6 @@ class LinePlot {
      	// Show/hide 
 	    this.svg.selectAll(".lineplotdot")
 	    	.style("opacity", 1)
-	        // .style("stroke", "black") 
 			.style("stroke-width", 2) 
 		this.svg.selectAll(".lineplotdot.info")
 	        .style("stroke", "black") 

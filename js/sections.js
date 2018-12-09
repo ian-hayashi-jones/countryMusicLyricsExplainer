@@ -198,7 +198,7 @@ var scrollVis = function () {
   function showCountryYAxis() {
     countryLinePlot.stopAnimation(-1);
     countryScatterPlot.hide();
-    countryLinePlot.showYAxis("country");
+    countryLinePlot.showYAxis();
   }
 
   /**
@@ -273,7 +273,7 @@ var scrollVis = function () {
   function showGenderYAxis() {
     genderLinePlot.stopAnimation(-1);
     genderScatterPlot.hide();
-    genderLinePlot.showYAxis("gender");
+    genderLinePlot.showYAxis();
   }
 
   /**
