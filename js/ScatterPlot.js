@@ -30,43 +30,7 @@ class ScatterPlot {
 	/* Draws the axes, labels, and plots the points */
 	draw() {
 		var svg = this.svg;
-		var type = this.type;
-
-		// Different axis scales depending on dataset
-		var xScale, yScale;
-		if (type == "country") {
-			xScale = d3.scaleLog()
-		    				.domain([
-								0.033501997, 
-								387.1602479
-		    				])
-							.range([0, self.width]),
-			yScale = d3.scaleLog()
-				    		.domain([
-				    			0.033501997,
-				    			387.1602479
-				    		])
-				    		.range([self.height, 0]);
-
-		} else if (type == "gender") {
-			xScale = d3.scaleLog()
-		    				.domain([
-								0.102227538, 
-								353.4184823
-		    				])
-							.range([0, self.width]),
-			yScale = d3.scaleLog()
-				    		.domain([
-				    			0.102227538,
-				    			353.4184823
-				    		])
-				    		.range([self.height, 0]);
-
-		}
-		// Map data to the display values
-		var xMap   = function(d) { return xScale(+d.x) + self.margin.left; },	
-			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };	
-			
+		var type = this.type;	
 
 		/* search bar */
 		var search = this.type == "country" ? document.querySelector('#searchA') : document.querySelector('#searchB');
@@ -185,7 +149,12 @@ class ScatterPlot {
 	        .attr("stroke-width", 2)
 
 
-	    renderAxes(svg, this.type);
+	    var scales = renderAxes(svg, this.type);
+	    var xScale = scales[0];
+	    var yScale = scales[1];
+	    // Map data to the display values
+		var xMap   = function(d) { return xScale(+d.x) + self.margin.left; },	
+			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };
 
 		var colorMap = function(d) {
 			var res = +d.y - +d.x;
@@ -820,7 +789,14 @@ function hideTooltip(d) {
 			.duration(TRANSITION_DURATION);	
 	}
 	// remove tooltip
-	d3.selectAll("#tooltip").remove();					
+	var tooltip = d3.selectAll("#tooltip")
+	tooltip.transition()
+		.duration(TRANSITION_DURATION)
+		.style("opacity", 0)	
+
+	window.setTimeout(function () {
+			tooltip.remove();
+		}, TRANSITION_DURATION);			
 }
 
 
@@ -978,11 +954,11 @@ function renderHighlightTriangles(svg) {
 	var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var line = d3.line()
-			.x(function(d) { return d.x; })
-			.y(function(d) { return d.y; })
+		.x(function(d) { return d.x; })
+		.y(function(d) { return d.y; })
 
     svg.append("path")
-			.attr("class", "highlight x")
+		.attr("class", "highlight x")
         .attr("d", line(botTriangleData))
         .attr("fill", "#0000ff")
         .attr("stroke", "#0000ff")
@@ -990,7 +966,7 @@ function renderHighlightTriangles(svg) {
         .style("opacity", 0)
 
 	svg.append("path")
-			.attr("class", "highlight y")
+		.attr("class", "highlight y")
         .attr("d", line(topTriangleData))
         .attr("fill", "#ff0000")
         .attr("stroke", "#ff0000")
@@ -1007,31 +983,31 @@ function renderAxes(svg, type) {
 	var xScale, yScale;
 	if (type == "country") {
 		xScale = d3.scaleLog()
-	    				.domain([
-							0.041572436, 
-							352.2016762
-	    				])
-						.range([0, self.width]),
+			.domain([
+				0.041572436, 
+				352.2016762
+			])
+			.range([0, self.width]),
 		yScale = d3.scaleLog()
-			    		.domain([
-			    			0.033501997,
-			    			387.1602479
-			    		])
-			    		.range([self.height, 0]);
+    		.domain([
+    			0.033501997,
+    			387.1602479
+    		])
+    		.range([self.height, 0]);
 
 	} else if (type == "gender") {
 		xScale = d3.scaleLog()
-	    				.domain([
-							0.041572436, 
-							352.2016762
-	    				])
-						.range([0, self.width]),
+			.domain([
+				0.041572436, 
+				352.2016762
+			])
+			.range([0, self.width]),
 		yScale = d3.scaleLog()
-			    		.domain([
-			    			0.033501997,
-			    			387.1602479
-			    		])
-			    		.range([self.height, 0]);
+    		.domain([
+    			0.033501997,
+    			387.1602479
+    		])
+    		.range([self.height, 0]);
 
 	}
 	
@@ -1152,6 +1128,7 @@ function renderAxes(svg, type) {
 	  	.attr("y", self.margin.top + self.margin.bottom / 2 + self.height + v_spacing)
 	  	.text("Usage")
 	  	.style("font-style", "italic")
+	return [xScale, yScale]
 }
 
 

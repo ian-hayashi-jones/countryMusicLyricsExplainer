@@ -117,11 +117,14 @@ var scrollVis = function () {
       width: width,
       height: height,
       margin: margin,
-      type: "gender",
+      type: "country",
       data: [
-              new Word(['turtle', .12247131, .3516464]),
-              new Word(['nights', 4.36510576, 1.54109188]),
-              new Word(['shell', 1.621325, .74821127]),
+              // new Word(['beer', .12247131, .3516464]),
+              // new Word(['boots', 4.36510576, 1.54109188]),
+              // new Word(['gravel', 1.621325, .74821127]),
+              new Word(['beer', 5.9449, .055837, .60105, 7.1048]),
+              new Word(['blessed', .20786, .848717, .901578, .102228]),
+              new Word(['gravel', .78988, .033502, 1.50263, .715593]),
             ]
     });
   };
@@ -273,7 +276,9 @@ var scrollVis = function () {
   function showGenderYAxis() {
     genderLinePlot.stopAnimation(-1);
     genderScatterPlot.hide();
-    genderLinePlot.showYAxis();
+    var newX = [.60105, .9015778, 1.50263]
+    var newY = [7.1048, .102228, .715593]
+    genderLinePlot.showYAxisGender(newX, newY);
   }
 
   /**

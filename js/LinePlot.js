@@ -298,6 +298,7 @@ class LinePlot {
 	 * Animates the transition to the first change in the displayed data
 	 */
 	showYAxis() {
+		console.log("showYAxis country")
 		// Animate line appearing
      	this.svg.selectAll(".lineplotline")
      		.transition()
@@ -492,6 +493,254 @@ class LinePlot {
 			.attr("y", yFreqMap)
 			.style("opacity", 1)
 	}
+
+
+	/*
+	 * Animates the first transition from country lineplot to gender scatterplot
+	 */
+	showYAxisGender(newX, newY) {
+		console.log("showYAxis gender")
+		// Animate line appearing
+     	this.svg.selectAll(".lineplotline")
+     		.transition()
+     		.duration(TRANSITION_DURATION)
+     		.style("opacity", 1)
+
+		// Re-show if coming from below
+		this.svg.selectAll(".lineaxis")
+ 			.style("opacity", 1);
+ 		this.svg.selectAll(".lineaxisarrow")
+ 		    .style("opacity", 1);
+ 		this.svg.selectAll("#lineaxislabel")
+ 		     .style("opacity", 1);
+ 		this.svg.selectAll("#lineaxislabelmore")
+ 		    .style("opacity", 1);
+ 		this.svg.selectAll("#lineaxislabelless")
+ 		    .style("opacity", 1);
+ 		this.svg.selectAll("#lineaxislabelusage")
+ 			.style("opacity", 1);
+
+		// Scales for gender scatterplot
+		var xScale = d3.scaleLog()
+			.domain([
+				0.041572436, 
+				352.2016762
+			])
+			.range([0, self.width]),
+			xMap   = function(d) { return xScale(+d.x) + self.margin.left; };
+		var yScale = d3.scaleLog()
+    		.domain([
+				0.033501997,
+				387.1602479
+    		])
+    		.range([self.height, 0]),
+			yMap   = function(d) { return yScale(+d.y) + self.margin.top; },		// data --> display
+			yLabelMap   = function(d) { return yScale(+d.y) + self.margin.top - 28; },		// data --> display
+			yFreqMap   = function(d) { return yScale(+d.y) + self.margin.top -10 ; },		// data --> display
+			yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);		// axis
+
+		var xAxisShift = this.height + self.margin.top,
+		    xArrowX = this.width + self.margin.left,
+		    xArrowY = this.height + self.margin.top,
+			xAxisLabelsY = this.height  + self.margin.bottom + 10,
+	        v_spacing = 17,
+		    yAxisLabelsX = 40;
+
+
+		/* Draw y axis */
+		this.svg.append("g")
+			.attr("class", "lineplotyaxis")
+			.style("opacity", 0)
+			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 1)
+			.call(yAxis)
+
+		// y axis arrow
+		this.svg.append("svg:path")
+			.attr("class", "lineplotyaxis")
+			.style("opacity", 0)
+			.attr("transform", "translate(" + self.margin.left + "," + self.margin.top + ")")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 1)
+			.attr("d", d3.symbol().type(d3.symbolTriangle))
+			.attr("fill", "black")
+
+		// y axis labels
+		var v_spacing = 17;
+		var yAxisLabelsX = 40;
+		this.svg.append("text")
+		  	.attr("class", "lineplotyaxis")
+		  	.style("opacity", 0)
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 1)
+		  	.attr("x", yAxisLabelsX + 10)
+		  	.attr("y", self.margin.top + v_spacing)
+		  	.text("More")
+		  	.style("font-style", "italic")
+		this.svg.append("text")
+		  	.attr("class", "lineplotyaxis")
+		  	.style("opacity", 0)
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.style("opacity", 1)
+		  	.attr("x", yAxisLabelsX + 10)
+		  	.attr("y", self.margin.top + (2 * v_spacing))
+		  	.text("Usage")
+		  	.style("font-style", "italic")
+
+		if (this.type == "country") {
+			this.svg.append("text")
+			  	.attr("class", "lineplotyaxis")
+			  	.style("opacity", 0)
+				.transition()
+				.duration(TRANSITION_DURATION)
+				.style("opacity", 1)
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (this.height / 2) - v_spacing)
+			  	.text("In")
+			  	.style("font-weight", "bold")
+			this.svg.append("text")
+			  	.attr("class", "lineplotyaxis")
+			  	.style("opacity", 0)
+				.transition()
+				.duration(TRANSITION_DURATION)
+				.style("opacity", 1)
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (this.height / 2))
+			  	.text("Other")
+			  	.style("font-weight", "bold")
+			this.svg.append("text")
+			  	.attr("class", "lineplotyaxis")
+			  	.style("opacity", 0)
+				.transition()
+				.duration(TRANSITION_DURATION)
+				.style("opacity", 1)
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (this.height / 2) + v_spacing)
+			  	.text("Genres")
+			  	.style("font-weight", "bold")
+
+		} else if (this.type == "gender") {
+			this.svg.append("text")
+			  	.attr("class", "lineplotyaxis")
+			  	.style("opacity", 0)
+				.transition()
+				.duration(TRANSITION_DURATION)
+				.style("opacity", 1)
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (this.height / 2) - v_spacing)
+			  	.text("Male")
+			  	.style("font-weight", "bold")
+			this.svg.append("text")
+			  	.attr("class", "lineplotyaxis")
+			  	.style("opacity", 0)
+				.transition()
+				.duration(TRANSITION_DURATION)
+				.style("opacity", 1)
+			  	.attr("x", yAxisLabelsX)
+			  	.attr("y", self.margin.top + (this.height / 2))
+			  	.text("Artists")
+			  	.style("font-weight", "bold")
+		}
+
+
+		// animate x axis drop
+		this.svg.selectAll(".lineaxis")
+		    .transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("transform", "translate(" + self.margin.left + "," + xAxisShift + ")")
+		this.svg.selectAll(".lineaxisarrow")
+		    .transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("transform", "translate(" + xArrowX + "," + xArrowY + ")rotate(90)")
+
+     	// animate axis labels drop
+     	this.svg.selectAll("#lineaxislabel")
+     		.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("y", xAxisLabelsY)
+     		.text("Female Artists")
+     	this.svg.selectAll("#lineaxislabelmore")
+     		.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("x", this.width + self.margin.left - 70)
+		  	.attr("y", xAxisLabelsY)
+     	this.svg.selectAll("#lineaxislabelless")
+     		.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("x", yAxisLabelsX + 20)
+     		.attr("y", self.margin.top + self.margin.bottom / 2 + this.height)
+     	this.svg.selectAll("#lineaxislabelusage")
+     		.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("x", yAxisLabelsX + 15)
+     		.attr("y", self.margin.top + self.margin.bottom / 2 + this.height + v_spacing)
+
+     	// animate data falling into place on the scatter plot
+    //  	this.svg.selectAll(".lineplotdot")
+    //  		.transition()
+    //  		.duration(TRANSITION_DURATION)
+    //  		.attr("r", DOT_SIZE)
+    //  		.attr("y", yMap)
+    //  		.attr("cy", yMap)
+    //  		.style("stroke-width", 0)
+ 			// .style("opacity", 1)
+
+ 		console.log("newX = " + newX + ", newY = " + newY)
+
+ 		var beer = d3.select("#beer")
+ 		console.log("beer = " + beer)
+ 		
+ 		this.svg.select("#lineplot-beer")
+ 			.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("r", DOT_SIZE)
+     		.attr("x", function(d) { return xMap(newX[0])})
+     		.attr("cx", function(d) { return xMap(newX[0])})
+     		.attr("y", function(d) { return yMap(newY[0])})
+     		.attr("cy", function(d) { return yMap(newY[0])})
+     		.style("stroke-width", 0)
+ 			.style("opacity", 1)
+
+ 		this.svg.select("#lineplot-blessed")
+ 			.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("r", DOT_SIZE)
+     		.attr("x", function(d) { return xMap(newX[1])})
+     		.attr("cx", function(d) { return xMap(newX[1])})
+     		.attr("y", function(d) { return yMap(newY[1])})
+     		.attr("cy", function(d) { return yMap(newY[1])})
+     		.style("stroke-width", 0)
+ 			.style("opacity", 1)
+
+ 		this.svg.select("#lineplot-gravel")
+ 			.transition()
+     		.duration(TRANSITION_DURATION)
+     		.attr("r", DOT_SIZE)
+     		.attr("x", function(d) { return xMap(newX[2])})
+     		.attr("cx", function(d) { return xMap(newX[2])})
+     		.attr("y", function(d) { return yMap(newY[2])})
+     		.attr("cy", function(d) { return yMap(newY[2])})
+     		.style("stroke-width", 0)
+ 			.style("opacity", 1)
+
+		this.svg.selectAll(".lineplotdot.info.word")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.attr("y", yLabelMap)  
+			.style("opacity", 1) 		
+
+		this.svg.selectAll(".lineplotdot.info.freq")
+			.transition()
+			.duration(TRANSITION_DURATION)
+			.attr("y", yFreqMap)
+			.style("opacity", 1)
+	}
+
 
 
 	/*
