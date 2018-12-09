@@ -447,13 +447,6 @@ function searchWords(svg, type) {
 			// revert past selection
 			hideTooltip.call(self.currSearch, self.currSearch.datum());
 		} else {
-			// no previously searched word
-			// animate from random location
-			// var cx = Math.floor(Math.random() * (self.width - self.margin.left)) + self.margin.left;
-			// var cy = Math.floor(Math.random() * (self.height)) + self.margin.top;
-			// selection.attr("cx", cx);
-			// selection.attr("cy", cy);
-
 			// animate from origin
 			selection.attr("cx", self.margin.left);
 			selection.attr("cy", self.height - self.margin.bottom);
@@ -984,8 +977,8 @@ function renderAxes(svg, type) {
 	if (type == "country") {
 		xScale = d3.scaleLog()
 			.domain([
-				0.041572436, 
-				352.2016762
+				0.033501997, 
+				387.1602479
 			])
 			.range([0, self.width]),
 		yScale = d3.scaleLog()
@@ -998,14 +991,14 @@ function renderAxes(svg, type) {
 	} else if (type == "gender") {
 		xScale = d3.scaleLog()
 			.domain([
-				0.041572436, 
-				352.2016762
+				0.102228, 
+				353.4184823
 			])
 			.range([0, self.width]),
 		yScale = d3.scaleLog()
     		.domain([
-    			0.033501997,
-    			387.1602479
+    			0.102228,
+    			353.4184823
     		])
     		.range([self.height, 0]);
 
