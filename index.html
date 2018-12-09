@@ -34,7 +34,9 @@
         First, we&#39re going to rank words that are most common in country lyrics. &quot;Baby&quot;, for example, appears 49 times for every 10,000 words.
         Looking only at these words, it seems that &quot;baby&quot; is used in country the most. But what we really care about in our analysis is usage in country <b>compared to</b> usage in all music lyrics. 
         <br>
+        <br>
         We want to determine words that make &quot;country&quot; feel &quot;country&quot;, that is, words that have high frequency in country and low frequency everywhere else.
+        <br>
         <br>
         A lot of this analysis focuses on comparing lyric occurrence between different categories. First, we'll look at lyric occurrence in country vs. all other genres. 
       </section>
@@ -43,19 +45,26 @@
       <section class="step">
         In order to compare the two categories, we first compiled a &quot;country&quot; corpus and an &quot;all other genres&quot; corpus. To create the &quot;country&quot; corpus, we took songs from the Billboard Country charts from December 2013 - November 2018; to create the &quot;all other genres&quot; corpus, we took songs from the Billboard Top charts (removing any songs that appeared in the Billboard Country charts) during the same time period.
         <br>
+        <br>
         This resulted in a grand total of 3044 songs (about 1.1 million words) that we then gathered from Genius Lyrics.
       </section>
 
 
       <!-- index 2 -->
       <section class="step">
-        As you can see, although &quot;baby&quot; occurs in country the most out of these few words, it also occurs frequently in all other genres. Interestingly, although &quot;trailer&quot; appears much less frequently in both categories, it occurs much more frequently in country music <i>compared to</i> all other genres - this is what we care about.        
+        As you can see, although &quot;baby&quot; occurs in country the most out of these few words, it also occurs frequently in all other genres. 
+        <br>
+        <br>
+        Interestingly, although &quot;trailer&quot; appears much less frequently in both categories, it occurs much more frequently in country music <i>compared to</i> all other genres - this is what we care about.        
       </section>
 
 
       <!-- index 3 -->
       <section class="step">
-        Now you can see all the words we measured. Dots farther to the right are more popular in country. Dots farther up are more popular in other genres. Keep scrolling to see the some interesting trends we found (don't worry, you'll still be able to play around with the graph).
+        Now you can see all the words we measured. Dots farther to the right are more popular in country. Dots farther up are more popular in other genres.
+        <br>
+        <br> 
+        Keep scrolling to see the some interesting trends we found (don't worry, you'll still be able to play around with the graph).
       </section>
 
 
@@ -132,7 +141,7 @@
           </div>
           <br>
         </div>
-        Notice anything about these particular words? Sound like words that are pretty common in hip-hop songs, right? We think this is super interesting: looking into the list of "least country words", it appears that country and hip-hop are pretty much opposites when it comes to common word usage.
+        Notice anything about these particular words? Sound like words that are pretty common in hip-hop songs, right? We think this is really interesting: looking into the list of "least country words", it appears that country and hip-hop are pretty much opposites when it comes to common word usage.
       </section>
         
       
@@ -226,28 +235,22 @@
     </div>
   </div>
 
+
+  <!-- Space between country and gender sections -->
+  <div class="spacing"> </div>
+  <div class="spacing"> </div>
   <div class="spacing"> </div>
 
 
-<!--   <div id="transition-container">
-    <div id="transition-body">
-      Hope you found that interesting! Now we want to dig even deeper. 
+  <!-- index 6 -->
+  <section class="step" style="border-left:0px">
+    <div class="transition">
+      After comparing country songs with other genres, we wanted to look more into the country genre in particular. We wondered if there was a difference in lyric usage between male and female country artists.
+      <br>
+      <br>
+      So we crunched some numbers and came up with some pretty neat findings.
     </div>
-
-    <div id="transition-header">
-      Within country music, what lyrical differences can we find between gender?
-    </div>
-  </div> -->
-
-
-
-
-
-  <div id="maintitle">
-    <p class="medium"> Under construction! </p> 
-    <p class="big">  </p> 
-    <p class="small">  </p> 
-  </div>
+  </section>
 
    <div class="spacing"> </div>
 
@@ -255,37 +258,48 @@
   <div class='vis-container'>
     <div class='sections'>
 
-      <!-- index 6 -->
-      <section class="step">
-        <div class="title">Section 1</div>
-        Info about first section
-      </section>
-
-
       <!-- index 7 -->
       <section class="step">
-        <div class="title">Section 2</div>
-        Random stuff about section 2 and facts...
+        <div class="title"></div>
+        Here's that line plot from earlier, only this time, we're plotting a couple of the more frequent country words (remember 'beer' and 'gravel'?), as well as one not-so-frequent one.
+        <br>
+        <br>
+        Notice that these points correspond to the words' occurrences in the country corpus in general. Now remember what this looks like...
       </section>
 
 
       <!-- index 8 -->
       <section class="step">
-        <div class="title">Section 3</div>
-        Look at this cool graph
+        <div class="title"></div>
+        OK, so what just happened? Now we're looking at the occurrences of these words in lyrics by male artists vs. in lyrics by female artists. Notice that there is a discrepancy between the line plot above and this graph: it seems that although 'beer' and 'gravel' had extremely high odds of appearing in country music compared to other genres, when we look at their occurrences within country in particular, we can see that male artists tend to use the word 'beer' much more than female artists. 
+        <br>
+        <br>
+        Furthermore, even though 'blessed' doesn't appear very frequently in country lyrics, when it does, there is a high likelihood that it was used by a female artist.
       </section>
 
 
       <!-- index 9 -->
       <section class="step">
-        <div class="title">Section 4</div>
-        Do people simplify and stereotype country music too much?
+        <div class="title"></div>
+        Similar to before, words that appear closer to the x axis appear more frequently in lyrics by female artists, and words that appear closer to the y axis appear more frequently in lyrics by male artists. 
       </section>
 
 
       <!-- index 10 -->
+      <section class="step">
+        <div class="title"></div>
+        Before you see the lists of words that are used most frequently by male and female artists, respectively, take some time to explore the graph. We recommend looking up words that appeared very frequently in the country corpus and see how their usage varies between male and female artists.
+      </section>
+
+
+      <!-- index 11 -->
       <!-- Most male -->
       <section class="step">
+        Here's the list of words that are used most frequently by male country artists compared to female country artists. Interestingly, 'beer' is still on the top (they really like their beer). 
+        <br>
+        <br>
+
+
         <div class="title leastcountry">The "Most Male" country words</div>
         <div class="wordlistHeader">
           <div class="word"> </div>
@@ -362,6 +376,10 @@
       <!-- index 11 -->
       <!-- Most female -->
       <section class="step">
+        And now, the words used most frequently by female country artists compared to male country artists. If you noticed that the word count is exceptionally low on most of these words, that's because only a small percentage of artists on the Billboard Country charts are female (just 14 percent!).
+        <br>
+        <br>
+
         <div class="title mostcountry">The "Most Female" country words</div>
         <div class="wordlistHeader">
           <div class="word"> </div>
@@ -441,16 +459,22 @@
       <input id='searchB' type="search" placeholder="Search words...">
     </div>
   </div>
+
+
+  <div class="spacing"> </div>
+  <div class="spacing"> </div>
   <div class="spacing"> </div>
 
+  <!-- index 12 -->
   <section class="step" style="border-left:0px">
-    <div id="topsongs-descript">
+    <div class="transition">
       Now that all that analysis is behind us, you probably want to actually <i>listen</i> to some music, huh? 
       <br>
       We're going to leave you with our Top 15 chart. We used a measure called &quot;cosine similarity&quot; to determine which songs most closely resemble the country corpus. Here are our results, hope you enjoy:
     </div>
   </section>
 
+  <!-- index 13 -->
   <section class="step" style="border-left:0px">
     <div id="topsongs-container">
       <div id="topsongs-title"> 

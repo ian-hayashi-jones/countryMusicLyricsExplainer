@@ -207,29 +207,15 @@ html, body {
 }
 
 
-#transition-container {
+.transition {
+  border-left: .15em solid black;
+  padding-left: 1em;
   margin:auto;
   width: 30%;
-}
-
-#transition-header {
-  margin:auto;
-  text-align: center;
-  padding: 1em;
-  font-size: 1.3em;
-  font-family: "Arial", "Helvetica", sans-serif;
-
-}
-
-#transition-body {
-  text-align: center;
-  margin: auto;
-  width: 100%;
   font-family: "TiemposTextWeb-Regular","Georgia";
   font-size: 1.1em;
   color: #767678;
 }
-
 
 /* Container for top songs, soundcloud stuff */
 #topsongs-container {
@@ -240,17 +226,6 @@ html, body {
   flex-direction: column;
   margin-bottom: 10em;
 }
-
-#topsongs-descript {
-  border-left: .15em solid black;
-  padding-left: 1em;
-  margin:auto;
-  width: 30%;
-  font-family: "TiemposTextWeb-Regular","Georgia";
-  font-size: 1.1em;
-  color: #767678;
-}
-
 
 
 #topsongs-title {

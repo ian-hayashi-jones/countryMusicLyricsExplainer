@@ -1093,7 +1093,7 @@ function renderAxes(svg, type) {
 			.attr("class", "scatter x axis")
 		  	.attr("x", self.margin.left + (self.width / 2) - 65)
 		  	.attr("y", xAxisLabelsY)
-		  	.text("Female artists")
+		  	.text("Female Artists")
 		  	.style("font-weight", "bold")
 		svg.append("text")
 		  	.attr("class", "gender")

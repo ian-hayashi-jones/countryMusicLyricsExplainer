@@ -143,13 +143,13 @@ var scrollVis = function () {
     activateFunctions[3] = showCountryScatterPlot;
     activateFunctions[4] = showLeastCountry;
     activateFunctions[5] = showMostCountry;
-    activateFunctions[6] = showGenderLinePlot;
-    activateFunctions[7] = showGenderYAxis;
-    activateFunctions[8] = showGenderTriangles;
-    activateFunctions[9] = showGenderScatterPlot;
-    activateFunctions[10] = showMaleWordList;
-    activateFunctions[11] = showFemaleWordList;
-    activateFunctions[12] = showSection;
+    activateFunctions[6] = showSection;
+    activateFunctions[7] = showGenderLinePlot;
+    activateFunctions[8] = showGenderYAxis;
+    activateFunctions[9] = showGenderTriangles;
+    activateFunctions[10] = showGenderScatterPlot;
+    activateFunctions[11] = showMaleWordList;
+    activateFunctions[12] = showFemaleWordList;
     activateFunctions[13] = showSection;
 
     // updateFunctions are called while
@@ -177,8 +177,13 @@ var scrollVis = function () {
    * user may be scrolling up or down).
    *
    */
+
+  /**
+   * No-op
+   * No visual to update
+   */
   function showSection() {
-    console.log("showing section")
+    //
   }
 
   /**
