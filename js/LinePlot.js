@@ -17,6 +17,7 @@ class LinePlot {
 
 		this.data = opts.data;
 		this.type = opts.type;			// for alternate x/y variables
+
 		this.draw();
 	}
 
@@ -54,8 +55,7 @@ class LinePlot {
 		// x and y mappings
 		var xMap   = function(d) { return xScale(+d.x) + self.margin.left; },
 			xAxis  = d3.axisBottom(xScale).ticks(0).tickSize(0), 				
-			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };	
-			// yScale = d3.scaleLinear().range([this.height, 0]);	
+			yMap   = function(d) { return yScale(+d.y) + self.margin.top; };		
 
 		var colorMap = function(d) {
 			var res = +d.y - +d.x;
@@ -174,11 +174,12 @@ class LinePlot {
 		  	.attr("r", DOT_SIZE)
 		  	.attr("cx", xMap)
 		  	.attr("cy", xAxisShift)
-		  	.style("fill", colorMap)
+		  	.attr("fill", colorMap)
 		pointG.append("text")
 		  	.attr("class", "lineplotdot info word")
 		  	.attr("x", xMap)
 		  	.attr("y", xAxisShift + 20)
+		  	.attr("fill", "black")
 		  	.style("font-style", "italic")
 		  	.style("font-weight", "bold")
 		  	.text(function(d) { return d.word; })
@@ -225,6 +226,52 @@ class LinePlot {
 		// x mapping
 		var xMap = function(d) { return xScale(d.x) + self.margin.left; };
 
+		var colorMap = function(d) {
+			var res = +d.y - +d.x;
+			// More common in country, bottom triangle
+			if (res < 0) {
+				var spectrum = (yScale(+d.y) - yScale(+d.x));
+				if (spectrum > 0 && spectrum <= self.height / 20.0) {
+					return "#ccccff";
+				}
+				else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+					return "#9999ff";
+				}
+				else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+					return "#6666ff";
+				}
+				else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+					return "#3333ff";
+				}
+				else if (spectrum > 1.0/2.0 * self.height) {
+					return "#0000ff";
+				}
+			}
+			// Less common in country, top triangle
+			else if (res > 0) {
+				var spectrum = (yScale(+d.y) - yScale(+d.x)) * -1;
+				if (spectrum > 0 && spectrum <= self.height / 20.0) {
+					return "#ffcccc";
+				}
+				else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+					return "#ff9999";
+				}
+				else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+					return "#ff6666";
+				}
+				else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+					return "#ff3333";
+				}
+				else if (spectrum > 1.0/2.0 * self.height) {
+					return "#ff0000";
+				}
+			}
+			// Equally common in both genres
+			else {
+				return "#e6e6e6";
+			}
+		};
+
 		// animate x axis rise
 		this.svg.selectAll(".lineaxis")
 		    .transition()
@@ -262,7 +309,7 @@ class LinePlot {
      		.duration(TRANSITION_DURATION)
      		.attr("cy", xAxisShift)
      		.attr("cx", xMap)
-     		// .attr("x", xMap)
+     		.attr("fill", colorMap)
 
 
      	// Don't shift x position
@@ -306,7 +353,6 @@ class LinePlot {
 			})
 
      	}
-
 
 
      	// animate y axis hiding
@@ -404,6 +450,104 @@ class LinePlot {
 		}
 
 		yAxis  = d3.axisLeft(yScale).ticks(0).tickSize(0);	
+
+		var colorMap;
+
+		if (type == "country") {
+			colorMap = function(d) {
+				var res = +d.y - +d.x;
+				// More common in country, bottom triangle
+				if (res < 0) {
+					var spectrum = (yScale(+d.y) - yScale(+d.x));
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ccccff";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#9999ff";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#6666ff";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#3333ff";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#0000ff";
+					}
+				}
+				// Less common in country, top triangle
+				else if (res > 0) {
+					var spectrum = (yScale(+d.y) - yScale(+d.x)) * -1;
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ffcccc";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#ff9999";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#ff6666";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#ff3333";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#ff0000";
+					}
+				}
+				// Equally common in both genres
+				else {
+					return "#e6e6e6";
+				}
+			};
+
+		} else if (type == "gender") {
+			colorMap = function(d) {
+				var res = d.getNewY() - d.getNewX();
+				// More common in country, bottom triangle
+				if (res < 0) {
+					var spectrum = (yScale(d.getNewY()) - yScale(d.getNewX()));
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ccccff";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#9999ff";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#6666ff";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#3333ff";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#0000ff";
+					}
+				}
+				// Less common in country, top triangle
+				else if (res > 0) {
+					var spectrum = (yScale(d.getNewY()) - yScale(d.getNewX())) * -1;
+					if (spectrum > 0 && spectrum <= self.height / 20.0) {
+						return "#ffcccc";
+					}
+					else if (spectrum > self.height / 20.0 && spectrum <= 1.0/10.0 * self.height) {
+						return "#ff9999";
+					}
+					else if (spectrum > 1.0/10.0 * self.height && spectrum <=  1.0/5.0 * self.height) {
+						return "#ff6666";
+					}
+					else if (spectrum > 1.0/5.0 * self.height && spectrum <= 1.0/2.0 * self.height) {
+						return "#ff3333";
+					}
+					else if (spectrum > 1.0/2.0 * self.height) {
+						return "#ff0000";
+					}
+				}
+				// Equally common in both genres
+				else {
+					return "#e6e6e6";
+				}
+			};
+		}
+
 
 		/* Draw y axis */
 		this.svg.append("g")
@@ -555,6 +699,7 @@ class LinePlot {
      		.attr("r", DOT_SIZE)
      		.attr("cx", xMap)
      		.attr("cy", yMap)
+     		.attr("fill", colorMap)
      		.style("stroke-width", 0)
  			.style("opacity", 1)
 
@@ -599,7 +744,6 @@ class LinePlot {
 					.attr("y", yFreqMap)
 					.style("opacity", 1)
 			})
-
 		}
 	}
 
