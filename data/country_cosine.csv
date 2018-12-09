@@ -1,0 +1,798 @@
+artist,title,top_peak,cosine_sim
+Kip Moore,Young Love,26,0.013937899405305338
+Dolly Parton,Here I Am,37,0.017170785901948458
+Pistol Annies,Got My Name Changed Back,48,0.019874686807398945
+Chris Stapleton,I Was Wrong,41,0.020978008309170928
+Hunter Hayes,You Think You Know Somebody,34,0.022706016181375077
+Eli Young Band,Turn It On,42,0.02309772338902054
+Kane Brown,Baby Come Back To Me,42,0.023201259467609873
+Chase Bryant,Take It On Back,16,0.023778096515152426
+Chris Stapleton,Broken Halos,5,0.02416071760561825
+Kelsea Ballerini,Miss Me More,28,0.024416713947305286
+Blake Shelton,Bet You Still Think About Me,44,0.02452937841030058
+Dustin Lynch,Love Me Or Leave Me Alone,31,0.02459266951413574
+Tim McGraw and Faith Hill,Speak To A Girl,6,0.024649544331297926
+Charlie Worsham,Want Me Too,46,0.025103357983190855
+Kelsea Ballerini,Love Me Like You Mean It,5,0.025246149989170425
+John Mayer,In The Blood,39,0.02526082455423245
+Dan  Shay,When I Pray For You,39,0.025530782275774367
+Danielle Bradbery,Worth It,49,0.025952624039874493
+Brantley Gilbert,The Ones That Like Me,22,0.02603882180582664
+Devin Dawson,All On Me,6,0.02620221033362949
+Little Big Town,Pain Killer,49,0.026264976272383393
+Kelleigh Bannen,Famous,46,0.026362368904305926
+Levi Hummon scooter carusoe chris destefano,Stupid,48,0.026718562037950946
+Eric Church,Desperate Man,8,0.02675757612429073
+Sugarland ,Babe,8,0.026845007682466983
+Cassadee Pope,I Wish I Could Break Your Heart,35,0.026890049619732976
+Carrie Underwood,End Up With You,37,0.027013083944822016
+Justin Moore ,Home Sweet Home,28,0.027077439987482736
+Kane Brown ,What Ifs,1,0.027216037671085345
+Nashville Cast,Lately,42,0.027430000445153705
+Shania Twain,Lifes About To Get Good,33,0.027492697919172047
+Jake Owen,If He Aint Gonna Love You,45,0.027538155921427162
+Billy Currington,It Dont Hurt Like It Used To,3,0.027898045330412596
+Andy Grammer,Honey Im Good,37,0.027970651829178246
+Jake Owen,Real Life,17,0.02811287488062611
+Jake Owen,What We Aint Got,19,0.028249561855833598
+Blake Shelton,Shes Got A Way With Words,8,0.028351587552702243
+Luke Bryan,To The Moon And Back,37,0.028495690791823992
+Kenny Chesney ,Better Boat,36,0.028611490008013888
+Nashville Cast,He Aint Gonna Change,50,0.028742431013536664
+The Band Perry,Live Forever,29,0.028749001672810685
+Florida Georgia Line,Stay,1,0.028750423442668798
+Morgan Evans,Things That We Drink To,46,0.028938742752755355
+Darius Rucker,If I Told You,4,0.028976044342866335
+The Band Perry,Dont Let Me Be Lonely,9,0.029203095401052794
+Bebe Rexha,Meant To Be,1,0.029222766123064743
+Nashville Cast ,Sanctuary,31,0.029378202436606268
+Taylor Ray Holbrook,These Hands,48,0.029476349766061262
+Zac Brown Band,Someone I Used To Know,27,0.02953084966329881
+Brantley Gilbert,You Could Be That Girl,50,0.02955795283711278
+Jason Aldean,Ill Wait For You,32,0.02956507808384261
+Mickey Guyton,Why Baby Why,45,0.02960146792185781
+Florida Georgia Line,If I Die Tomorrow,33,0.029674004821257812
+Josh Abbott Band,Amnesia,45,0.029727335116536607
+Craig Wayne Boyd,You Look So Good In Love,35,0.02976194553531449
+Mo Pitney,Boy and A Girl Thing,50,0.029796871526082156
+Chris Stapleton,Second One To Know,37,0.02986101630033938
+Pentatonix ,Jolene,18,0.029913682495930276
+Brett Eldredge,Lose My Mind,2,0.03006125362370469
+Steven Tyler,Love Is Your Name,19,0.030089032146430827
+Sam Hunt,Take Your Time,1,0.030121825134262644
+Keith Urban ,The Fighter,2,0.030194805555304436
+Chris Young,Who I Am With You,8,0.030213372250844965
+Zac Brown Band,All The Best,43,0.030447374647184666
+Tim McGraw and Faith Hill,Keep Your Eyes On Me,44,0.03045068223851618
+Kane Brown,There Goes My Everything,27,0.030492224503832863
+Jana Kramer,I Got The Boy,5,0.030513958781858423
+Thompson Square,Everything I Shouldnt Be Thinking About,15,0.030647567516847482
+Carrie Underwood,Keep Us Safe,36,0.03068900126376985
+Chase Rice,Ride,38,0.030848232677298117
+Jason Aldean,I Wont Back Down Live From Saturday Night Live,47,0.030885651412633983
+Dan  Shay,How Not To,7,0.030891685160088885
+Craig Wayne Boyd,I Walk The Line,15,0.030897006664122786
+George Strait,Let It Go,29,0.031008771010963915
+Dierks Bentley,Black,4,0.031053659544842127
+Jake Owen,Made For You,43,0.031084738031997232
+Glen Campbell,Im Not Gonna Miss You,21,0.03109213154588233
+Brett Young,In Case You Didnt Know,2,0.03111171603771106
+Kane Brown,Good As You,17,0.031636833981337875
+Jana Kramer,Love,37,0.031703171695680744
+Easton Corbin,Are You With Me,46,0.031710330783661124
+Love And Theft,If You Ever Get Lonely,43,0.031804371293262565
+Craig Wayne Boyd,In Pictures,28,0.03197254431925125
+Thomas Rhett,Grave,23,0.03206047979830467
+Darius Rucker,Dont,39,0.0320644098999628
+Kelsea Ballerini,I Hate Love Songs,28,0.03207202096463118
+Sam Hunt,Ex To See,37,0.03210330826302068
+Cole Swindell,The Ones Who Got Me Here,50,0.032103313456929974
+Garth Brooks,People Loving People,25,0.032301703404059204
+Drake White,It Feels Good,38,0.032335655426688995
+Trent Harmon,Falling,27,0.03235188010668609
+Justin Moore,You Look Like I Need A Drink,12,0.032355798151648095
+Thomas Rhett,Star Of The Show,4,0.032362490821839895
+Chase Rice,We Goin Out,36,0.032437518490934056
+Kane Brown,Excuses,36,0.03246542106699387
+Red Marlow,I Pray,16,0.03249991991374523
+Chris Stapleton,Fire Away,25,0.03250282173258588
+Sugarland,Still The Same,35,0.032615064009095744
+Jennifer Nettles,Unlove You,24,0.03269248916575061
+Dierks Bentley,Say You Do,5,0.032717826965324784
+Brett Young,Mercy,2,0.03280374351681288
+Little Big Town,Better Man,1,0.03287051206911138
+Mason Ramsey,Famous,4,0.03292860938171915
+Cassadee Pope,Wasting All These Tears,5,0.032984126527456435
+Luke Combs,She Got The Best Of Me,2,0.03304715515264317
+Brett Eldredge,Drunk On Your Love,2,0.033075199750106095
+Chris Lane,For Her,17,0.03309122711106371
+Big and Rich,Look At You,13,0.033177477184583665
+Carrie Underwood,Cry Pretty,5,0.03321774955625821
+Carrie Underwood,Relapse,48,0.03322658745596345
+Home Free,Angels We Have Heard On High,30,0.03323960141772612
+Carly Pearce,Every Little Thing,5,0.033270350331890505
+Luke Bryan,Light It Up,4,0.033324556431607616
+Hunter Hayes ,Where It All Begins,45,0.03332455649441259
+Chris Stapleton,Either Way,17,0.03335628476471268
+Dierks Bentley ,Ill Be The Moon,40,0.03336273477415169
+Taylor Swift,New Years Day,33,0.03339771135374667
+RaeLynn,For A Boy,32,0.033413894886990654
+Kacey Musgraves,Keep It To Yourself,40,0.033421293950200506
+LANCO,Born To Love You,19,0.03342361636069538
+Keith Urban ,Coming Home,11,0.03344243596226496
+Kane Brown,Used To Love You Sober,15,0.03349772829166809
+Eli Young Band,Saltwater Gospel,43,0.03359205532007298
+Dierks Bentley,Riser,26,0.03359891409864569
+Sam Hunt,Come Over,42,0.03361453393113063
+Florida Georgia Line,Take It Out On Me,32,0.0338770672159211
+Brad Paisley ,Without A Fight,23,0.03398156687453983
+Dierks Bentley,Pick Up,34,0.03401021218612778
+Cole Swindell,Shouldve Ran After You,27,0.03403153260343888
+Sir Rosevelt,Something Bout You,42,0.034087919809813114
+Chris Lane,Fix,10,0.03410683544839603
+Brett Eldredge,Mean To Me,4,0.034142191519219635
+Jason Aldean,This Plane Dont Go There,40,0.034160571487083256
+Garth Brooks,Ask Me How I Know,13,0.034180997814935096
+David Nail,Kiss You Tonight,25,0.03429535058662078
+Kane Brown,Heaven,2,0.03432700816104906
+Rascal Flatts,I Like The Sound Of That,8,0.03436494433474511
+Maren Morris,Once,37,0.03441234794346694
+Zac Brown Band,My Old Man,10,0.034454890997816165
+Keith Urban,Break On Me,6,0.034486566104468076
+Joe Nichols,Yeah,7,0.03458096609801404
+Cole Swindell,Youve Got My Number,47,0.03459267930255009
+Kane Brown,Lose It,1,0.0345959072387031
+Lindsay Ell,Criminal,28,0.03460818839180128
+Kelsea Ballerini,Unapologetically,32,0.03465441696080776
+Lennon and Maisy,Thats Whats Up,42,0.034679638803062574
+Little Big Town,Girl Crush,1,0.034789705290226604
+Florida Georgia Line,HOLY,1,0.034840236400223344
+Eric Paslay,She Dont Love You,15,0.0348479582604612
+Cam,Diane,43,0.034861945369796116
+Jason Aldean,Girl Like You,18,0.034863105469983
+Thomas Rhett,Leave Right Now,38,0.034864365813288334
+RaeLynn,Lonely Call,50,0.03492882152099205
+Lady Antebellum,Compass,6,0.03493043525449035
+LOCASH,I Know Somebody,4,0.034935881282278515
+Rascal Flatts,Riot,27,0.03494364525777309
+Chris Stapleton,Nobody To Blame,13,0.03497612171053812
+Jennifer Nettles,O Holy Night,46,0.0349943355983599
+Ashley Monroe,Hands On You,47,0.035006594859403335
+Dustin Lynch,Good Girl,13,0.03500951755435207
+Brad Paisley,The Mona Lisa,24,0.0350570224191547
+Carrie Underwood,The Girl You Think I Am,38,0.03526421715465908
+Lauren Alaina,Next Boyfriend,39,0.03530817387340107
+Florida Georgia Line,Hands On You,33,0.03532195874263831
+Tim McGraw,Sick Of Me,50,0.03535189255571762
+Craig Wayne Boyd,The Old Rugged Cross,7,0.03538476085642316
+Old Dominion,No Such Thing As A Broken Heart,4,0.03539036748792038
+Luke Bryan,Games,21,0.03553196498089129
+Chris Young,Losing Sleep,7,0.03562581122862869
+Jake Owen,Down To The Honkytonk,23,0.03571511530670129
+Blake Shelton,Ill Name The Dogs,6,0.035739470497277596
+Jennifer Nettles,That Girl,37,0.03574247189820706
+Tucker Beathard,Rock On,9,0.03576126116790492
+Old Dominion,Break Up With Him,3,0.03581607740161281
+Jana Kramer,Ive Done Love,35,0.0358213584693808
+Reba McEntire,Back To God,25,0.03582425698882403
+Dan  Shay,All To Myself,29,0.03585879522616676
+Lady Antebellum,Heart Break,22,0.03590332408440806
+The Scott Brothers,Hold On,38,0.035947901496619555
+Kacey Musgraves,Biscuits,28,0.03596364343519903
+Brett Young,Like I Loved You,3,0.035970962588352924
+Charles Kelley,The Only One Who Gets Me,39,0.035997548547263496
+Chris Stapleton,Last Thing I Needed First Thing This Morning,37,0.03602280936067221
+Kelsea Ballerini,Yeah Boy,9,0.03604191571304999
+Blake Shelton ,Go Ahead And Break My Heart,13,0.03605261604650355
+Morgan Wallen,The Way I Talk,35,0.036072827797963794
+Kelsea Ballerini,Peter Pan,1,0.0360902805032172
+Easton Corbin,Clockwork,31,0.036146609389309435
+Brett Eldredge,Love Someone,46,0.036215102752567424
+Lady Antebellum,I Did With You,35,0.03621803801182407
+Lennon and Maisy,A Life Thats Good,38,0.03624954814305788
+Brett Eldredge,The Long Way,7,0.03630592973806587
+Montgomery Gentry,Better Me,40,0.03630831281294853
+Maren Morris,I Could Use A Love Song,7,0.03632623299207665
+Luke Bryan,Kill The Lights,35,0.03633153092463673
+Sara Evans,Infinite Love,39,0.036413435110135665
+Dan  Shay,Speechless,1,0.036466936029283206
+Nashville Cast,It Aint Yours To Throw Away,32,0.0365014718627995
+Sheryl Crow,Callin Me When Im Lonely,37,0.03652292537249065
+Blake Shelton,Saviors Shadow,50,0.03659369069086665
+Walker Hayes,You Broke Up With Me,9,0.036606989454739905
+Kane Brown,Whats Mine Is Yours,34,0.03665040510024428
+Eli Young Band,Love Aint,40,0.036656619002155603
+Zac Brown Band,From Now On,43,0.036676590188602774
+Big and Rich,Run Away With You,17,0.036716754623470224
+Blake Shelton,Gonna,4,0.03679179529375799
+Kane Brown,I Love That I Hate You,35,0.036864474802981544
+Brett Eldredge,Just A Taste,44,0.03692933799193916
+Cole Swindell,Break Up In The End,4,0.03708280505642206
+Luke Bryan,She Get Me High,33,0.03715157543328395
+Cassadee Pope,Take You Home,49,0.03720120838687577
+William Michael Morgan,I Met A Girl,8,0.037279543296834666
+Thomas Rhett,Vacation,19,0.03728109188806992
+Russell Dickerson,Yours,3,0.037292654331838156
+Brett Eldredge,Beat Of The Music,6,0.03732874448202711
+Miranda Lambert,We Should Be Friends,25,0.037371932726077174
+Tyler Rich,The Difference,37,0.03740153381908492
+Lee Brice,I Dont Dance,5,0.037410166295038336
+Lauren Duski,Deja Vu the voice performance,4,0.03742038806858683
+High Valley,Shes With Me,11,0.03744896815242281
+Cam,Burning House,2,0.03754389997152537
+Carrie Underwood,Smoke Break,4,0.037571470396677256
+Carrie Underwood,Love Wins,26,0.03759623377757541
+Danielle Bradbery,Friend Zone,41,0.03770146935977552
+Blake Shelton ,Lonely Tonight,2,0.037771318116836414
+David Lee Murphy,Everythings Gonna Be Alright,9,0.037792306463041
+Cole Swindell,All Of It,49,0.03781650600812489
+Cam,Mayday,32,0.03781707813588324
+Keith Urban,Never Comin Down,32,0.03784048851895897
+The Swon Brothers,Later On,21,0.037908206777061464
+Hunter Hayes ,Everybodys Got Somebody But Me,18,0.037909835269568856
+The Band Perry,Chainsaw,20,0.03805338667197057
+Carrie Underwood,What I Never Knew I Always Wanted,32,0.03812659366291744
+Dylan Scott,My Girl,3,0.03815377440237722
+Chris Stapleton,Traveller,17,0.03823107595947935
+Jimmie Allen,Best Shot,5,0.038242660381351004
+Jon Pardi,Night Shift,30,0.03830301701991465
+Chase Rice,Eyes On You,42,0.038354450900535644
+Jordan Davis,Take It From Me,20,0.038400306892379964
+Midland,Drinkin Problem,4,0.038452989074552364
+Dan  Shay,Already Ready,44,0.03847488895590956
+Blake Shelton ,My Eyes,4,0.03849059246273673
+Billy Currington,Do I Make You Wanna,5,0.0384994352084762
+Tim McGraw,Lookin For That Girl,18,0.03852364824478272
+Eric Church,Thats Damn Rock and Roll,43,0.03854964236584627
+Nashville Cast,I Will Never Let You Know,39,0.03860902703296542
+Michael Ray,Get To You,17,0.03867288723801308
+Chris Young ,Think Of You,2,0.03869596574628433
+Kacey Musgraves,Butterflies,32,0.038736870040690624
+Brantley Gilbert,The Weekend,9,0.03877172429943886
+Florida Georgia Line ,This Is How We Roll,1,0.03879354686669672
+Thomas Rhett,Make Me Wanna,2,0.03883046430610909
+Garth Brooks,Baby Lets Lay Down And Dance,29,0.0388334646651092
+Kane Brown,Found You,13,0.038836472093211144
+Heartland,I Loved Her First,1,0.03884899809214304
+Zac Brown Band,Loving You Easy,4,0.03887860475626614
+Sam Hunt,Speakers,40,0.03896030597995049
+Blake Shelton,Mine Would Be You,2,0.03896578296666167
+Chris Janson,Fix A Drink,10,0.03897007755937897
+Jamie Lynn Spears,How Could I Want More,29,0.039015345095356625
+Taylor Ray Holbrook,Steal My Kiss,45,0.03902286259425063
+Dan  Shay,From The Ground Up,3,0.0390433970681812
+Love And Theft,Night That Youll Never Forget,38,0.03909358649733161
+Eric Church,Heart Like A Wheel,35,0.03909730727271071
+Chris Lane ,Take Back Home Girl,12,0.03909928084370903
+Dustin Lynch,Seein Red,5,0.03910405829553888
+Blake Shelton,Every Time I Hear That Song,8,0.039186092108132134
+Reba McEntire,Going Out Like That,23,0.03922110719641995
+Florida Georgia Line,People Back Home,42,0.03930116429434478
+Zac Brown Band,Real Thing,34,0.039303677564115055
+Tim McGraw and Faith Hill,The Rest Of Our Life,18,0.03931118325389119
+Florida Georgia Line,Bumpin The Night,15,0.03933204404016953
+Keith Urban,Good Thing,50,0.0393513694219195
+Luke Bryan,Play It Again,1,0.03936956486783743
+Sir Rosevelt,It Goes On,39,0.03938564289932596
+Craig Wayne Boyd,My Babys Got A Smile On Her Face,1,0.039391952260825716
+Billy Currington,Dont It,4,0.03939461837769771
+Chris Young,Hangin On,8,0.039465314454997805
+Thomas Rhett,Die A Happy Man,1,0.03948103198592019
+Florida Georgia Line,Simple,2,0.039505951325342625
+Chris Janson,Buy Me A Boat,2,0.03956338377366752
+Mitchell Tenpenny,Drunk Me,7,0.039607969167777916
+Kenny Chesney,The Big Revival,27,0.03963040707163565
+Jon Pardi,When Ive Been Drinkin,36,0.03965920552187948
+LOCASH,I Love This Life,5,0.03967052911920953
+Sturgill Simpson,In Bloom,48,0.0397262636349137
+Thomas Rhett,The Day You Stop Lookin Back,47,0.03973404860005442
+Cole Swindell,Remember Boys,27,0.039752108889122235
+Luke Combs,Beautiful Crazy,6,0.039786391720990605
+Big and Rich ,Lovin Lately,19,0.03987046476655776
+Seth Ennis,Woke Up In Nashville,45,0.039939149081023584
+Thomas Rhett,When I Was Your Man,27,0.03998011051119169
+Miranda Lambert ,Somethin Bad,1,0.03999401109090812
+Jason Aldean,Reason To Love LA,49,0.04000239218419818
+Jon Pardi,She Aint In It,23,0.040053985339960345
+Kip Moore,Running For You,25,0.04006125841050947
+Chris Young,Im Comin Over,2,0.04006371778443113
+Miranda Lambert,Little Red Wagon,5,0.04010859718527841
+The Cadillac Three,White Lightning,39,0.040120796932627247
+Dierks Bentley,Somewhere On A Beach,1,0.04014462184803702
+Lauren Alaina,Doin Fine,34,0.04019377155408804
+Kip Moore,More Girls Like You,8,0.04020098636535067
+Jason Aldean,You Make It Easy,2,0.040210602504196696
+Craig Morgan,Wake Up Lovin You,20,0.040242448492116126
+Thomas Rhett,Life Changes,6,0.040249643818028626
+Toby Keith,Drunk Americans,33,0.04031112009201214
+Blake Shelton,I Lived It,8,0.04032257545712879
+Brothers Osborne,21 Summer,25,0.04034085549493169
+Sam Hunt,House Party,1,0.04034158883129029
+Thomas Rhett,Sweetheart,41,0.0403970817969349
+Rascal Flatts,Back To Us,48,0.0404797044638379
+Thomas Rhett,When You Look Like That,49,0.04050118573925255
+Miranda Lambert ,Smokin And Drinkin,32,0.04051974630361345
+Florida Georgia Line ,God Your Mama And Me,4,0.04054465229783057
+Dustin Lynch,Mind Reader,8,0.04057193811751738
+Jason Aldean,Gettin Warmed Up,33,0.0406035529894893
+Keith Urban,Parallel Line,25,0.04065802542808691
+Luke Bryan,I See You,1,0.040667240822455854
+Hunter Hayes,Tattoo,31,0.04072237266451551
+Joey  Rory,When Im Gone,21,0.04072798133201657
+Kelsea Ballerini,Legends,10,0.04074153296140223
+Dan  Shay,What You Do To Me,39,0.040746769165688645
+Little Big Town,Happy People,40,0.04084631486213667
+Carrie Underwood,Like Ill Never Love You Again,39,0.04084934352760435
+Kane Brown,Setting The Night On Fire,45,0.04090210720511613
+Jason Aldean,Lights Come On,3,0.04091834436577503
+LOCASH,Ring On Every Finger,22,0.040935936591005015
+Jordan Davis,Singles You Up,4,0.04095349067727405
+Jessie James Decker,Lights Down Low,38,0.040985339298075456
+Eric Paslay,Song About A Girl,18,0.04100933120543101
+Darius Rucker,For The First Time,7,0.04106332776281297
+RaeLynn,Queens Dont,40,0.041064559592037024
+RaeLynn,God Made Girls,7,0.041073995706559674
+Josh Abbott Band,Wasnt That Drunk,46,0.041079293903864646
+Hunter Hayes,Wild Card,40,0.04110498372950906
+Midland,Make A Little,23,0.041109540335399646
+Jana Kramer,Dammit,48,0.041141282892520226
+Taylor Swift,Red,2,0.04116696453656356
+Chris Stapleton,Might As Well Get Stoned,44,0.04118983700085827
+Tim McGraw,Overrated,32,0.041204545007717336
+Sam Hunt,Make You Miss Me,2,0.04120598636241012
+Blake Shelton,A Guy With A Girl,3,0.04122982774322886
+Luke Combs,Mustve Never Met You,14,0.04125090327145624
+Clare Dunn,Move On,48,0.0412570188202355
+Old Dominion,Written In The Sand,3,0.04125775468527311
+Hunter Hayes,21,26,0.04127081345300146
+Jon Langston,Right Girl Wrong Time,44,0.04129035281187035
+Maddie and Tae,Fly,9,0.04135419816551629
+Chris Stapleton,Millionaire,17,0.041367131052236175
+Kenny Chesney,Til Its Gone,8,0.04140781519255819
+Brantley Gilbert,Bottoms Up,1,0.04142072953746642
+Florida Georgia Line,Island,48,0.04143765957129943
+Brett Young,Here Tonight,29,0.041441878026713695
+Old Dominion,Hotel Key,5,0.04146255265413975
+Sara Evans,Slow Me Down,19,0.04154038231592705
+Lee Brice,Good Man,43,0.0415762874942344
+Kelsea Ballerini,Dibs,7,0.0415801625510325
+Rascal Flatts,Yours If You Want It,13,0.04161775873802293
+George Strait,I Got A Car,23,0.04162816990882318
+Gloriana,Trouble,36,0.04163250780536287
+Luke Bryan,Heres To The Farmer,33,0.04165940533209372
+Carlton Anderson,Drop Everything,49,0.041684075295973524
+Justin Moore,Somebody Else Will,9,0.04169649196196188
+Neal McCoy,Take A Knee My Ass,49,0.04170447730313016
+Kacey Musgraves,High Horse,36,0.04173477356176752
+Maren Morris,My Church,5,0.04189378286288124
+Dierks Bentley ,Burning Man,10,0.04190405703652076
+Kenny Chesney,All The Pretty Girls,7,0.04192539056950224
+Kip Moore,Im To Blame,24,0.041981317149189686
+Florida Georgia Line ,May We All,2,0.04199777617467044
+Jake Owen,I Was Jack You Were Diane,7,0.042040405446679724
+Brantley Gilbert,Read Me My Rights,46,0.042067211091856065
+Dierks Bentley,I Hold On,3,0.04222516211768141
+Annie LeBlanc,Fly,34,0.04223010473303895
+Danielle Bradbery,The Heart Of Dixie,16,0.04223282276960439
+Sam Hunt,Drinkin Too Much,16,0.04223639594332737
+Eric Church ,Kill A Word,9,0.04228714959167076
+Dierks Bentley,What The Hell Did I Say,35,0.04234659594486641
+Will Hoge,Strong,42,0.042380370173268414
+Lee Brice,Boy,14,0.042407011335759345
+Miranda Lambert,Platinum,50,0.04241582939414364
+Jason Aldean,In Case You Dont Remember,50,0.042424978703668445
+Brantley Gilbert,Tried To Tell Ya,47,0.042434726985242095
+Florida Georgia Line,Sun Daze,3,0.0424935862607668
+Dustin Lynch,Wild In Your Smile,32,0.04252783184614352
+A Thousand Horses,This Aint No Drunk Dial,30,0.042535358436725304
+Brad Paisley,Today,7,0.04257055231606666
+Lady Antebellum,Golden,50,0.04264574832152944
+The Cadillac Three,Party Like You,48,0.04281221635754665
+Luke Bryan,Most People Are Good,4,0.04287638873825982
+Brad Paisley,Shattered Glass,44,0.04288061361831805
+Jason Aldean,They Dont Know,8,0.04291733109512754
+Brett Eldredge,Wanna Be That Song,3,0.04292568143384611
+Thomas Rhett,Unforgettable,4,0.042944171409853335
+Little Big Town,Sober,27,0.04297624483147129
+Thomas Rhett,Crash And Burn,2,0.043020989537496945
+Tyler Farr,Withdrawals,47,0.0430367096461889
+Dierks Bentley,Living,49,0.043109084932638944
+Dan  Shay,Show You Off,29,0.0431108766056372
+Lady Antebellum,You Look Good,8,0.04313703283209539
+Randy Houser,Song Number 7,46,0.04315845298806594
+Hunter Hayes,Storyline,37,0.04315891895794958
+Chris Janson,Holdin Her,25,0.04325938828120762
+Easton Corbin,Baby Be My Love Song,11,0.04328669775305005
+Frankie Ballard,Young and Crazy,8,0.04333936125282113
+Dylan Scott,Crazy Over Me,36,0.04334705887963013
+Justin Moore,Kinda Dont Care,28,0.043383970159505986
+Old Dominion,Snapback,4,0.04346502180520234
+Zac Brown Band,Ill Be Your Man Song For A Daughter,50,0.04351789703610325
+Dustin Lynch,Hell Of A Night,7,0.043586293926899465
+Calhoun and hosier,Salute The Brave,46,0.04358818211431786
+Eric Paslay,High Class,32,0.04359318068486946
+Tim McGraw,Top Of The World,11,0.0436731482580904
+Keith Urban,Somewhere In My Car,3,0.043678662916561015
+Kenny Chesney,Flora Bama,26,0.04370032777440301
+Zac Brown Band,Beautiful Drug,5,0.04370416105579488
+Kacey Musgraves,The Trailer Song,46,0.04378090613036492
+Easton Corbin,Yup,44,0.043812805198726386
+Dan  Shay,What Keeps You Up At Night,50,0.043820822819297535
+Scotty McCreery,This Is It,20,0.043880587422498174
+Morgan Evans,Kiss Somebody,11,0.043925981477691584
+Brad Paisley,Last Time For Everything,26,0.04393477167504514
+Jon Pardi,Head Over Boots,4,0.04396247427589859
+Luke Combs,A Long Way,33,0.043994045599096115
+Dierks Bentley,Woman Amen,7,0.044002794777752104
+Luke Bryan,Good Lookin Girl,31,0.044004195991474426
+Thomas Rhett ,Playing With Fire,40,0.044019953301912405
+Toby Keith,Wacky Tobaccy,45,0.04409460619476769
+Chuck Wicks,Us Again,36,0.04427109524903048
+Brad Paisley,River Bank,12,0.04429995265294682
+Jason Aldean,Rearview Town,24,0.04433321436478028
+Dan  Shay ,Keeping Score,32,0.044395021845458515
+Reba McEntire,Just Like Them Horses,37,0.04439635476279753
+Kacey Musgraves,Space Cowboy,30,0.04443459659471634
+Carly Pearce,Hide The Wine,21,0.04448856565799313
+Scotty McCreery,See You Tonight,10,0.04451206971527494
+Dustin Lynch,Id Be Jealous Too,27,0.04454768018719614
+Luke Bryan,Way Way Back,42,0.04455600492346024
+Taylor Swift,All Too Well,17,0.0445612401398053
+Kid Rock,Po Dunk,27,0.0446362580174999
+Brett Young,Sleep Without You,3,0.044659551147764
+Spensha Baker,Old Soul,37,0.044665871295427775
+The Band Perry,Comeback Kid,42,0.044681804821868454
+Sam Hunt,Body Like A Back Road,1,0.04484460903076284
+Maren Morris,Rich,8,0.04484949983897329
+David Nail,Broke My Heart,46,0.04488603134806209
+Michael Ray,One That Got Away,38,0.04489544227431946
+Brantley Gilbert,Outlaw In Me,45,0.045010793099638784
+Kacey Musgraves,Slow Burn,42,0.045013849433525877
+Brothers Osborne,Rum,34,0.04504044592184185
+Brothers Osborne,Stay A Little Longer,4,0.04511344937786725
+Florida Georgia Line,Talk You Out Of It,19,0.045123892575030994
+Joe Nichols,Hard To Be Cool,32,0.04513362250070718
+Craig Wayne Boyd,Take It Easy,31,0.04514888835663419
+Hillary Scott and The Scott Family,Thy Will,27,0.0451824377832018
+Adam Craig,Just A Phase,38,0.04518543352322374
+Chris Stapleton,Tryin To Untangle My Mind,45,0.04526618926281204
+Carrie Underwood,Something In The Water,1,0.045266555248380386
+Little Big Town,Summer Fever,32,0.045269513642306726
+Michael Ray,Kiss You In The Morning,10,0.04527371881681468
+The Band Perry,Gentle On My Mind,35,0.045338556546059255
+Chase Bryant,Little Bit Of You,16,0.04539723982087725
+Luke Bryan ,Home Alone Tonight,3,0.04544818705662067
+Clare Dunn,Tuxedo,44,0.045469471442494996
+Jon Pardi,Heartache On The Dance Floor,5,0.04548184920227781
+Old Dominion,Make It Sweet,28,0.04553354543662704
+Chris Janson,Drunk Girl,12,0.04555691931110537
+Cody Johnson,On My Way To You,25,0.04556158448023246
+Kenny Chesney,Wild Child,9,0.04569629171979196
+Carrie Underwood,Little Toy Guns,6,0.045703771001622366
+Michael Ray,Think A Little Less,3,0.04576957580570109
+Dylan Scott,Hooked,6,0.045789660530300806
+Luke Bryan,You And The Beach,39,0.045914999336068636
+Blake Shelton,At The House,49,0.04596090048337418
+Kane Brown,Thunder In The Rain,30,0.04596590585655249
+Luke Combs,When It Rains It Pours,1,0.045984855767312774
+Chase Rice,Ready Set Roll,5,0.04602854635598042
+Eric Church,A Man Who Was Gonna Die Young,24,0.0460373911478976
+Thomas Rhett,Get Me Some Of That,4,0.04605314254934141
+Walker McGuire,Til Tomorrow,50,0.04609556141016479
+Hayden Panettiere,Dont Put Dirt On My Grave Just Yet,34,0.04611870487519253
+Dan  Shay,Alone Together,39,0.04615213506221058
+Little Big Town,Day Drinking,4,0.046241596562421855
+Kristian Bush,Trailer Hitch,25,0.04629290847823993
+Maren Morris,80s Mercedes,11,0.046337787669483925
+LANCO,Greatest Love Story,1,0.046366515405535075
+Miranda Lambert,Automatic,4,0.04644026899733049
+Granger Smith,Youre In It,50,0.046514309484044204
+Maddie and Tae,Shut Up And Fish,30,0.046527951224799934
+Jerrod Niemann,A Little More Love,41,0.04652981439254043
+Brett Eldredge,No Stopping You,50,0.0465411200245209
+Eli Young Band,Drunk Last Night,3,0.04662574236336917
+Jason Aldean,Any Ol Barstool,5,0.046634999699083274
+Brett Eldredge ,Baby Its Cold Outside,26,0.046729470804674565
+Cole Swindell,Middle Of A Memory,3,0.046737812067322755
+Home Free,God Bless The USA,47,0.04674081452197746
+Jason Aldean,Burnin It Down,1,0.046792844006334725
+Florida Georgia Line,Itz Just What We Do,48,0.04680788564377442
+Zac Brown Band,Castaway,17,0.046857843883099444
+Lee Brice,Rumor,35,0.04688096848312475
+Keith Urban,Wasted Time,4,0.04707025319892091
+Tyler Farr ,Damn Good Friends,46,0.04707041743823643
+Billy Currington,We Are Tonight,12,0.047089401568974024
+Love And Theft,Whiskey On My Breath,31,0.047097698238225044
+Tim McGraw,Humble And Kind,1,0.04711178350284065
+Jason Aldean,Two Night Town,18,0.04712460171363612
+Brantley Gilbert,One Hell Of An Amen,5,0.04719426669775801
+Brantley Gilbert,If You Want A Bad Boy,47,0.04724799800420964
+Luke Bryan,Like We Aint Ever,37,0.04732135509664075
+Craig Campbell,Outskirts Of Heaven,32,0.04734658983826261
+Lady Antebellum,Somebody Elses Heart,47,0.04740678621100441
+Kane Brown,Last Minute Late Night,31,0.04740796940761632
+Chase Rice,Everybody We Know Does,26,0.04745157530342771
+Kane Brown,Homesick,24,0.047454165688622096
+Billy Currington,Drinkin Town With A Football Problem,41,0.047506585980308214
+Garth Brooks,Mom,49,0.04752338011873094
+Kane Brown,Weekend,37,0.04759090806238497
+David Nail,Whatever Shes Got,2,0.047755068375591195
+Kip Moore,Wild Ones,37,0.04783992295353645
+Kenny Chesney,Noise,14,0.04787368049125133
+Randy Houser,Goodnight Kiss,9,0.04800401198238813
+Blake Shelton,Turnin Me On,16,0.048153589252670104
+Austin Webb,All Country On You,42,0.04821626242551925
+Jana Kramer,Circles,47,0.04822884727928483
+Kenny Chesney ,Setting The World On Fire,1,0.04826717394938764
+Cole Swindell,Stars,41,0.04830006251643957
+Big Smo ,My Place,49,0.04832108860783132
+Little Big Town,When Someone Stops Loving You,36,0.0483267644719479
+Joe Nichols,Sunny And 75,4,0.048434104515061645
+Thomas Rhett,T Shirt,3,0.048455446700512196
+Jason Aldean,The Way A Night Should Feel,35,0.04864368986818179
+Thomas Rhett,Like Its The Last Time,48,0.048643869695991895
+Brantley Gilbert,Stone Cold Sober,23,0.04883230187797595
+Cole Swindell,Dads Old Number,33,0.048854018599694064
+Eli Young Band,Just Add Moonlight,47,0.04886798472299554
+Granger Smith,Happens Like That,18,0.048896617016751055
+Zac Brown Band,All Alright,24,0.04890993250710507
+Lady Antebellum,Long Stretch Of Love,23,0.049000914306042954
+Chris Stapleton,Midnight Train To Memphis,43,0.049003946626851515
+Florida Georgia Line,Anything Goes,6,0.04901412388101921
+Thomas Rhett,Sixteen,12,0.04907804765913515
+Sam Hunt,Leave The Night On,1,0.04910157426872421
+Florida Georgia Line,Smooth,16,0.049121879442248016
+Zac Brown Band,Tomorrow Never Comes,37,0.04915569196932463
+Rascal Flatts,Rewind,4,0.04918411364095151
+Keith Urban,We Were Us,1,0.049199536257312736
+Keith Urban,Cop Car,4,0.04923565661520663
+Hunter Hayes,Invisible,4,0.049240726627283765
+Cole Swindell,Reason To Drink,48,0.04953899534272852
+Tyler Farr,A Guy Walks Into A Bar,7,0.049642725333372335
+Parmalee,Already Callin You Mine,16,0.049737487662648176
+Scotty McCreery,Feelin It,16,0.04978822560180116
+Jerrod Niemann,Drink To That All Night,4,0.04981271067997763
+Dan  Shay,Nothin Like You,5,0.04987100378600047
+Maren Morris ,Dear Hate,18,0.04994705537975467
+Carrie Underwood,Heartbeat,2,0.050020436895253845
+Luke Bryan,Fast,5,0.05012053201664639
+Blake Shelton,Neon Light,3,0.05020479257075445
+Chase Rice,Whisper,17,0.05029160344394942
+Eric Church,The Outsiders,6,0.05033402760047768
+Runaway June,Lipstick,38,0.050359557341433436
+Rascal Flatts,Payback,24,0.05036091296740451
+Eric Paslay,Friday Night,6,0.050363082097600265
+Chase Rice,Gonna Wanna Tonight,10,0.050415408792556786
+Sam Hunt,Downtowns Dead,14,0.05041651366432497
+Danielle Bradbery,Goodbye Summer,39,0.05050336718191466
+Steven Tyler,RED WHITE and YOU,29,0.050534627697387625
+Lee Brice,That Dont Sound Like You,13,0.050572672078164016
+Chris Stapleton,Parachute,12,0.050619943824544315
+Chris Stapleton,Outlaw State Of Mind,45,0.050657661326051796
+Blake Shelton,Came Here To Forget,2,0.05071949346400674
+Miranda Lambert,Roots And Wings,32,0.05074134014422572
+Luke Bryan,Strip It Down,1,0.050839845497666965
+Randy Houser,Like A Cowboy,9,0.050886685520055354
+Logan Mize,Aint Always Pretty,39,0.050914149047425514
+Florida Georgia Line,Colorado,41,0.051053014422891965
+Cody Johnson,With You I Am,46,0.051082206948663736
+Granger Smith ,Merica,48,0.05116347972636982
+Eric Church,Like A Wrecking Ball,6,0.051195519234506374
+Luke Bryan,Kick The Dust Up,1,0.051298617782573955
+Jason Aldean,Just Gettin Started,5,0.05133719917151358
+Jason Aldean,When She Says Baby,2,0.051387506981836965
+Dan  Shay,Tequila,2,0.05149402557041101
+LANCO,Long Live Tonight,46,0.051524362583338146
+Eric Church,Mr Misunderstood,15,0.05153369336704538
+Kenny Chesney,Save It For A Rainy Day,4,0.051543036102875896
+Sam Hunt,Raised On It,49,0.05154687526933118
+Kelsea Ballerini,High School,28,0.051614976452319127
+Gloriana,Best Night Ever,46,0.051665091155806184
+Dan  Shay,19 You  Me,7,0.05178829481915822
+Jon Pardi,What I Cant Put Down,33,0.05182490815850411
+Blake Shelton,Sangria,3,0.051846466788162106
+Brett Eldredge,Somethin Im Good At,22,0.05202105145372343
+Kip Moore,Dirt Road,35,0.052025407346113495
+Jerrod Niemann,Blue Bandana,37,0.05204518098336717
+Brad Paisley,Perfect Storm,4,0.052049635450716863
+Sam Hunt,Break Up In A Small Town,2,0.05212552663816494
+Eric Church,Round Here Buzz,7,0.05216112636916644
+Alan Jackson,Jim And Jack And Hank,41,0.052183060025111874
+Kenny Chesney,Bar At The End Of The World,17,0.05220378330085641
+Dustin Lynch,Where Its At Yep Yep,4,0.05239033963452284
+RaeLynn,Love Triangle,27,0.0524349336274008
+Thomas Rhett ,Craving You,3,0.05249731527319259
+Chris Lane,I Dont Know About You,35,0.0525120692193467
+Keith Urban,Female,11,0.05251442169833424
+Ashley McBryde,A Little Dive Bar In Dahlonega,30,0.052590269920123014
+Kelly Clarkson ,Silent Night,39,0.052684968342674915
+Darius Rucker,Radio,14,0.05284589758463941
+Hunter Hayes,Yesterdays Song,43,0.05291447840855748
+Craig Campbell,Keep Them Kisses Comin,15,0.05293784116965701
+William Michael Morgan,Missing,49,0.05308521603848018
+Kacey Musgraves,Follow Your Arrow,10,0.05308544172385854
+Brandon Lay,Speakers Preachers And Bleachers,48,0.05309141142361224
+Jake Owen,Good Company,39,0.05328353597494535
+Danielle Bradbery,Sway,39,0.05328948937784295
+Aaron Watson,That Look,41,0.05350786878277412
+Chris Stapleton,Scarecrow In The Garden,47,0.05354867258206864
+Jason Aldean,Sweet Little Somethin,17,0.05356902369973424
+Brothers Osborne,It Aint My Fault,14,0.053643319882345254
+Zac Brown Band,Sweet Annie,6,0.05371937824669507
+Cole Swindell,Somebodys Been Drinkin,49,0.05382006460692935
+Dierks Bentley ,Different For Girls,3,0.053923141094003514
+Parmalee,Close Your Eyes,11,0.053937798034553876
+Chase Rice,Do It Like This,40,0.054210516927970145
+Drake White,Makin Me Look Good Again,32,0.05427533894098045
+Keith Urban ,Raise Em Up,8,0.054285777078845576
+Justin Moore,This Kind Of Town,50,0.05444043105404929
+Midland,Burn Out,24,0.054486306336980025
+Trent Harmon,Theres A Girl,27,0.054589155706886446
+Luke Combs,Hurricane,3,0.054612349496298854
+Scotty McCreery,Five More Minutes,4,0.05470011130380118
+Lee Brice,Girls In Bikinis,32,0.05470500379962955
+Keith Urban,Blue Aint Your Color,1,0.0548402654270857
+Keith Urban,John Cougar John Deere John 3 16,2,0.05490290930138876
+Brad Paisley,Crushin It,15,0.05500134173007521
+Cole Swindell,Hope You Get Lonely Tonight,7,0.055180976705505015
+Kip Moore,Last Shot,13,0.05518650980629744
+Miranda Lambert,Tin Man,15,0.05538460873713294
+Carrie Underwood,Dirty Laundry,3,0.0553931238015642
+Tim McGraw,Neon Church,27,0.05551214814563064
+Dierks Bentley,Sounds Of Summer,38,0.055533108404620876
+Jason Aldean,Gonna Know We Were Here,5,0.055618957188702155
+Eli Young Band,Dust,19,0.05571243832345514
+Luke Bryan,My Ol Bronco,44,0.05579829645320509
+Jon Langston,When It Comes To Loving You,29,0.05581994717798855
+Florida Georgia Line,Confession,7,0.05582704342260379
+Aaron Watson,Outta Style,24,0.05594963332346506
+Kane Brown,Short Skirt Weather,42,0.05600675794957404
+Carrie Underwood,Drinking Alone,49,0.05609781063505866
+Justin Moore,Lettin The Night Roll,7,0.056204461260432693
+Blake Shelton ,Buzzin,44,0.056463087861854264
+Tim McGraw,Diamond Rings And Old Barstools,11,0.05668005562414428
+Jason Aldean,High Noon Neon,48,0.05674024029097329
+Chris Young,Where I Go When I Drink,45,0.05677288882753381
+Runaway June,Wild West,47,0.056957735322991206
+Alan Jackson,Angels And Alcohol,49,0.057138595540292984
+Thomas Rhett,Marry Me,2,0.05716823569427525
+Luke Bryan,Roller Coaster,5,0.05719310392103697
+Chris Lane,Broken Windshield View,45,0.05765334888947431
+Rascal Flatts,Back To Life,31,0.057666200343250824
+Morgan Wallen ,Up Down,5,0.057737948023691
+Jason Aldean,Dirt To Dust,50,0.057816667605038945
+Kane Brown,Wide Open,34,0.057973201793993435
+Lady Antebellum,Freestyle,24,0.05819503545493864
+Easton Corbin,Lets Ride,50,0.058196659422608356
+Cole Swindell,Stay Downtown,34,0.058263699542836556
+Luke Combs,One Number Away,3,0.05846343609797406
+Canaan Smith,Hole In A Bottle,30,0.058473087950137656
+Cole Swindell,Love You Too Late,45,0.05854680261022009
+Jon Pardi,Up All Night,10,0.058637532601795286
+Florida Georgia Line,Grow Old,44,0.0586809750050298
+Granger Smith,City Boy Stuck,47,0.0587264461417553
+Luke Bryan,Love Me In A Field,41,0.05883776940993804
+Chris Young,Lonely Eyes,4,0.058872777229305166
+Lucy Hale,You Sound Good To Me,21,0.0588869072591339
+Cole Swindell,Chillin It,1,0.05897565149207651
+Colt Ford ,The High Life,38,0.059043154430909905
+Tyler Farr,Better In Boots,26,0.059138892360943364
+Chase Rice,Three Chords and The Truth,34,0.05915837454820526
+Big and Rich,California,32,0.05920130898071308
+Riley Green,There Was This Girl,26,0.059514188113936155
+A Thousand Horses,Smoke,5,0.0596313756152193
+Brothers Osborne,Shoot Me Straight,29,0.0598401516655897
+Russell Dickerson,Blue Tacoma,5,0.05997081288953551
+Jerrod Niemann,Donkey,38,0.06002872538438288
+Gary Allan,It Aint The Whiskey,40,0.06003046245157722
+Cole Swindell,Let Me See Ya Girl,9,0.06007191730257191
+Alisan Porter,Blue Bayou,41,0.06010669700021069
+Miranda Lambert,Vice,2,0.060297942914075614
+Cole Swindell,You Should Be Here,1,0.06050327798545394
+Ronnie Dunn ,Damn Drunk,42,0.06059701639510437
+Florida Georgia Line,Good Girl Bad Boy,50,0.06080704018391991
+Parmalee,Carolina,2,0.06113704997920062
+Blake Shelton,Doin What She Likes,3,0.06128781605742893
+Tim McGraw,Shotgun Rider,1,0.0614104514465131
+Dierks Bentley,Drunk On A Plane,3,0.06151457859794435
+Cole Swindell,Flatliner,10,0.06154319467308921
+Canaan Smith,Love You Like That,6,0.06181705269095884
+Florida Georgia Line,Sippin On Fire,3,0.06227436113299946
+Granger Smith,If The Boot Fits,14,0.062307207586652175
+Zac Brown,Grandmas Garden,41,0.06262495200486015
+Florida Georgia Line,Dirt,1,0.06289682546040236
+Toby Keith,Rum Is The Reason,45,0.062924193567039155
+Parmalee,Roots,45,0.06312689211244735
+Maddie and Tae,Girl In A Country Song,3,0.06344306964200261
+Michael Ray,Another Girl,50,0.06349007917146042
+David Nail,Nights On Fire,17,0.0637127714086306
+Granger Smith,Backroad Song,4,0.063791407223293
+Dustin Lynch,Small Town Boy,2,0.06410976462666709
+Zac Brown Band,Roots,39,0.06434355281683336
+Brantley Gilbert,17 Again,19,0.06448692572555907
+Drake White,Livin The Dream,20,0.06460739785916804
+Rodney Atkins ,Caught Up In The Country,42,0.0646331429233782
+Old Dominion,Song For Another Time,4,0.06485927472376678
+Tim McGraw,City Lights,46,0.0651583768986783
+Merle Haggard and Willie Nelson,Its All Going To Pot,48,0.06520221042165904
+Kacey Musgraves,Dime Store Cowgirl,44,0.06558372525559188
+Florida Georgia Line,Dig Your Roots,38,0.06563703054666975
+Colt Ford ,Drivin Around Song,41,0.06610460585110037
+Brad Paisley,Heaven South,47,0.06626462242259658
+Luke Bryan,Thats My Kind Of Night,1,0.06648772522157656
+Florida Georgia Line,Sittin Pretty,30,0.06651145899769942
+Randy Houser,We Went,7,0.06669539198468023
+High Valley,Make You Mine,21,0.06680500099543024
+Travis Denning,David Ashley Parker From Powder Springs,37,0.06722120771266464
+Kid Rock,Tennessee Mountain Top,36,0.06747504675612928
+Jake Owen,Beachin,1,0.06794496166142593
+Lady Antebellum,Bartender,4,0.06799766622035698
+Artists Of Then Now and Forever,Forever Country,1,0.06872055773960077
+Jake Owen,American Country Love Song,6,0.06893799489128277
+Lauren Alaina,Road Less Traveled,8,0.06910101379951496
+Mo Pitney,Country,40,0.06966147288869462
+Eric Church,Give Me Back My Hometown,4,0.07107210170171062
+Jason Aldean ,Drowns The Whiskey,3,0.07217341745482518
+Zac Brown Band,Homegrown,2,0.07252375279197769
+Josh Turner,Lay Low,28,0.07281817786990033
+Kane Brown,Aint No Stopping Us Now,19,0.07320322623309061
+Joe Nichols,Freaks Like Me,49,0.07348036063320659
+Eric Church,Record Year,2,0.07389827982258122
+Carrie Underwood,Renegade Runaway,34,0.07401615025239
+Upchurch,Shoulda Named It After Me,46,0.07445468366736765
+Brad Paisley,Country Nation,18,0.074710425553695
+Frankie Ballard,Helluva Life,8,0.0752266127096748
+Kenny Chesney,American Kids,2,0.07526507087477263
+Jason Aldean,Tonight Looks Good On You,6,0.07560163377795955
+Gary Allan,Hangover Tonight,49,0.07617696144475951
+Carrie Underwood,Church Bells,2,0.07655753037085422
+Brantley Gilbert ,Small Town Throwdown,13,0.07675006437621468
+Luke Bryan,Move,5,0.07677091943804959
+Kenny Chesney,Get Along,2,0.07753308277235113
+Chris Young ,Sober Saturday Night,4,0.07796435955827709
+Jason Aldean,A Little More Summertime,5,0.07892183565532808
+Copilot Music  Sound,Take Me Home Country Roads original trailer soundtrack,41,0.07983056376265478
+Eric Church,Talladega,2,0.08007584696718059
+Michael Ray,Real Men Love Jesus,28,0.08046584758914076
+Jon Pardi,Dirt On My Boots,2,0.08052803047812539
+Cole Swindell,Aint Worth The Whiskey,3,0.08056545435073638
+Tyler Farr,Whiskey In My Water,11,0.08222399958359543
+Lee Brice,Drinking Class,3,0.08228583299394344
+Charles Kelley ,The Driver,37,0.08238731372865452
+Luke Bryan,Spring Breakdown,33,0.08242417202285085
+Chris Stapleton,Whiskey And You,35,0.0826775669719498
+Cole Swindell,Broke Down,28,0.08360024596186989
+Luke Bryan,Huntin Fishin and Lovin Every Day,2,0.08362374450628227
+Luke Bryan,Sunrise Sunburn Sunset,4,0.08399647383977663
+Luke Combs,Houston We Got A Problem,22,0.08503840856727071
+The Cadillac Three ,The South,32,0.08628899703113126
+Tim McGraw ,Meanwhile Back At Mamas,7,0.08637669089544422
+Luke Bryan,What Makes You Country,24,0.08846105254515936
+Darius Rucker,Homegrown Honey,6,0.08962000855567877
+Morgan Wallen,Whiskey Glasses,34,0.09000365664583637
+Florida Georgia Line,Friends In Low Places,40,0.09037498175553532
+Garth Brooks,All Day Long,21,0.09171257845216703
+Tim McGraw,How Ill Always Be,9,0.09174209902982804
+Craig Wayne Boyd,Boots On,33,0.09181813344081458
+Miranda Lambert,Sweet By And By,40,0.09250265064901249
+Frankie Ballard,Sunshine and Whiskey,5,0.0925344286420096
+Eric Church,Cold One,20,0.09364578210136902
+Brantley Gilbert,My Babys Guns N Roses,18,0.0947457385023557
+Josh Abbott Band,Hangin Around,44,0.09566636654456488
+Josh Thompson,Cold Beer With Your Name On It,32,0.09784010147498078
+Kenny Chesney,Trip Around The Sun,44,0.09869328010564746
+Craig Wayne Boyd,Workin Man Blues,37,0.10636247289550964
+Blake Shelton,Straight Outta Cold Beer,36,0.11334383780367656
+Josh Turner,Hometown Girl,5,0.11502893768123762
+Thomas Rhett ,Drink A Little Beer,42,0.1151373240521191
+Jake Owen,Days Of Gold,19,0.11820366481907185
+Luke Bryan,Drink A Beer,1,0.11919385194678027
+Kane Brown,Hometown,48,0.12389948082930698
+George Strait,Cold Beer Conversation,36,0.12501769586877484
+Frankie Ballard,It All Started With A Beer,22,0.12571363653713272
+Chris Stapleton,Tennessee Whiskey,1,0.1267903365561689
+Taylor Ray Holbrook,Southern Land,44,0.14294485735903364
+Tim McGraw,Southern Girl,4,0.16581922947411473
+Jordan Rager,Southern Boy,41,0.17203511655683001
+Chris Janson,Power Of Positive Drinkin,46,0.17397398076869902
+Darius Rucker,Southern Style,38,0.18445806625896333
