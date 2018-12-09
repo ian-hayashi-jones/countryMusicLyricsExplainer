@@ -92,7 +92,7 @@ var scrollVis = function () {
       margin: margin,
       type: "country",
       data: [
-              new Word(['turtle', .12247131, .3516464]),
+              new Word(['struggle', .083145, .268016]),
               new Word(['nights', 4.36510576, 1.54109188]),
               new Word(['trailer', .71, .06]),
               new Word(['baby', 48.7, 36.5]),

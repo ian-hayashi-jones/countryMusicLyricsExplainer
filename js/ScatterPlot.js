@@ -140,8 +140,8 @@ class ScatterPlot {
 		/* Draw line */
 		var lineData = [{"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 		var line = d3.line()
-	 		.x(function(d) { return d.x; })
-	 		.y(function(d) { return d.y; })
+	 		.x(function(d) { return +d.x; })
+	 		.y(function(d) { return +d.y; })
 	 	var lineGraph = svg.append("path")
 	 		.attr("class", "scatter line")
 	        .attr("d", line(lineData))
@@ -562,7 +562,7 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 	var freqLabel1, freqLabel2 = null;
 	var freqLabelWidth;
 	// Same frequency, probaably super rare
-	if (d.x === d.y) {
+	if (+d.x === +d.y) {
 		if (type == "country") {
 			freqLabel1 = svg.append("text")
 		    	.attr("id", "tooltip")
@@ -589,8 +589,8 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 	// Different frequencies
 	} else {
 		var freq, freqLabel;
-		if (d.x > d.y) {
-			freq = d.x / d.y;
+		if (+d.x > +d.y) {
+			freq = +d.x / +d.y;
 			freq = Math.round(freq * 100) / 100;
 
 			if (type == "country") {
@@ -599,8 +599,8 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 				freqLabel = " higher in female lyrics";
 			}
 			
-		} else if (d.x < d.y) {
-			freq = d.y / d.x;
+		} else if (+d.x < +d.y) {
+			freq = +d.y / +d.x;
 			freq = Math.round(freq * 100) / 100;
 
 			if (type == "country") {
@@ -706,7 +706,7 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 	    	.attr("x", countX)
 	   		.attr("y", y + (5 * v_spacing))
 		    .text(function() { 
-		    	return Math.round(d.x * 100) / 100;
+		    	return Math.round(+d.x * 100) / 100;
 		    })
 		    .attr("font-family", "sans-serif")
 		    .attr("font-size", fontSizeB)
@@ -720,7 +720,7 @@ function drawTooltipInfo(svg, type, d, x, y, wordWidth, freqWidth, freqLabelWidt
 	    	.attr("x", countX)
 	   		.attr("y", y + (9 * v_spacing))
 		    .text(function() { 
-		    	return Math.round(d.y * 100) / 100;
+		    	return Math.round(+d.y * 100) / 100;
 		    })
 		    .attr("font-family", "sans-serif")
 		    .attr("font-size", fontSizeB)
@@ -802,8 +802,8 @@ function renderTriangles(svg, type) {
 	var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var line = d3.line()
-			.x(function(d) { return d.x; })
-			.y(function(d) { return d.y; })
+			.x(function(d) { return +d.x; })
+			.y(function(d) { return +d.y; })
 	var topTriangle = svg.append("path")
 			.attr("class", "triangle")
         .attr("d", line(topTriangleData))
@@ -947,8 +947,8 @@ function renderHighlightTriangles(svg) {
 	var botTriangleData = [{"x": self.margin.left + self.width, "y": self.margin.top + self.height}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var topTriangleData = [{"x": self.margin.left, "y": self.margin.top}, {"x": self.margin.left, "y": self.height + self.margin.top}, {"x": self.margin.left + self.width, "y": self.margin.top}]
 	var line = d3.line()
-		.x(function(d) { return d.x; })
-		.y(function(d) { return d.y; })
+		.x(function(d) { return +d.x; })
+		.y(function(d) { return +d.y; })
 
     svg.append("path")
 		.attr("class", "highlight x")
