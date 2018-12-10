@@ -153,6 +153,8 @@ var scrollVis = function () {
     activateFunctions[13] = showFemaleWordList;
     activateFunctions[14] = showSection;
     activateFunctions[15] = showSection;
+    activateFunctions[16] = showSection;
+    activateFunctions[17] = showSection;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -160,7 +162,7 @@ var scrollVis = function () {
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < 18; i++) {
       updateFunctions[i] = function () {};
     }
   };
